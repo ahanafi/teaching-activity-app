@@ -7,6 +7,8 @@ class Authentication extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->library('main_lib');
+		$this->main_lib->createFirstUser();
 	}
 
 	public function index()
@@ -26,6 +28,11 @@ class Authentication extends CI_Controller
 					'field' => 'password',
 					'label' => 'Password',
 					'rules' => 'required'
+				],
+				[
+					'field' => 'level',
+					'label' => 'Level',
+					'rules' => 'required'
 				]
 			];
 			$this->form_validation->set_rules($rules);
@@ -34,16 +41,20 @@ class Authentication extends CI_Controller
 			if ($this->form_validation->run() === FALSE) {
 				$this->load->view('auth/login-form');
 			} else {
-				$username = $this->input->post('username');
-				$password = $this->input->post('password');
+				$username = $this->input->post('username', true);
+				$password = $this->input->post('password', true);
+				$level = $this->input->post('level', true);
 
 				$credentials = [
-					'username' => $username,
-					'password' => $password
+					'username' 	=> $username,
+					'level'		=> $level,
+					'password' 	=> $password
 				];
 
 				$login = $this->Auth->login($credentials);
 
+				var_dump($login);
+				die();
 				if ($login) {
 					redirect(base_url('dashboard'));
 				} else {

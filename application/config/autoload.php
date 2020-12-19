@@ -136,4 +136,15 @@ $autoload['language'] = array();
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$autoload['model'] = array();
+$autoload['model'] = [
+	'Main_model'			=> 'Main_model',
+	'Auth_model'			=> 'Auth',
+	'User_model'			=> 'User',
+	'Profil_kampus_model' 	=> 'ProfilKampus',
+	'Fakultas_model'		=> 'Fakultas',
+	'Program_studi_model'	=> 'ProgramStudi',
+	'Dosen_model'			=> 'Dosen',
+	'Kelas_model'			=> 'Kelas',
+	'Mata_kuliah_model'		=> 'MataKuliah',
+	'Berita_acara_model'	=> 'BAP',
+];
