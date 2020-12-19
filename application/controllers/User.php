@@ -65,8 +65,7 @@ class User extends CI_Controller
 	{
 		$data = [
 			'user' => $this->User->findById(['id_pengguna' => $id_pengguna]),
-			'kantor_cabang' => $this->Kantor_cabang->all(),
-			'jabatan' => $this->Jabatan->all()
+			'user_level' => showUserLevel()
 		];
 
 		if (isset($_POST['update'])) {

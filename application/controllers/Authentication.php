@@ -53,8 +53,6 @@ class Authentication extends CI_Controller
 
 				$login = $this->Auth->login($credentials);
 
-				var_dump($login);
-				die();
 				if ($login) {
 					redirect(base_url('dashboard'));
 				} else {

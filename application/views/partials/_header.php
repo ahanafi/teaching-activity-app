@@ -18,6 +18,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<!-- endinject -->
 	<!-- plugin css for this page -->
 	<link rel="stylesheet" href="<?php echo assets('vendors/datatables.net-bs4/dataTables.bootstrap4.css'); ?>">
+	<link rel="stylesheet" href="<?php echo assets('vendors/sweetalert2/sweetalert2.css'); ?>">
 	<!-- End plugin css for this page -->
 	<!-- inject:css -->
 	<link rel="stylesheet" href="<?php echo assets('css/shared/style.css'); ?>">
