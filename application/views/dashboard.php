@@ -429,7 +429,7 @@
 									<div class="card-body">
 										<h4 class="card-title mb-0">Top Performer</h4>
 										<div class="d-flex mt-3 py-2 border-bottom">
-											<img class="img-sm rounded-circle" src="assets/images/faces/face3.jpg"
+											<img class="img-sm rounded-circle" src="<?php echo base_url(); ?>assets/images/faces/face3.jpg"
 												 alt="profile image">
 											<div class="wrapper ml-2">
 												<p class="mb-n1 font-weight-semibold">Ray Douglas</p>
@@ -446,7 +446,7 @@
 											<small class="text-muted ml-auto">4 Hours ago</small>
 										</div>
 										<div class="d-flex py-2 border-bottom">
-											<img class="img-sm rounded-circle" src="assets/images/faces/face4.jpg"
+											<img class="img-sm rounded-circle" src="<?php echo base_url(); ?>assets/images/faces/face4.jpg"
 												 alt="profile image">
 											<div class="wrapper ml-2">
 												<p class="mb-n1 font-weight-semibold">Brian Dean</p>
@@ -594,14 +594,3 @@
 				</div>
 			</div>
 			<!-- content-wrapper ends -->
-			<!-- partial:partials/_footer.html -->
-			<footer class="footer">
-				<div class="container-fluid clearfix">
-					<span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © bootstrapdash.com 2020</span>
-					<span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a
-								href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Bootstrap admin templates</a> from Bootstrapdash.com</span>
-				</div>
-			</footer>
-			<!-- partial -->
-		</div>
-		<!-- main-panel ends -->

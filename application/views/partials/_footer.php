@@ -1,13 +1,9 @@
-	<footer class="main-footer">
-		<strong>Copyright &copy; <?php echo date('Y') ?> <a href="<?php echo base_url(); ?>">Yayasan Harapan Robbani </a>.</strong>
-		All rights reserved.
-		<div class="float-right d-none d-sm-inline-block">
-			<b>Version</b> 0.0.1
-		</div>
-	</footer>
-
-	<!-- Control Sidebar -->
-	<aside class="control-sidebar control-sidebar-dark">
-		<!-- Control sidebar content goes here -->
-	</aside>
-	<!-- /.control-sidebar -->
+			<!-- partial:partials/_footer.html -->
+			<footer class="footer">
+				<div class="container-fluid clearfix">
+					<span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © bootstrapdash.com 2020</span>
+					<span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a
+								href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Bootstrap admin templates</a> from Bootstrapdash.com</span>
+				</div>
+			</footer>
+			<!-- partial -->
