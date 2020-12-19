@@ -8,7 +8,15 @@ $uri2 = $this->uri->segment(2);
 <!-- page-body-wrapper ends -->
 </div>
 <!-- container-scroller -->
-<script type="text/javascript">const BASE_URL = `<?php echo base_url(); ?>`;</script>
+<script type="text/javascript">
+	const BASE_URL = `<?php echo base_url(); ?>`;
+	<?php
+		$totalSegments = $this->uri->total_segments();
+		for($i = 1; $i <= $totalSegments; $i++):
+	?>
+		const URI_<?php echo $i; ?> = "<?php echo $this->uri->segment($i); ?>";
+	<?php endfor; ?>
+</script>
 <!-- plugins:js -->
 <script src="<?php echo assets('vendors/js/vendor.bundle.base.js'); ?>"></script>
 <script src="<?php echo assets('vendors/js/vendor.bundle.addons.js'); ?>"></script>
