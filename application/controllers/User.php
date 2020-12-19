@@ -18,7 +18,7 @@ class User extends CI_Controller
 		$users = $this->User->all();
 		$data = [
 			'users' => $users,
-			'no' => 1
+			'nomor' => 1
 		];
 		$this->main_lib->getTemplate("user/index", $data);
 	}
@@ -26,8 +26,7 @@ class User extends CI_Controller
 	public function create()
 	{
 		$data = [
-			'kantor_cabang' => $this->Kantor_cabang->all(),
-			'jabatan' => $this->Jabatan->all()
+			'user_level' => showUserLevel()
 		];
 
 		if (isset($_POST['submit'])) {
@@ -39,15 +38,15 @@ class User extends CI_Controller
 				$this->main_lib->getTemplate('user/form-create', $data);
 			} else {
 				//get user submit form data
-				$user_data = $this->getPostUserData();
+				$userPostData = $this->getPostUserData();
 
 				//encrypt submitted password
 				$encryptPassword = password_hash($this->main_lib->getPost('password'), PASSWORD_DEFAULT);
 
 				//assign to user data
-				$user_data['password'] = $encryptPassword;
+				$userPostData['password'] = $encryptPassword;
 
-				$insert = $this->User->insert($user_data);
+				$insert = $this->User->insert($userPostData);
 				if ($insert) {
 					$messages = setArrayMessage('success', 'insert', 'pengguna');
 				} else {
@@ -78,9 +77,9 @@ class User extends CI_Controller
 			if ($this->form_validation->run() === FALSE) {
 				$this->main_lib->getTemplate('user/form-update', $data);
 			} else {
-				$user_data = $this->getPostUserData();
+				$userPostData = $this->getPostUserData();
 
-				$update = $this->User->update($user_data, [
+				$update = $this->User->update($userPostData, [
 					'id_pengguna' => $id_pengguna
 				]);
 
@@ -129,11 +128,7 @@ class User extends CI_Controller
 			'nama_lengkap' => $this->main_lib->getPost('nama_lengkap'),
 			'username' => $this->main_lib->getPost('username'),
 			'email' => $this->main_lib->getPost('email'),
-			'telpon' => $this->main_lib->getPost('telpon'),
-			'id_kantor_cabang' => $this->main_lib->getPost('kantor_cabang'),
-			'id_jabatan' => $this->main_lib->getPost('jabatan'),
 			'level' => $this->main_lib->getPost('level'),
-			'status' => $this->main_lib->getPost('status'),
 		];
 	}
 
@@ -163,28 +158,13 @@ class User extends CI_Controller
 					'rules' => 'required|min_length[6]'
 				],
 				[
-					'field' => 'confirm_password',
-					'label' => 'confirm_password',
+					'field' => 'konfirmasi_password',
+					'label' => 'Konfirmasi password',
 					'rules' => 'required|matches[password]|trim'
 				],
 				[
 					'field' => 'level',
 					'label' => 'level',
-					'rules' => 'required|trim'
-				],
-				[
-					'field' => 'status',
-					'label' => 'status',
-					'rules' => 'required|trim'
-				],
-				[
-					'field' => 'jabatan',
-					'label' => 'Jabatan',
-					'rules' => 'required|trim'
-				],
-				[
-					'field' => 'kantor_cabang',
-					'label' => 'Area kerja',
 					'rules' => 'required|trim'
 				],
 			];

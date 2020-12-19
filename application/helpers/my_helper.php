@@ -156,3 +156,13 @@ function showPageHeader($title = '')
 
 	return $pageHeader;
 }
+
+function showUserLevel($index = NULL) {
+	$userLevel = [
+		'SUPER_USER' => 'ADMINISTRATOR',
+		'DOSEN' => 'DOSEN',
+		'KAPRODI' => 'KEPALA PROGRAM STUDI'
+	];
+
+	return ($index !== null) ? $userLevel[$index] : $userLevel;
+}

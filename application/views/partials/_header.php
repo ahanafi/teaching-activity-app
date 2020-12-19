@@ -17,9 +17,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<link rel="stylesheet" href="<?php echo assets('vendors/css/vendor.bundle.addons.css'); ?>">
 	<!-- endinject -->
 	<!-- plugin css for this page -->
+	<link rel="stylesheet" href="<?php echo assets('vendors/datatables.net-bs4/dataTables.bootstrap4.css'); ?>">
 	<!-- End plugin css for this page -->
 	<!-- inject:css -->
 	<link rel="stylesheet" href="<?php echo assets('css/shared/style.css'); ?>">
+	<link rel="stylesheet" href="<?php echo assets('css/my-style.css'); ?>">
 	<!-- endinject -->
 	<!-- Layout styles -->
 	<link rel="stylesheet" href="<?php echo assets('css/demo/style.css'); ?>">
