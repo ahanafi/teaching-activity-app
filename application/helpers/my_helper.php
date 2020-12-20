@@ -172,5 +172,20 @@ function listJenjang() {
 		'D1', 'D2', 'D3', 'D4',
 		'S1', 'S2', 'S3'
 	];
+}
 
+function listHari() {
+	return [
+		'SENIN', 'SELASA', 'RABU', 'KAMIS', "JUM'AT", "SABTU"
+	];
+}
+
+function showJamKuliah($jamMulai, $jamSelesai) {
+	$startTime = date_create($jamMulai);
+	$startTime = date_format($startTime, "H:i");
+
+	$endTime = date_create($jamSelesai);
+	$endTime = date_format($endTime, "H:i");
+
+	return $startTime . " ~ " . $endTime;
 }

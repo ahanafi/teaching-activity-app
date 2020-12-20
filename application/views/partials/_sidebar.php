@@ -8,8 +8,8 @@
 							<div class="dot-indicator bg-success"></div>
 						</div>
 						<div class="text-wrapper">
-							<p class="profile-name">Allen Moreno</p>
-							<p class="designation">Premium user</p>
+							<p class="profile-name"><?php echo getUser('nama_lengkap');?></p>
+							<p class="designation"><?php echo getUser('email');?></p>
 						</div>
 					</a>
 				</li>

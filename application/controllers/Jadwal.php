@@ -15,9 +15,9 @@ class Jadwal extends CI_Controller
 
 	public function index()
 	{
-		$dosen = $this->Jadwal->all();
+		$jadwal = $this->Jadwal->all();
 		$data = [
-			'dosen' => $dosen,
+			'jadwal' => $jadwal,
 			'nomor' => 1
 		];
 		$this->main_lib->getTemplate("jadwal/index", $data);
@@ -25,7 +25,18 @@ class Jadwal extends CI_Controller
 
 	public function create()
 	{
+		$mataKuliah = $this->MataKuliah->all();
+		$dosen = $this->Dosen->all();
+		$hari = listHari();
+		$ruangKelas = $this->Ruangan->all();
+		$kelas = $this->Kelas->all();
+
 		$data = [
+			'mata_kuliah' => $mataKuliah,
+			'dosen' => $dosen,
+			'hari' => $hari,
+			'ruangan' => $ruangKelas,
+			'kelas' => $kelas
 		];
 
 		if (isset($_POST['submit'])) {
@@ -54,10 +65,22 @@ class Jadwal extends CI_Controller
 		}
 	}
 
-	public function edit($id_dosen)
+	public function edit($id_jadwal)
 	{
+		$mataKuliah = $this->MataKuliah->all();
+		$dosen = $this->Dosen->all();
+		$hari = listHari();
+		$ruangKelas = $this->Ruangan->all();
+		$kelas = $this->Kelas->all();
+		$jadwal = $this->Jadwal->findById(['id_jadwal' => $id_jadwal]);
+
 		$data = [
-			'dosen' => $this->Jadwal->findById(['id_dosen' => $id_dosen]),
+			'mata_kuliah' => $mataKuliah,
+			'dosen' => $dosen,
+			'hari' => $hari,
+			'ruangan' => $ruangKelas,
+			'kelas' => $kelas,
+			'jadwal' => $jadwal
 		];
 
 		if (isset($_POST['update'])) {
@@ -71,7 +94,7 @@ class Jadwal extends CI_Controller
 				$postData = $this->getPostData();
 
 				$update = $this->Jadwal->update($postData, [
-					'id_dosen' => $id_dosen
+					'id_jadwal' => $id_jadwal
 				]);
 
 				if ($update) {
@@ -88,14 +111,14 @@ class Jadwal extends CI_Controller
 		}
 	}
 
-	public function delete($id_dosen)
+	public function delete($id_jadwal)
 	{
 		if (isset($_POST['_method']) && $_POST['_method'] == "DELETE") {
 			$data_id = $this->main_lib->getPost('data_id');
 			$data_type = $this->main_lib->getPost('data_type');
 
-			if ($data_id === $id_dosen && $data_type === 'jadwal') {
-				$delete = $this->Jadwal->delete(['id_dosen' => $data_id]);
+			if ($data_id === $id_jadwal && $data_type === 'jadwal') {
+				$delete = $this->Jadwal->delete(['id_jadwal' => $data_id]);
 				if ($delete) {
 					$messages = setArrayMessage('success', 'delete', 'jadwal kuliah');
 				} else {
@@ -116,12 +139,13 @@ class Jadwal extends CI_Controller
 	private function getPostData()
 	{
 		return [
-			'nidn' => $this->main_lib->getPost('nidn'),
-			'nama_lengkap' => $this->main_lib->getPost('nama_lengkap'),
-			'jenis_kelamin' => $this->main_lib->getPost('jenis_kelamin'),
-			'tempat_lahir' => $this->main_lib->getPost('tempat_lahir'),
-			'tanggal_lahir' => $this->main_lib->getPost('tanggal_lahir'),
-			'alamat' => $this->main_lib->getPost('alamat'),
+			'hari' => $this->main_lib->getPost('hari'),
+			'jam_mulai' => $this->main_lib->getPost('jam_mulai'),
+			'jam_selesai' => $this->main_lib->getPost('jam_selesai'),
+			'id_kelas' => $this->main_lib->getPost('kelas'),
+			'id_mata_kuliah' => $this->main_lib->getPost('mata_kuliah'),
+			'id_dosen' => $this->main_lib->getPost('dosen'),
+			'id_ruangan' => $this->main_lib->getPost('ruangan'),
 		];
 	}
 
@@ -129,23 +153,38 @@ class Jadwal extends CI_Controller
 	{
 		return [
 			[
-				'field' => 'nidn',
-				'label' => 'NIDN',
+				'field' => 'hari',
+				'label' => 'Hari',
 				'rules' => 'required'
 			],
 			[
-				'field' => 'nama_lengkap',
-				'label' => 'Nama lengkap',
-				'rules' => 'required|alpha_numeric_spaces'
-			],
-			[
-				'field' => 'tempat_lahir',
-				'label' => 'Tempat lahir',
+				'field' => 'jam_mulai',
+				'label' => 'Jam mulai',
 				'rules' => 'required'
 			],
 			[
-				'field' => 'tanggal_lahir',
-				'label' => 'Tanggal lahir',
+				'field' => 'jam_selesai',
+				'label' => 'Jam selesai',
+				'rules' => 'required'
+			],
+			[
+				'field' => 'kelas',
+				'label' => 'Kelas',
+				'rules' => 'required'
+			],
+			[
+				'field' => 'mata_kuliah',
+				'label' => 'Mata kuliah',
+				'rules' => 'required'
+			],
+			[
+				'field' => 'dosen',
+				'label' => 'Dosen',
+				'rules' => 'required'
+			],
+			[
+				'field' => 'ruangan',
+				'label' => 'Ruang kelas',
 				'rules' => 'required'
 			],
 		];

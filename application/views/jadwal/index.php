@@ -27,26 +27,30 @@
 								<tr>
 									<th>Nomor</th>
 									<th>Hari</th>
-									<th>Nama Lengkap</th>
-									<th>Tempat Lahir</th>
-									<th>Tanggal Lahir</th>
-									<th>Alamat</th>
+									<th>Jam</th>
+									<th>Kelas</th>
+									<th>Mata Kuliah</th>
+									<th>Dosen Pengampu</th>
+									<th>Ruangan</th>
 									<th>Actions</th>
 								</tr>
 								</thead>
 								<tbody>
-								<?php foreach ($dosen as $dosen): ?>
+								<?php foreach ($jadwal as $jadwal): ?>
 									<tr>
 										<td><?php echo $nomor++; ?></td>
-										<td><?php echo $dosen->nidn; ?></td>
-										<td><?php echo $dosen->nama_lengkap; ?></td>
-										<td><?php echo $dosen->tempat_lahir; ?></td>
-										<td><?php echo $dosen->tanggal_lahir; ?></td>
-										<td><?php echo $dosen->alamat; ?></td>
+										<td><?php echo $jadwal->hari; ?></td>
 										<td>
-											<a href="<?php echo base_url('dosen/edit/' . $dosen->id_dosen); ?>"
+											<?php echo showJamKuliah($jadwal->jam_mulai, $jadwal->jam_selesai); ?>
+										</td>
+										<td><?php echo $jadwal->nama_kelas; ?></td>
+										<td><?php echo $jadwal->nama_mata_kuliah; ?></td>
+										<td><?php echo $jadwal->nama_lengkap; ?></td>
+										<td><?php echo $jadwal->kode_ruangan; ?></td>
+										<td>
+											<a href="<?php echo base_url('jadwal/edit/' . $jadwal->id_jadwal); ?>"
 											   class="btn btn-success text-white">Edit</a>
-											<a href="#" onclick="showConfirmDelete('dosen', <?php echo $dosen->id_dosen; ?>)" class="btn btn-danger">Hapus</a>
+											<a href="#" onclick="showConfirmDelete('jadwal', <?php echo $jadwal->id_jadwal; ?>)" class="btn btn-danger">Hapus</a>
 										</td>
 									</tr>
 								<?php endforeach; ?>

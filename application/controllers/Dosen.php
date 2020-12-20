@@ -136,7 +136,7 @@ class Dosen extends CI_Controller
 			[
 				'field' => 'nama_lengkap',
 				'label' => 'Nama lengkap',
-				'rules' => 'required|alpha_numeric_spaces'
+				'rules' => 'required'
 			],
 			[
 				'field' => 'tempat_lahir',
