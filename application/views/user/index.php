@@ -20,7 +20,7 @@
 			<div class="col-md-12 grid-margin stretch-card">
 				<div class="card">
 					<div class="card-body">
-						<h4 class="card-title">Daftar Pengguna</h4>
+						<h4 class="card-title">Data Pengguna</h4>
 						<div class="table-responsive">
 							<table id="order-listing" class="table table-striped">
 								<thead>

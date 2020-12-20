@@ -20,27 +20,31 @@
 			<div class="col-md-12 grid-margin stretch-card">
 				<div class="card">
 					<div class="card-body">
-						<h4 class="card-title">Data Fakultas</h4>
+						<h4 class="card-title">Data Program Studi</h4>
 						<div class="table-responsive">
 							<table id="order-listing" class="table table-striped">
 								<thead>
 								<tr>
 									<th>Nomor</th>
 									<th>Kode</th>
-									<th>Nama Fakultas</th>
+									<th>Nama Program Studi</th>
+									<th>Jenjang</th>
+									<th>Fakultas</th>
 									<th>Actions</th>
 								</tr>
 								</thead>
 								<tbody>
-								<?php foreach ($fakultas as $fk): ?>
+								<?php foreach ($program_studi as $prodi): ?>
 									<tr>
 										<td><?php echo $nomor++; ?></td>
-										<td><?php echo $fk->kode_fakultas; ?></td>
-										<td><?php echo $fk->nama_fakultas; ?></td>
+										<td><?php echo $prodi->kode_program_studi; ?></td>
+										<td><?php echo $prodi->nama_program_studi; ?></td>
+										<td><?php echo $prodi->jenjang; ?></td>
+										<td><?php echo $prodi->id_fakultas; ?></td>
 										<td>
-											<a href="<?php echo base_url('fakultas/edit/' . $fk->id_fakultas); ?>"
+											<a href="<?php echo base_url('program-studi/edit/' . $prodi->id_program_studi); ?>"
 											   class="btn btn-success text-white">Edit</a>
-											<a href="#" onclick="showConfirmDelete('fakultas', <?php echo $fk->id_fakultas; ?>)" class="btn btn-danger">Hapus</a>
+											<a href="#" onclick="showConfirmDelete('program-studi', <?php echo $prodi->id_program_studi; ?>)" class="btn btn-danger">Hapus</a>
 										</td>
 									</tr>
 								<?php endforeach; ?>
