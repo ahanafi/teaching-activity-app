@@ -19,7 +19,6 @@ $uri2 = $this->uri->segment(2);
 </script>
 <!-- plugins:js -->
 <script src="<?php echo assets('vendors/js/vendor.bundle.base.js'); ?>"></script>
-<script src="<?php echo assets('vendors/js/vendor.bundle.addons.js'); ?>"></script>
 <!-- endinject -->
 <!-- Plugin js for this page-->
 <script src="<?php echo assets('vendors/datatables.net/jquery.dataTables.js'); ?>"></script>
