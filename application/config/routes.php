@@ -6,6 +6,7 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 $route['login'] = 'authentication/index';
+$route['logout'] = 'authentication/logout';
 
 $route['program-studi'] = 'programstudi/index';
 $route['program-studi/create'] = 'programstudi/create';
@@ -18,3 +19,7 @@ $route['mata-kuliah/(:any)/(:num)'] = 'matakuliah/$1/$2';
 $route['jadwal-kuliah'] = 'jadwal/index';
 $route['jadwal-kuliah/create'] = 'jadwal/create';
 $route['jadwal-kuliah/(:any)/(:num)'] = 'jadwal/$1/$2';
+
+$route['ruang-kelas'] = 'ruangan/index';
+$route['ruang-kelas/create'] = 'ruangan/create';
+$route['ruang-kelas/(:any)/(:num)'] = 'ruangan/$1/$2';

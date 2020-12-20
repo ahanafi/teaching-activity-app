@@ -22,6 +22,7 @@ class Auth_model extends Main_model
 			if ($validate === TRUE) {
 				$this->session->set_userdata("user", $user);
 				$this->session->set_userdata("is_logged_in", TRUE);
+				$this->session->set_userdata("logged_in_at", date('Y-m-d H:i:s'));
 				unset($_SESSION['user']->password);
 				return true;
 			} else {

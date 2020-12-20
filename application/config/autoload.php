@@ -146,6 +146,7 @@ $autoload['model'] = [
 	'Program_studi_model'	=> 'ProgramStudi',
 	'Dosen_model'			=> 'Dosen',
 	'Kelas_model'			=> 'Kelas',
+	'Ruangan_model'			=> 'Ruangan',
 	'Mata_kuliah_model'		=> 'MataKuliah',
 	'Berita_acara_model'	=> 'BAP',
 ];

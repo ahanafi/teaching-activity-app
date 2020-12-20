@@ -60,7 +60,7 @@ class Authentication extends CI_Controller
 						'type' => 'error',
 						'text' => 'Oops! Username atau Password Anda salah!'
 					]);
-					redirect(base_url('auth'));
+					redirect(base_url());
 				}
 			}
 

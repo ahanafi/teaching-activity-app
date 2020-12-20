@@ -44,6 +44,9 @@
 							<li class="nav-item">
 								<a class="nav-link" href="<?php echo base_url('mata-kuliah') ?>">Data Mata Kuliah</a>
 							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="<?php echo base_url('ruangan') ?>">Data Ruang Kelas</a>
+							</li>
 						</ul>
 					</div>
 				</li>
