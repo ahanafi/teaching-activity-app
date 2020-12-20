@@ -140,6 +140,7 @@ $autoload['model'] = [
 	'Main_model'			=> 'Main_model',
 	'Auth_model'			=> 'Auth',
 	'User_model'			=> 'User',
+	'Jadwal_model'			=> 'Jadwal',
 	'Profil_kampus_model' 	=> 'ProfilKampus',
 	'Fakultas_model'		=> 'Fakultas',
 	'Program_studi_model'	=> 'ProgramStudi',

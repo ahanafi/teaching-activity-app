@@ -10,3 +10,11 @@ $route['login'] = 'authentication/index';
 $route['program-studi'] = 'programstudi/index';
 $route['program-studi/create'] = 'programstudi/create';
 $route['program-studi/(:any)/(:num)'] = 'programstudi/$1/$2';
+
+$route['mata-kuliah'] = 'matakuliah/index';
+$route['mata-kuliah/create'] = 'matakuliah/create';
+$route['mata-kuliah/(:any)/(:num)'] = 'matakuliah/$1/$2';
+
+$route['jadwal-kuliah'] = 'jadwal/index';
+$route['jadwal-kuliah/create'] = 'jadwal/create';
+$route['jadwal-kuliah/(:any)/(:num)'] = 'jadwal/$1/$2';
