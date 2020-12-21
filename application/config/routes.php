@@ -2,8 +2,11 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 $route['default_controller'] = 'authentication';
-$route['404_override'] = '';
+$route['404_override'] = 'Errorpage';
 $route['translate_uri_dashes'] = FALSE;
+
+//Restrict page route
+$route['restrict-page'] = 'Errorpage/restrict_page';
 
 $route['login'] = 'authentication/index';
 $route['logout'] = 'authentication/logout';
@@ -23,3 +26,7 @@ $route['jadwal-kuliah/(:any)/(:num)'] = 'jadwal/$1/$2';
 $route['ruang-kelas'] = 'ruangan/index';
 $route['ruang-kelas/create'] = 'ruangan/create';
 $route['ruang-kelas/(:any)/(:num)'] = 'ruangan/$1/$2';
+
+$route['berita-acara'] = 'beritaacara/index';
+$route['berita-acara/create'] = 'beritaacara/create';
+$route['berita-acara/(:any)/(:num)'] = 'beritaacara/$1/$2';

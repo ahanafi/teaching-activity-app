@@ -11,6 +11,7 @@ class User extends CI_Controller
 		if(!isAuthenticated()) {
 			redirect('login');
 		}
+		provideAccessTo('SUPER_USER');
 	}
 
 	public function index()

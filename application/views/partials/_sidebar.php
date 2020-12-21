@@ -20,6 +20,7 @@
 						<span class="menu-title">Dashboard</span>
 					</a>
 				</li>
+				<?php if(showOnlyTo('SUPER_USER')):?>
 				<li class="nav-item">
 					<a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false"
 					   aria-controls="ui-basic">
@@ -50,6 +51,7 @@
 						</ul>
 					</div>
 				</li>
+				<?php endif; ?>
 				<li class="nav-item">
 					<a class="nav-link" href="<?php echo base_url('jadwal-kuliah'); ?>">
 						<i class="menu-icon typcn typcn-shopping-bag"></i>
@@ -57,7 +59,7 @@
 					</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="<?php echo base_url('berita-acara-perkuliahan'); ?>">
+					<a class="nav-link" href="<?php echo base_url('berita-acara'); ?>">
 						<i class="menu-icon typcn typcn-th-large-outline"></i>
 						<span class="menu-title">Berita Acara Perkuliahan</span>
 					</a>
@@ -68,12 +70,14 @@
 						<span class="menu-title">Laporan</span>
 					</a>
 				</li>
+				<?php if(showOnlyTo('SUPER_USER')):?>
 				<li class="nav-item">
 					<a class="nav-link" href="<?php echo base_url('user'); ?>">
 						<i class="menu-icon typcn typcn-user-outline"></i>
 						<span class="menu-title">Manajemen Pengguna</span>
 					</a>
 				</li>
+				<?php endif; ?>
 			</ul>
 		</nav>
 		<!-- partial -->

@@ -92,7 +92,7 @@ $autoload['drivers'] = array();
 |	$autoload['helper'] = array('url', 'file');
 */
 $autoload['helper'] = array(
-	'url', 'my'
+	'url', 'my', 'middleware'
 );
 
 /*
@@ -148,5 +148,5 @@ $autoload['model'] = [
 	'Kelas_model'			=> 'Kelas',
 	'Ruangan_model'			=> 'Ruangan',
 	'Mata_kuliah_model'		=> 'MataKuliah',
-	'Berita_acara_model'	=> 'BAP',
+	'Berita_acara_model'	=> 'BeritaAcara',
 ];

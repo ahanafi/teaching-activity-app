@@ -16,6 +16,15 @@ class Jadwal extends CI_Controller
 	public function index()
 	{
 		$jadwal = $this->Jadwal->all();
+		$currentUserLevel = getUser('level');
+		if($currentUserLevel === "DOSEN") {
+			$id_dosen = getUser('id_dosen');
+			$jadwal = $this->Jadwal->findById([
+				'id_dosen' => $id_dosen
+			], true);
+		}
+
+
 		$data = [
 			'jadwal' => $jadwal,
 			'nomor' => 1

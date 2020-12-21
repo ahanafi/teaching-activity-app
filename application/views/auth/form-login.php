@@ -11,6 +11,7 @@
 	<link rel="stylesheet" href="<?php echo assets('vendors/iconfonts/flag-icon-css/css/flag-icon.min.css'); ?>">
 	<link rel="stylesheet" href="<?php echo assets('vendors/css/vendor.bundle.base.css'); ?>">
 	<link rel="stylesheet" href="<?php echo assets('vendors/css/vendor.bundle.addons.css'); ?>">
+	<link rel="stylesheet" href="<?php echo assets('vendors/sweetalert2/sweetalert2.css'); ?>">
 	<!-- endinject -->
 	<!-- plugin css for this page -->
 	<!-- End plugin css for this page -->
@@ -92,7 +93,14 @@
 <!-- container-scroller -->
 <!-- plugins:js -->
 <script src="<?php echo assets('vendors/js/vendor.bundle.base.js'); ?>"></script>
-<script src="<?php echo assets('vendors/js/vendor.bundle.addons.js'); ?>"></script>
+<script src="<?php echo assets('vendors/sweetalert2/sweetalert2.min.js'); ?>"></script>
+<script src="<?php echo assets('js/shared/alerts.js'); ?>"></script>
+<?php if (isset($_SESSION['message']) && $_SESSION['message'] != ''): ?>
+	<script type="text/javascript">
+		showAlert('message', '<?php echo $_SESSION['message']['type']; ?>', '<?php echo ucfirst($_SESSION['message']['type']); ?>', '<?php echo $_SESSION['message']['text']; ?>');
+	</script>
+<?php endif;
+$_SESSION['message'] = ''; ?>
 <!-- endinject -->
 <!-- inject:js -->
 <script src="<?php echo assets('js/shared/off-canvas.js'); ?>"></script>
