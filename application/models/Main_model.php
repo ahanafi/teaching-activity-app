@@ -90,9 +90,9 @@ class Main_model extends CI_Model
 		return $sql->get()->row();
 	}
 
-	public function get_last_id()
+	public function getLastInsertId($id = 'id')
 	{
-		$sql = $this->db->select('MAX(id) as id')->from($this->table)->get()->row();
+		$sql = $this->db->select("MAX($id) as id")->from($this->table)->get()->row();
 		return $sql->id;
 	}
 
@@ -116,11 +116,6 @@ class Main_model extends CI_Model
 	{
 		$sql = $this->db->limit($rows)->get($this->table);
 		return $sql->result();
-	}
-
-	public function getLastInsertID()
-	{
-		return $this->db->insert_id();
 	}
 
 	public function getSumOfColumn($column, $conditions = [])

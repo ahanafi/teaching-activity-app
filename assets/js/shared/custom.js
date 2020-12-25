@@ -92,9 +92,7 @@ const confirmLogout = () => {
 }
 
 const loadSelect2 = () => {
-	$('.select2').select2({
-		theme: 'bootstrap4'
-	});
+	$('.select2').select2();
 };
 
 
@@ -123,3 +121,5 @@ const loadSelect2 = () => {
 		});
 	});
 })(jQuery);
+
+$('[data-toggle="tooltip"]').tooltip();

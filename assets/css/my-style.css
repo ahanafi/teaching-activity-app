@@ -1,3 +1,8 @@
 .table tr td > .btn{
 	padding: 0.4rem 1rem !important;
 }
+
+.error-text{
+	color: #ff6258 !important;
+	font-size: 0.65rem !important;
+}

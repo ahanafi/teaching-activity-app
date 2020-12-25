@@ -16,106 +16,284 @@
 			</div>
 		</div>
 		<!-- Page Title Header Ends-->
-		<div class="row">
-			<div class="col-md-7 grid-margin stretch-card">
-				<div class="card">
-					<div class="card-header header-sm d-flex justify-content-between align-items-center">
-						<h4 class="card-title">Form Tambah Jadwal</h4>
-					</div>
-					<div class="card-body">
-						<form action="<?php echo base_url('jadwal-kuliah/create'); ?>" class="form-sample" method="POST"
-							  enctype="multipart/form-data">
+		<form action="<?php echo base_url('berita-acara/create'); ?>" class="form-sample" method="POST"
+			  enctype="multipart/form-data">
+			<div class="row">
+				<div class="col-md-6 grid-margin stretch-card">
+					<div class="card">
+						<div class="card-header header-sm d-flex justify-content-between align-items-center">
+							<h4 class="card-title">Form Tambah Berita Acara Perkuliahan</h4>
+						</div>
+						<div class="card-body">
 							<div class="row">
 								<div class="col-md-12">
 									<div class="form-group row">
-										<label class="col-sm-3 col-form-label">Hari</label>
+										<label class="col-sm-3 col-form-label">Jadwal</label>
 										<div class="col-sm-8">
-											<select name="hari" required class="form-control">
-												<option disabled selected>-- Pilih Hari --</option>
-												<?php foreach ($hari as $hari): ?>
-													<option <?php echo (set_value('hari') == $hari) ? "selected" : ""; ?>
-															value="<?php echo $hari; ?>"><?php echo $hari; ?></option>
+											<select name="id_jadwal" required class="form-control select2">
+												<option disabled selected>-- Pilih Jadwal --</option>
+												<?php foreach ($jadwal as $jadwal): ?>
+													<option <?php echo (set_value('id_jadwal') == $jadwal->id_jadwal) ? "selected" : ""; ?>
+															value="<?php echo $jadwal->id_jadwal; ?>">
+														<?php echo $jadwal->hari . " - " . showJamKuliah($jadwal->jam_mulai, $jadwal->jam_selesai) . " - " . $jadwal->nama_mata_kuliah . " - " . $jadwal->nama_kelas; ?>
+													</option>
 												<?php endforeach; ?>
 											</select>
-											<?php echo form_error('hari'); ?>
+											<?php echo form_error('id_jadwal'); ?>
 										</div>
 									</div>
 									<div class="form-group row">
-										<label class="col-sm-3 col-form-label">Jam</label>
+										<label class="col-sm-3 col-form-label">Tanggal</label>
+										<div class="col-sm-8">
+											<input type="date" name="tanggal" class="form-control" required
+												   value="<?php echo set_value('tanggal'); ?>">
+											<?php echo form_error('tanggal'); ?>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-3 col-form-label">Waktu</label>
 										<div class="col-sm-4">
-											<input type="time" name="jam_mulai" class="form-control" required value="<?php echo set_value('jam_mulai'); ?>">
+											<input type="time" name="jam_mulai" class="form-control" required
+												   value="<?php echo set_value('jam_mulai'); ?>">
 											<?php echo form_error('jam_mulai'); ?>
 										</div>
 										<div class="col-sm-4">
-											<input type="time" name="jam_selesai" class="form-control" required value="<?php echo set_value('jam_selesai'); ?>">
+											<input type="time" name="jam_selesai" class="form-control" required
+												   value="<?php echo set_value('jam_selesai'); ?>">
 											<?php echo form_error('jam_selesai'); ?>
 										</div>
 									</div>
 									<div class="form-group row">
-										<label class="col-sm-3 col-form-label">Kelas</label>
-										<div class="col-sm-8">
-											<select name="kelas" required class="form-control">
-												<option disabled selected>-- Pilih Kelas --</option>
-												<?php foreach ($kelas as $kelas): ?>
-													<option <?php echo (set_value('kelas') == $kelas->id_kelas) ? "selected" : ""; ?>
-															value="<?php echo $kelas->id_kelas; ?>"><?php echo $kelas->nama_kelas; ?></option>
-												<?php endforeach; ?>
-											</select>
-											<?php echo form_error('kelas'); ?>
+										<label class="col-sm-3 col-form-label">Jumlah kehadiran</label>
+										<div class="col-sm-3">
+											<input type="number" min="1" name="jumlah_hadir" class="form-control"
+												   placeholder="Jumlah Hadir" value="<?php echo set_value('jumlah_hadir'); ?>">
+											<?php echo form_error('jumlah_hadir'); ?>
+										</div>
+										<label class="col-sm-2 col-form-label">Dari</label>
+										<div class="col-sm-3">
+											<input type="number" min="1" name="total_mahasiswa" class="form-control"
+												   placeholder="Total Mahasiswa" value="<?php echo set_value('total_mahasiswa'); ?>">
+											<?php echo form_error('total_mahasiswa'); ?>
 										</div>
 									</div>
 									<div class="form-group row">
-										<label class="col-sm-3 col-form-label">Mata Kuliah</label>
-										<div class="col-sm-8">
-											<select name="mata_kuliah" required class="form-control">
-												<option disabled selected>-- Pilih Mata Kuliah --</option>
-												<?php foreach ($mata_kuliah as $mk): ?>
-													<option <?php echo (set_value('mata_kuliah') == $mk->id_mata_kuliah) ? "selected" : ""; ?>
-															value="<?php echo $mk->id_mata_kuliah; ?>"><?php echo $mk->nama_mata_kuliah; ?></option>
-												<?php endforeach; ?>
-											</select>
-											<?php echo form_error('mata_kuliah'); ?>
-										</div>
-									</div>
-									<div class="form-group row">
-										<label class="col-sm-3 col-form-label">Dosen Pengampu</label>
-										<div class="col-sm-8">
-											<select name="dosen" required class="form-control">
-												<option disabled selected>-- Pilih Dosen --</option>
-												<?php foreach ($dosen as $dosen): ?>
-													<option <?php echo (set_value('dosen') == $dosen->id_dosen) ? "selected" : ""; ?>
-															value="<?php echo $dosen->id_dosen; ?>"><?php echo $dosen->nama_lengkap; ?></option>
-												<?php endforeach; ?>
-											</select>
-											<?php echo form_error('dosen'); ?>
-										</div>
-									</div>
-									<div class="form-group row">
-										<label class="col-sm-3 col-form-label">Ruangan</label>
-										<div class="col-sm-8">
-											<select name="ruangan" required class="form-control">
-												<option disabled selected>-- Pilih Ruangan --</option>
-												<?php foreach ($ruangan as $ruangan): ?>
-													<option <?php echo (set_value('ruangan') == $ruangan->id_ruangan) ? "selected" : ""; ?>
-															value="<?php echo $ruangan->id_ruangan; ?>"><?php echo $ruangan->kode_ruangan . " ($ruangan->kapasitas)"; ?></option>
-												<?php endforeach; ?>
-											</select>
-											<?php echo form_error('ruangan'); ?>
-										</div>
-									</div>
-									<div class="form-group row text-right">
-										<div class="col-sm-8 offset-3">
-											<button class="btn btn-success" type="submit" name="submit">SIMPAN</button>
-											<a href="<?php echo base_url('jadwal-kuliah'); ?>"
-											   class="btn btn-secondary">KEMBALI</a>
+										<label class="col-sm-3 col-form-label">Pertemuan ke</label>
+										<div class="col-sm-4">
+											<input type="number" name="pertemuan_ke" min="1" max="14" minlength="1"
+												   maxlength="2" class="form-control" required
+												   placeholder="Pertemuan ke: .." value="<?php echo set_value('pertemuan_ke'); ?>">
+											<?php echo form_error('pertemuan_ke'); ?>
 										</div>
 									</div>
 								</div>
 							</div>
-						</form>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 grid-margin stretch-card">
+					<div class="card">
+						<div class="card-header header-sm d-flex justify-content-between align-items-center">
+							<h4 class="card-title">Bentuk materi dan Penugasan</h4>
+						</div>
+						<div class="card-body">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="form-group row">
+										<label class="col-sm-3 col-form-label">Aplikasi Daring</label>
+										<div class="col-sm-3">
+											<div class="form-check form-check-flat mt-1">
+												<label class="form-check-label">
+													<input value="ZOOM" name="jenis_aplikasi[]" type="checkbox" class="form-check-input">
+													Zoom
+												</label>
+											</div>
+										</div>
+										<div class="col-sm-3">
+											<div class="form-check form-check-flat mt-1">
+												<label class="form-check-label">
+													<input value="WA_GROUP" name="jenis_aplikasi[]" type="checkbox" class="form-check-input">
+													WA Group
+												</label>
+											</div>
+										</div>
+										<div class="col-sm-3">
+											<div class="form-check form-check-flat mt-1">
+												<label class="form-check-label">
+													<input value="EDMODO" name="jenis_aplikasi[]" type="checkbox" class="form-check-input">
+													Edmodo
+												</label>
+											</div>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-3 col-form-label">&nbsp;</label>
+										<div class="col-sm-3">
+											<div class="form-check form-check-flat mt-0">
+												<label class="form-check-label">
+													<input value="GOOGLE_CLASS" name="jenis_aplikasi[]" type="checkbox"
+														   class="form-check-input">
+													Google Class
+												</label>
+											</div>
+										</div>
+										<div class="col-sm-3">
+											<div class="form-check form-check-flat mt-0">
+												<label class="form-check-label">
+													<input value="QUIZIZZ" name="jenis_aplikasi[]" type="checkbox" class="form-check-input">
+													Quizizz
+												</label>
+											</div>
+										</div>
+										<div class="col-sm-3">
+											<div class="form-check form-check-flat mt-0">
+												<label class="form-check-label">
+													<input value="LAINNYA" name="jenis_aplikasi[]" type="checkbox" class="form-check-input">
+													Lainnya
+												</label>
+											</div>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-3 col-form-label">Bentuk Materi</label>
+										<div class="col-sm-3">
+											<div class="form-check form-check-flat mt-1">
+												<label class="form-check-label">
+													<input value="Video" name="bentuk_materi[]" type="checkbox" class="form-check-input">
+													Video
+												</label>
+											</div>
+										</div>
+										<div class="col-sm-3">
+											<div class="form-check form-check-flat mt-1">
+												<label class="form-check-label">
+													<input value="PPT" name="bentuk_materi[]" type="checkbox" class="form-check-input">
+													Powerpoint
+												</label>
+											</div>
+										</div>
+										<div class="col-sm-3">
+											<div class="form-check form-check-flat mt-1">
+												<label class="form-check-label">
+													<input value="PDF_DOC" name="bentuk_materi[]" type="checkbox" class="form-check-input">
+													PDF/Doc
+												</label>
+											</div>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-3 col-form-label">Nama File Materi</label>
+										<div class="col-sm-8">
+											<input type="text" name="file_materi" placeholder="Nama file materi"
+												   class="form-control" value="<?php echo set_value('file_materi'); ?>">
+											<?php echo form_error('file_materi'); ?>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-3 col-form-label">Pemberian tugas</label>
+										<div class="col-sm-4">
+											<div class="form-radio">
+												<label class="form-check-label">
+													<input type="radio" class="form-check-input" name="penugasan"
+														   id="penugasan" value="1" <?php echo (set_value('penugasan') == 1 ? "checked" : ""); ?> >
+													Ya <i class="input-helper"></i>
+												</label>
+											</div>
+										</div>
+										<div class="col-sm-4">
+											<div class="form-radio">
+												<label class="form-check-label">
+													<input type="radio" class="form-check-input" name="penugasan"
+														   id="penugasan" value="0" <?php echo (set_value('penugasan') == 0 ? "checked" : ""); ?> >
+													Tidak <i class="input-helper"></i>
+												</label>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12 grid-margin stretch-card">
+					<div class="card">
+						<div class="card-header header-sm d-flex justify-content-between align-items-center">
+							<h4 class="card-title">Verifikasi Mahasiswa dan Uraian Materi</h4>
+						</div>
+						<div class="card-body">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="form-group row">
+										<label class="col-sm-2 col-form-label">Verifikasi Mahasiswa</label>
+										<div class="col-sm-3">
+											<input type="text" name="nim" placeholder="NIM"
+												   class="form-control" value="<?php echo set_value('nim'); ?>">
+											<?php echo form_error('nim'); ?>
+										</div>
+										<div class="col-sm-3">
+											<input type="text" name="nama_mahasiswa" placeholder="Nama Mahasiswa"
+												   class="form-control" value="<?php echo set_value('nama_mahasiswa'); ?>">
+											<?php echo form_error('nama_mahasiswa'); ?>
+										</div>
+										<div class="col-sm-4">
+											<input type="file" name="paraf_mhs" placeholder="NIM"
+												   class="form-control" required data-toggle="tooltip" title="Foto tanda tangan Mahasiswa">
+											<?php
+												if (isset($err_upload) && $err_upload !== '') {
+													echo $err_upload['error'];
+												}
+											?>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-2 col-form-label">Pokok Bahasan</label>
+										<div class="col-sm-6">
+											<input type="text" name="pokok_bahasan" placeholder="Pokok bahasan materi"
+												   class="form-control" value="<?php echo set_value('pokok_bahasan'); ?>">
+											<?php echo form_error('pokok_bahasan'); ?>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-2 col-form-label">Uraian Materi</label>
+										<div class="col-sm-10">
+											<textarea name="uraian_materi" id="uraian_materi" required><?php echo set_value('uraian_materi'); ?></textarea>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-2 col-form-label">Bukti Kegiatan</label>
+										<div class="col-sm-10">
+											<input type="file" name="bukti_kegiatan[]" id="bukti_kegiatan" multiple
+												   maxlength="3" onchange="readURL(this)" required
+												   class="form-control"/>
+											<?php echo form_error('bukti_kegiatan'); ?>
+
+											<div class="alert alert-info mt-2" style="border-radius: 0px;">
+												<b>Perhatian : </b> <br>
+												<ul>
+													<li><u>File ukuran foto adalah <b>maksimal 2Mb</b></u></li>
+													<li><u>Resolusi foto yang upload adalah <b>maksimal 1280x768 pixel</b></u></li>
+													<li><u>Jenis format foto yang diizinkan adalah <b>JPG, JPEG, dan PNG.</b></u></li>
+												</ul>
+											</div>
+											<div id="preview" class="row mt-2"></div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-sm-12 text-center">
+											<button type="submit" name="submit" class="btn btn-primary btn-lg">
+												<span>SIMPAN DATA</span>
+											</button>
+											<a href="<?php echo base_url('berita-acara'); ?>" class="btn btn-secondary btn-lg">
+												<span>KEMBALI</span>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		</form>
 	</div>
 	<!-- content-wrapper ends -->

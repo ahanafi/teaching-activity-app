@@ -11,10 +11,10 @@ $uri2 = $this->uri->segment(2);
 <script type="text/javascript">
 	const BASE_URL = `<?php echo base_url(); ?>`;
 	<?php
-		$totalSegments = $this->uri->total_segments();
-		for($i = 1; $i <= $totalSegments; $i++):
+	$totalSegments = $this->uri->total_segments();
+	for($i = 1; $i <= $totalSegments; $i++):
 	?>
-		const URI_<?php echo $i; ?> = "<?php echo $this->uri->segment($i); ?>";
+	const URI_<?php echo $i; ?> = "<?php echo $this->uri->segment($i); ?>";
 	<?php endfor; ?>
 </script>
 <!-- plugins:js -->
@@ -24,6 +24,10 @@ $uri2 = $this->uri->segment(2);
 <script src="<?php echo assets('vendors/datatables.net/jquery.dataTables.js'); ?>"></script>
 <script src="<?php echo assets('vendors/datatables.net-bs4/dataTables.bootstrap4.js'); ?>"></script>
 <script src="<?php echo assets('vendors/sweetalert2/sweetalert2.min.js'); ?>"></script>
+<script src="<?php echo assets('vendors/summernote/dist/summernote-bs4.min.js'); ?>"></script>
+<script src="<?php echo assets('vendors/select2/select2.min.js'); ?>"></script>
+<script src="<?php echo assets('vendors/jquery-file-upload/jquery.uploadfile.min.js'); ?>"></script>
+<script src="<?php echo assets('vendors/dropzone/dropzone.js'); ?>"></script>
 <!-- End plugin js for this page-->
 <!-- inject:js -->
 <script src="<?php echo assets('js/shared/off-canvas.js'); ?>"></script>
@@ -32,6 +36,9 @@ $uri2 = $this->uri->segment(2);
 <script src="<?php echo assets('js/shared/alerts.js'); ?>"></script>
 <script src="<?php echo assets('js/shared/custom.js'); ?>"></script>
 <!-- endinject -->
+<?php if($uri1 == "berita-acara"): ?>
+	<script src="<?php echo assets('js/shared/berita-acara.js'); ?>"></script>
+<?php endif; ?>
 <!-- Custom js for this page-->
 <script src="<?php echo assets('js/demo/dashboard.js'); ?>"></script>
 <!-- End custom js for this page-->
@@ -41,5 +48,8 @@ $uri2 = $this->uri->segment(2);
 	</script>
 <?php endif;
 $_SESSION['message'] = ''; ?>
+<script type="text/javascript">
+	loadSelect2();
+</script>
 </body>
 </html>

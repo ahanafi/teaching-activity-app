@@ -19,6 +19,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<!-- plugin css for this page -->
 	<link rel="stylesheet" href="<?php echo assets('vendors/datatables.net-bs4/dataTables.bootstrap4.css'); ?>">
 	<link rel="stylesheet" href="<?php echo assets('vendors/sweetalert2/sweetalert2.css'); ?>">
+	<link rel="stylesheet" href="<?php echo assets('vendors/summernote/dist/summernote-bs4.css'); ?>">
+	<link rel="stylesheet" href="<?php echo assets('vendors/select2/select2.min.css'); ?>">
+	<link rel="stylesheet" href="<?php echo assets('vendors/select2-bootstrap-theme/select2-bootstrap.min.css'); ?>">
+
 	<!-- End plugin css for this page -->
 	<!-- inject:css -->
 	<link rel="stylesheet" href="<?php echo assets('css/shared/style.css'); ?>">
