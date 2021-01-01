@@ -26,8 +26,9 @@ $uri2 = $this->uri->segment(2);
 <script src="<?php echo assets('vendors/sweetalert2/sweetalert2.min.js'); ?>"></script>
 <script src="<?php echo assets('vendors/summernote/dist/summernote-bs4.min.js'); ?>"></script>
 <script src="<?php echo assets('vendors/select2/select2.min.js'); ?>"></script>
-<script src="<?php echo assets('vendors/jquery-file-upload/jquery.uploadfile.min.js'); ?>"></script>
-<script src="<?php echo assets('vendors/dropzone/dropzone.js'); ?>"></script>
+
+<script src="<?php echo assets('vendors/tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.js') ;?>"></script>
+<script src="<?php echo assets('vendors/bootstrap-datepicker/bootstrap-datepicker.min.js') ;?>"></script>
 <!-- End plugin js for this page-->
 <!-- inject:js -->
 <script src="<?php echo assets('js/shared/off-canvas.js'); ?>"></script>

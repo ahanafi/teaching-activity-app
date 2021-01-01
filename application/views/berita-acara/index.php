@@ -25,13 +25,13 @@
 							<table id="order-listing" class="table table-striped">
 								<thead>
 								<tr>
-									<th>Nomor</th>
+									<th>No.</th>
 									<th>Hari</th>
-									<th>Jam</th>
-									<th>Kelas</th>
 									<th>Mata Kuliah</th>
-									<th>Dosen Pengampu</th>
-									<th>Ruangan</th>
+									<th>SKS</th>
+									<th>Waktu</th>
+									<th>Temu Ke</th>
+									<th>Jumlah Hadir</th>
 									<th>Actions</th>
 								</tr>
 								</thead>
@@ -40,17 +40,17 @@
 									<tr>
 										<td><?php echo $nomor++; ?></td>
 										<td><?php echo $bap->hari; ?></td>
+										<td><?php echo $bap->mata_kuliah; ?></td>
+										<td><?php echo $bap->sks; ?></td>
 										<td>
 											<?php echo showJamKuliah($bap->jam_mulai, $bap->jam_selesai); ?>
 										</td>
-										<td><?php echo $bap->nama_kelas; ?></td>
-										<td><?php echo $bap->nama_mata_kuliah; ?></td>
-										<td><?php echo $bap->nama_lengkap; ?></td>
-										<td><?php echo $bap->kode_ruangan; ?></td>
+										<td><?php echo $bap->pertemuan_ke; ?></td>
+										<td><?php echo $bap->jumlah_hadir; ?></td>
 										<td>
-											<a href="<?php echo base_url('jadwal/edit/' . $bap->id_jadwal); ?>"
+											<a href="<?php echo base_url('berita-acara/edit/' . $bap->id_berita_acara); ?>"
 											   class="btn btn-success text-white">Edit</a>
-											<a href="#" onclick="showConfirmDelete('jadwal', <?php echo $bap->id_jadwal; ?>)" class="btn btn-danger">Hapus</a>
+											<a href="#" onclick="showConfirmDelete('berita-acara', <?php echo $bap->id_berita_acara; ?>)" class="btn btn-danger">Hapus</a>
 										</td>
 									</tr>
 								<?php endforeach; ?>
