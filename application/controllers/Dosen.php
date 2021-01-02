@@ -25,7 +25,9 @@ class Dosen extends CI_Controller
 
 	public function create()
 	{
+		$prodi = $this->ProgramStudi->all();
 		$data = [
+			'program_studi' => $prodi
 		];
 
 		if (isset($_POST['submit'])) {
@@ -40,7 +42,25 @@ class Dosen extends CI_Controller
 				$postData = $this->getPostData();
 
 				$insert = $this->Dosen->insert($postData);
+
 				if ($insert) {
+					$nidn = $this->input->post('nidn');
+					$namaLengkap = $this->input->post('nama_lengkap');
+
+					$dosenId = $this->Dosen->getLastInsertId('id_dosen');
+
+					//user dosen
+					$userDosen = [
+						'username' => $nidn,
+						'nama_lengkap' => strtoupper($namaLengkap),
+						'password' => password_hash($nidn, PASSWORD_DEFAULT),
+						'level' => 'DOSEN',
+						'id_dosen' => $dosenId
+					];
+
+					//insert to user table
+					$this->User->insert($userDosen);
+
 					$messages = setArrayMessage('success', 'insert', 'dosen');
 				} else {
 					$messages = setArrayMessage('error', 'insert', 'dosen');
@@ -56,8 +76,10 @@ class Dosen extends CI_Controller
 
 	public function edit($id_dosen)
 	{
+		$prodi = $this->ProgramStudi->all();
 		$data = [
-			'dosen' => $this->Dosen->findById(['id_dosen' => $id_dosen]),
+			'program_studi' => $prodi,
+			'dosen' => $this->Dosen->findById(['dosen.id_dosen' => $id_dosen]),
 		];
 
 		if (isset($_POST['update'])) {
@@ -95,7 +117,7 @@ class Dosen extends CI_Controller
 			$data_type = $this->main_lib->getPost('data_type');
 
 			if ($data_id === $id_dosen && $data_type === 'dosen') {
-				$delete = $this->Dosen->delete(['id_dosen' => $data_id]);
+				$delete = $this->Dosen->delete(['dosen.id_dosen' => $data_id]);
 				if ($delete) {
 					$messages = setArrayMessage('success', 'delete', 'dosen');
 				} else {
@@ -116,39 +138,43 @@ class Dosen extends CI_Controller
 	private function getPostData()
 	{
 		return [
-			'nidn' => $this->main_lib->getPost('nidn'),
-			'nama_lengkap' => $this->main_lib->getPost('nama_lengkap'),
+			'nidn' => trim($this->main_lib->getPost('nidn')),
+			'nama_lengkap' => strtoupper($this->main_lib->getPost('nama_lengkap')),
 			'jenis_kelamin' => $this->main_lib->getPost('jenis_kelamin'),
-			'tempat_lahir' => $this->main_lib->getPost('tempat_lahir'),
-			'tanggal_lahir' => $this->main_lib->getPost('tanggal_lahir'),
-			'alamat' => $this->main_lib->getPost('alamat'),
+			'id_program_studi' => $this->main_lib->getPost('id_program_studi'),
+			'gelar' => $this->main_lib->getPost('gelar'),
 		];
 	}
 
-	private function _rules()
+	private function _rules($type = 'create')
 	{
-		return [
-			[
-				'field' => 'nidn',
-				'label' => 'NIDN',
-				'rules' => 'required'
-			],
+		$rules = [
 			[
 				'field' => 'nama_lengkap',
 				'label' => 'Nama lengkap',
 				'rules' => 'required'
 			],
 			[
-				'field' => 'tempat_lahir',
-				'label' => 'Tempat lahir',
+				'field' => 'gelar',
+				'label' => 'Gelar',
 				'rules' => 'required'
 			],
 			[
-				'field' => 'tanggal_lahir',
-				'label' => 'Tanggal lahir',
+				'field' => 'id_program_studi',
+				'label' => 'Program Studi',
 				'rules' => 'required'
 			],
 		];
+
+		if($type == 'create') {
+			$rules[] = [
+				'field' => 'nidn',
+				'label' => 'NIDN',
+				'rules' => 'required|is_unique[dosen.nidn]'
+			];
+		}
+
+		return $rules;
 
 	}
 

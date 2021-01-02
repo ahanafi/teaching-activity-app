@@ -28,9 +28,8 @@
 									<th>Nomor</th>
 									<th>NIDN</th>
 									<th>Nama Lengkap</th>
-									<th>Tempat Lahir</th>
-									<th>Tanggal Lahir</th>
-									<th>Alamat</th>
+									<th>Gelar</th>
+									<th>Program Studi</th>
 									<th>Actions</th>
 								</tr>
 								</thead>
@@ -40,9 +39,8 @@
 										<td><?php echo $nomor++; ?></td>
 										<td><?php echo $dosen->nidn; ?></td>
 										<td><?php echo $dosen->nama_lengkap; ?></td>
-										<td><?php echo $dosen->tempat_lahir; ?></td>
-										<td><?php echo $dosen->tanggal_lahir; ?></td>
-										<td><?php echo $dosen->alamat; ?></td>
+										<td><?php echo $dosen->gelar; ?></td>
+										<td><?php echo $dosen->jenjang . " - " . $dosen->prodi; ?></td>
 										<td>
 											<a href="<?php echo base_url('dosen/edit/' . $dosen->id_dosen); ?>"
 											   class="btn btn-success text-white">Edit</a>
