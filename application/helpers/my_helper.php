@@ -189,3 +189,10 @@ function showJamKuliah($jamMulai, $jamSelesai) {
 
 	return $startTime . " ~ " . $endTime;
 }
+
+function showJam($jam) {
+
+	$jam = explode(":", $jam);
+	return $jam[0].":".$jam[1];
+
+}

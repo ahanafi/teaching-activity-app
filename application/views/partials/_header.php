@@ -22,8 +22,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<link rel="stylesheet" href="<?php echo assets('vendors/summernote/dist/summernote-bs4.css'); ?>">
 	<link rel="stylesheet" href="<?php echo assets('vendors/select2/select2.min.css'); ?>">
 	<link rel="stylesheet" href="<?php echo assets('vendors/select2-bootstrap-theme/select2-bootstrap.min.css'); ?>">
-	 <link rel="stylesheet" href="<?php echo assets('vendors/bootstrap-datepicker/bootstrap-datepicker.min.css'); ?>">
-    <link rel="stylesheet" href="<?php echo assets('vendors/tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.min.css'); ?>">
+
+	<link rel="stylesheet" href="<?php echo assets('vendors/gijgo/css/gijgo.min.css'); ?>">
 
 	<!-- End plugin css for this page -->
 	<!-- inject:css -->

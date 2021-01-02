@@ -32,7 +32,9 @@
 									<th>Mata Kuliah</th>
 									<th>Dosen Pengampu</th>
 									<th>Ruangan</th>
+									<?php if(getUser('level') == "SUPER_USER"): ?>
 									<th>Actions</th>
+									<?php endif; ?>
 								</tr>
 								</thead>
 								<tbody>
@@ -43,15 +45,17 @@
 										<td>
 											<?php echo showJamKuliah($jadwal->jam_mulai, $jadwal->jam_selesai); ?>
 										</td>
-										<td><?php echo $jadwal->nama_kelas; ?></td>
+										<td><?php echo $jadwal->nama_kelas . "/" . $jadwal->semester; ?></td>
 										<td><?php echo $jadwal->nama_mata_kuliah; ?></td>
 										<td><?php echo $jadwal->nama_lengkap; ?></td>
 										<td><?php echo $jadwal->kode_ruangan; ?></td>
+										<?php if(getUser('level') == "SUPER_USER"): ?>
 										<td>
 											<a href="<?php echo base_url('jadwal/edit/' . $jadwal->id_jadwal); ?>"
 											   class="btn btn-success text-white">Edit</a>
 											<a href="#" onclick="showConfirmDelete('jadwal', <?php echo $jadwal->id_jadwal; ?>)" class="btn btn-danger">Hapus</a>
 										</td>
+										<?php endif; ?>
 									</tr>
 								<?php endforeach; ?>
 								</tbody>

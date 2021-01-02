@@ -27,8 +27,7 @@ $uri2 = $this->uri->segment(2);
 <script src="<?php echo assets('vendors/summernote/dist/summernote-bs4.min.js'); ?>"></script>
 <script src="<?php echo assets('vendors/select2/select2.min.js'); ?>"></script>
 
-<script src="<?php echo assets('vendors/tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.js') ;?>"></script>
-<script src="<?php echo assets('vendors/bootstrap-datepicker/bootstrap-datepicker.min.js') ;?>"></script>
+<script src="<?php echo assets('vendors/gijgo/js/gijgo.min.js'); ?>"></script>
 <!-- End plugin js for this page-->
 <!-- inject:js -->
 <script src="<?php echo assets('js/shared/off-canvas.js'); ?>"></script>
@@ -51,6 +50,14 @@ $uri2 = $this->uri->segment(2);
 $_SESSION['message'] = ''; ?>
 <script type="text/javascript">
 	loadSelect2();
+	$("input[name=jam_mulai]").timepicker({
+		uiLibrary: 'bootstrap4',
+		format: 'HH:MM'
+	});
+	$("input[name=jam_selesai]").timepicker({
+		uiLibrary: 'bootstrap4',
+		format: 'HH:MM'
+	});
 </script>
 </body>
 </html>

@@ -29,7 +29,7 @@
 									<div class="form-group row">
 										<label class="col-sm-3 col-form-label">Hari</label>
 										<div class="col-sm-8">
-											<select name="hari" required class="form-control">
+											<select name="hari" required class="form-control select2">
 												<option disabled selected>-- Pilih Hari --</option>
 												<?php foreach ($hari as $hari): ?>
 													<option <?php echo ($jadwal->hari == $hari) ? "selected" : ""; ?>
@@ -42,18 +42,18 @@
 									<div class="form-group row">
 										<label class="col-sm-3 col-form-label">Jam</label>
 										<div class="col-sm-4">
-											<input type="time" name="jam_mulai" class="form-control" required value="<?php echo $jadwal->jam_mulai; ?>">
+											<input type="text" name="jam_mulai" class="form-control" required value="<?php echo showJam($jadwal->jam_mulai); ?>">
 											<?php echo form_error('jam_mulai'); ?>
 										</div>
 										<div class="col-sm-4">
-											<input type="time" name="jam_selesai" class="form-control" required value="<?php echo $jadwal->jam_selesai; ?>">
+											<input type="text" name="jam_selesai" class="form-control" required value="<?php echo showJam($jadwal->jam_selesai); ?>">
 											<?php echo form_error('jam_selesai'); ?>
 										</div>
 									</div>
 									<div class="form-group row">
 										<label class="col-sm-3 col-form-label">Kelas</label>
 										<div class="col-sm-8">
-											<select name="kelas" required class="form-control">
+											<select name="kelas" required class="form-control select2">
 												<option disabled selected>-- Pilih Kelas --</option>
 												<?php foreach ($kelas as $kelas): ?>
 													<option <?php echo ($jadwal->id_kelas == $kelas->id_kelas) ? "selected" : ""; ?>
@@ -66,7 +66,7 @@
 									<div class="form-group row">
 										<label class="col-sm-3 col-form-label">Mata Kuliah</label>
 										<div class="col-sm-8">
-											<select name="mata_kuliah" required class="form-control">
+											<select name="mata_kuliah" required class="form-control select2">
 												<option disabled selected>-- Pilih Mata Kuliah --</option>
 												<?php foreach ($mata_kuliah as $mk): ?>
 													<option <?php echo ($jadwal->id_mata_kuliah == $mk->id_mata_kuliah) ? "selected" : ""; ?>
@@ -79,7 +79,7 @@
 									<div class="form-group row">
 										<label class="col-sm-3 col-form-label">Dosen Pengampu</label>
 										<div class="col-sm-8">
-											<select name="dosen" required class="form-control">
+											<select name="dosen" required class="form-control select2">
 												<option disabled selected>-- Pilih Dosen --</option>
 												<?php foreach ($dosen as $dosen): ?>
 													<option <?php echo ($jadwal->id_dosen == $dosen->id_dosen) ? "selected" : ""; ?>
@@ -92,7 +92,7 @@
 									<div class="form-group row">
 										<label class="col-sm-3 col-form-label">Ruangan</label>
 										<div class="col-sm-8">
-											<select name="ruangan" required class="form-control">
+											<select name="ruangan" required class="form-control select2">
 												<option disabled selected>-- Pilih Ruangan --</option>
 												<?php foreach ($ruangan as $ruangan): ?>
 													<option <?php echo ($jadwal->id_ruangan == $ruangan->id_ruangan) ? "selected" : ""; ?>

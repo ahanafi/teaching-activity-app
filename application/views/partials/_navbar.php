@@ -26,7 +26,7 @@
 						<img class="img-md rounded-circle" src="<?php echo assets('images/faces/face8.jpg'); ?>"
 							 alt="Profile image">
 						<p class="mb-1 mt-3 font-weight-semibold"><?php echo getUser('nama_lengkap'); ?></p>
-						<p class="font-weight-light text-muted mb-0"><?php echo getUser('email'); ?></p>
+						<p class="font-weight-light text-muted mb-0"><?php echo getUser('level'); ?></p>
 					</div>
 					<a href="#" class="dropdown-item">
 						Profil Saya
