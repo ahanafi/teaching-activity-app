@@ -28,9 +28,7 @@
 									<th>Nomor</th>
 									<th>Nama Lengkap</th>
 									<th>Username</th>
-									<th>E-mail</th>
 									<th>Level</th>
-									<th>Foto</th>
 									<th>Actions</th>
 								</tr>
 								</thead>
@@ -40,21 +38,21 @@
 										<td><?php echo $nomor++; ?></td>
 										<td><?php echo $user->nama_lengkap; ?></td>
 										<td><?php echo $user->username; ?></td>
-										<td><?php echo $user->email; ?></td>
 										<td>
-											<label class="badge badge-inverse-info">On hold</label>
-										</td>
-										<td>
-											<div class="d-flex align-items-center">
-												<img class="img-xs rounded-circle"
-													 src="<?php echo base_url(); ?>assets/images/faces/face2.jpg"
-													 alt="profile image">
-											</div>
+											<?php if ($user->level == "SUPER_USER"): ?>
+												<label class="badge badge-inverse-success">ADMINISTRATOR</label>
+											<?php elseif ($user->level == "KAPRODI"): ?>
+												<label class="badge badge-inverse-info">KAPRODI</label>
+											<?php elseif ($user->level == "DOSEN"): ?>
+												<label class="badge badge-inverse-primary">DOSEN</label>
+											<?php endif; ?>
 										</td>
 										<td>
 											<a href="<?php echo base_url('user/edit/' . $user->id_pengguna); ?>"
 											   class="btn btn-success text-white">Edit</a>
-											<a href="#" onclick="showConfirmDelete('user', <?php echo $user->id_pengguna; ?>)" class="btn btn-danger">Hapus</a>
+											<a href="#"
+											   onclick="showConfirmDelete('user', <?php echo $user->id_pengguna; ?>)"
+											   class="btn btn-danger">Hapus</a>
 										</td>
 									</tr>
 								<?php endforeach; ?>

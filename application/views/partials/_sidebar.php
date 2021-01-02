@@ -9,7 +9,7 @@
 						</div>
 						<div class="text-wrapper">
 							<p class="profile-name"><?php echo getUser('nama_lengkap');?></p>
-							<p class="designation"><?php echo getUser('email');?></p>
+							<p class="designation"><?php echo showUserLevel(getUser('level'));?></p>
 						</div>
 					</a>
 				</li>

@@ -32,7 +32,6 @@ class Main_lib
 			$data_users = [
 				'nama_lengkap' => 'Ahmad Hanafi',
 				'username' => 'ahanafi',
-				'email' => 'ahanafi@mail.com',
 				'password' => password_hash(123456, PASSWORD_DEFAULT),
 				'level' => 'SUPER_USER',
 			];

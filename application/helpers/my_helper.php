@@ -82,7 +82,7 @@ function getUser($index = null)
 		]);
 		$user = $userData[0];
 
-		if ($userSession->nama_lengkap !== $user->nama_lengkap || $userSession->username !== $user->username || $userSession->email !== $user->email) {
+		if ($userSession->nama_lengkap !== $user->nama_lengkap || $userSession->username !== $user->username) {
 			//Change session value
 			$_SESSION['user'] = $user;
 		}

@@ -127,7 +127,6 @@ class User extends CI_Controller
 		return [
 			'nama_lengkap' => $this->main_lib->getPost('nama_lengkap'),
 			'username' => $this->main_lib->getPost('username'),
-			'email' => $this->main_lib->getPost('email'),
 			'level' => $this->main_lib->getPost('level'),
 		];
 	}
@@ -146,11 +145,6 @@ class User extends CI_Controller
 					'field' => 'username',
 					'label' => 'Username',
 					'rules' => 'required|is_unique[pengguna.username]|min_length[6]|max_length[30]'
-				],
-				[
-					'field' => 'email',
-					'label' => 'email',
-					'rules' => 'required|is_unique[pengguna.email]|valid_email'
 				],
 				[
 					'field' => 'password',
