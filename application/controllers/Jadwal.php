@@ -22,8 +22,16 @@ class Jadwal extends CI_Controller
 			$jadwal = $this->Jadwal->findById([
 				'id_dosen' => $id_dosen
 			], true);
-		}
+		} else if($currentUserLevel === 'KAPRODI') {
+			$dosenId = getUser('id_dosen');
+			$dosen = $this->Dosen->findById([
+				'dosen.id_dosen' => $dosenId
+			]);
 
+			$programStudiId = $dosen->id_program_studi;
+
+			$jadwal = $this->Jadwal->getByIdProgramStudi($programStudiId);
+		}
 
 		$data = [
 			'jadwal' => $jadwal,

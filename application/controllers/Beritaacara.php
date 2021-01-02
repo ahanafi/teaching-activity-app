@@ -49,7 +49,7 @@ class Beritaacara extends CI_Controller
 		$jadwal = $this->Jadwal->all();
 		$currentUserLevel = getUser('level');
 
-		if ($currentUserLevel === "DOSEN") {
+		if ($currentUserLevel === "DOSEN" || $currentUserLevel === "KAPRODI") {
 			$id_dosen = getUser('id_dosen');
 			$jadwal = $this->Jadwal->findById([
 				'id_dosen' => $id_dosen

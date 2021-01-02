@@ -135,6 +135,26 @@ class Dosen extends CI_Controller
 		}
 	}
 
+	public function detail($id_dosen = null)
+	{
+		$dosen = $this->Dosen->findById(['dosen.id_dosen' => $id_dosen]);
+		if(!$dosen || $id_dosen == '') {
+			redirect(base_url('error'));
+		}
+
+		$jadwal = $this->Jadwal->findById([
+			'id_dosen' => $id_dosen
+		], true);
+
+		$data = [
+			'dosen' => $dosen,
+			'jadwal' => $jadwal,
+			'nomor' => 1,
+		];
+
+		$this->main_lib->getTemplate("dosen/detail", $data);
+	}
+
 	private function getPostData()
 	{
 		return [

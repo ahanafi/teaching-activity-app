@@ -44,7 +44,7 @@
 										<td><?php echo $prodi->kode_fakultas; ?></td>
 										<td>
 											<?php if($prodi->id_dosen != ''): ?>
-											<a href="<?php echo base_url('dosen/'.$prodi->id_dosen); ?>" target="_blank" class="btn-link"><?php echo $prodi->kaprodi; ?></a>
+											<a href="<?php echo base_url('dosen/detail/'.$prodi->id_dosen); ?>" target="_blank" class="btn-link"><?php echo $prodi->kaprodi; ?></a>
 											<?php else:?>
 											-
 											<?php endif;?>

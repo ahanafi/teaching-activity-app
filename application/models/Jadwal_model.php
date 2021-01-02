@@ -61,6 +61,21 @@ class Jadwal_model extends Main_model
         }
         return $this->db->query($query)->row();
     }
+
+    public function getByIdProgramStudi($id_program_studi)
+	{
+		$dosenId = $this->db->select('GROUP_CONCAT(id_dosen) AS id_dosen')
+			->from('dosen')
+			->where('id_program_studi', $id_program_studi)
+			->get()
+			->row();
+
+		$selectedDosenId = "($dosenId->id_dosen)";
+
+		$query = $this->getJoinQueries();
+		$query .= " WHERE id_dosen IN " . $selectedDosenId;
+		return $this->db->query($query)->result();
+	}
 }
 
 /* End of file Jadwal_model.php */

@@ -37,7 +37,11 @@
 								<?php foreach ($dosen as $dosen): ?>
 									<tr>
 										<td><?php echo $nomor++; ?></td>
-										<td><?php echo $dosen->nidn; ?></td>
+										<td>
+											<a href="<?php echo base_url('dosen/detail/' . $dosen->id_dosen); ?>" class="btn-link">
+												<?php echo $dosen->nidn; ?>
+											</a>
+										</td>
 										<td><?php echo $dosen->nama_lengkap; ?></td>
 										<td><?php echo $dosen->gelar; ?></td>
 										<td><?php echo $dosen->jenjang . " - " . $dosen->prodi; ?></td>

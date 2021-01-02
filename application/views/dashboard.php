@@ -17,59 +17,60 @@
 		</div>
 		<!-- Page Title Header Ends-->
 		<div class="row">
-			<div class="col-md-12 grid-margin">
-				<div class="card">
+			<div class="col-lg-4 col-md-3 col-sm-6 grid-margin stretch-card">
+				<div class="card card-statistics bg-green-gradient">
 					<div class="card-body">
-						<div class="row">
-							<div class="col-lg-3 col-md-6">
-								<div class="d-flex">
-									<div class="wrapper">
-										<h3 class="mb-0 font-weight-semibold">32,451</h3>
-										<h5 class="mb-0 font-weight-medium text-primary">Visits</h5>
-										<p class="mb-0 text-muted">+14.00(+0.50%)</p>
-									</div>
-									<div class="wrapper my-auto ml-auto ml-lg-4">
-										<canvas height="50" width="100" id="stats-line-graph-1"></canvas>
-									</div>
-								</div>
+						<div class="clearfix">
+							<div class="float-left">
+								<i class="mdi mdi-cube icon-lg"></i>
 							</div>
-							<div class="col-lg-3 col-md-6 mt-md-0 mt-4">
-								<div class="d-flex">
-									<div class="wrapper">
-										<h3 class="mb-0 font-weight-semibold">15,236</h3>
-										<h5 class="mb-0 font-weight-medium text-primary">Impressions</h5>
-										<p class="mb-0 text-muted">+138.97(+0.54%)</p>
-									</div>
-									<div class="wrapper my-auto ml-auto ml-lg-4">
-										<canvas height="50" width="100" id="stats-line-graph-2"></canvas>
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-3 col-md-6 mt-md-0 mt-4">
-								<div class="d-flex">
-									<div class="wrapper">
-										<h3 class="mb-0 font-weight-semibold">7,688</h3>
-										<h5 class="mb-0 font-weight-medium text-primary">Conversation</h5>
-										<p class="mb-0 text-muted">+57.62(+0.76%)</p>
-									</div>
-									<div class="wrapper my-auto ml-auto ml-lg-4">
-										<canvas height="50" width="100" id="stats-line-graph-3"></canvas>
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-3 col-md-6 mt-md-0 mt-4">
-								<div class="d-flex">
-									<div class="wrapper">
-										<h3 class="mb-0 font-weight-semibold">1,553</h3>
-										<h5 class="mb-0 font-weight-medium text-primary">Downloads</h5>
-										<p class="mb-0 text-muted">+138.97(+0.54%)</p>
-									</div>
-									<div class="wrapper my-auto ml-auto ml-lg-4">
-										<canvas height="50" width="100" id="stats-line-graph-4"></canvas>
-									</div>
+							<div class="float-right">
+								<p class="mb-0 text-right text-white">Total Revenue</p>
+								<div class="fluid-container">
+									<h3 class="font-weight-medium text-right mb-0">$65,650</h3>
 								</div>
 							</div>
 						</div>
+						<p class="mt-3 mb-0 text-white">
+							<i class="mdi mdi-alert-octagon mr-1" aria-hidden="true"></i> 65% lower growth </p>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-3 col-sm-6 grid-margin stretch-card">
+				<div class="card card-statistics bg-orange-gradient">
+					<div class="card-body">
+						<div class="clearfix">
+							<div class="float-left">
+								<i class="mdi mdi-receipt icon-lg"></i>
+							</div>
+							<div class="float-right">
+								<p class="mb-0 text-right text-white">Orders</p>
+								<div class="fluid-container">
+									<h3 class="font-weight-medium text-right mb-0">3455</h3>
+								</div>
+							</div>
+						</div>
+						<p class="mt-3 mb-0 text-white">
+							<i class="mdi mdi-bookmark-outline mr-1" aria-hidden="true"></i> Product-wise sales </p>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-3 col-sm-6 grid-margin stretch-card">
+				<div class="card card-statistics bg-blue-gradient">
+					<div class="card-body">
+						<div class="clearfix">
+							<div class="float-left">
+								<i class="mdi mdi-poll-box icon-lg"></i>
+							</div>
+							<div class="float-right">
+								<p class="mb-0 text-right text-white">Sales</p>
+								<div class="fluid-container">
+									<h3 class="font-weight-medium text-right mb-0">5693</h3>
+								</div>
+							</div>
+						</div>
+						<p class="mt-3 mb-0 text-white">
+							<i class="mdi mdi-calendar mr-1" aria-hidden="true"></i> Weekly Sales </p>
 					</div>
 				</div>
 			</div>
