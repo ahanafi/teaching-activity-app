@@ -30,6 +30,7 @@
 									<th>Nama Program Studi</th>
 									<th>Jenjang</th>
 									<th>Fakultas</th>
+									<th>Kaprodi</th>
 									<th>Actions</th>
 								</tr>
 								</thead>
@@ -40,7 +41,14 @@
 										<td><?php echo $prodi->kode_program_studi; ?></td>
 										<td><?php echo $prodi->nama_program_studi; ?></td>
 										<td><?php echo $prodi->jenjang; ?></td>
-										<td><?php echo $prodi->fakultas; ?></td>
+										<td><?php echo $prodi->kode_fakultas; ?></td>
+										<td>
+											<?php if($prodi->id_dosen != ''): ?>
+											<a href="<?php echo base_url('dosen/'.$prodi->id_dosen); ?>" target="_blank" class="btn-link"><?php echo $prodi->kaprodi; ?></a>
+											<?php else:?>
+											-
+											<?php endif;?>
+										</td>
 										<td>
 											<a href="<?php echo base_url('program-studi/edit/' . $prodi->id_program_studi); ?>"
 											   class="btn btn-success text-white">Edit</a>

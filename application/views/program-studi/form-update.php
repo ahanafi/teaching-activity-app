@@ -71,6 +71,18 @@
 											<?php echo form_error('jenjang'); ?>
 										</div>
 									</div>
+									<div class="form-group row">
+										<label class="col-sm-3 col-form-label">Ketua Prodi</label>
+										<div class="col-sm-8">
+											<select name="id_dosen" id="" class="form-control select2" required>
+												<option selected disabled>-- Pilih Dosen --</option>
+												<?php foreach ($dosen as $dosen):?>
+													<option <?php echo ($prodi->id_dosen === $dosen->id_dosen) ? "selected" : ""; ?> value="<?php echo $dosen->id_dosen; ?>"><?php echo $dosen->nama_lengkap; ?></option>
+												<?php endforeach; ?>
+											</select>
+											<?php echo form_error('jenjang'); ?>
+										</div>
+									</div>
 									<div class="form-group row text-right">
 										<div class="col-sm-8 offset-3">
 											<button class="btn btn-success" type="submit" name="update">SIMPAN</button>

@@ -9,10 +9,14 @@ class Program_studi_model extends Main_model
 	{
 		$columns = "$this->table.*,";
 		$columns .= "fakultas.nama_fakultas AS fakultas,
-					fakultas.kode_fakultas";
+					fakultas.kode_fakultas,
+					dosen.nama_lengkap AS kaprodi";
 
 		$query = $this->db->select($columns)
-			->from($this->table)->join('fakultas', 'id_fakultas');
+			->from($this->table)
+			->join('fakultas', 'id_fakultas')
+			->join('dosen', 'id_dosen', 'left');
+
 		if (!empty($where)) {
 		    return $query->where($where)->get();
 		}

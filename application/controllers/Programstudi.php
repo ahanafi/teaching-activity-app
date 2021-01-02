@@ -26,10 +26,12 @@ class Programstudi extends CI_Controller
 	public function create()
 	{
 		$fakultas = $this->Fakultas->all();
+		$dosen = $this->Dosen->all();
 		$jenjang = listJenjang();
 		$data = [
 			'fakultas' => $fakultas,
-			'jenjang' => $jenjang
+			'jenjang' => $jenjang,
+			'dosen' => $dosen
 		];
 
 		if (isset($_POST['submit'])) {
@@ -45,6 +47,16 @@ class Programstudi extends CI_Controller
 
 				$insert = $this->ProgramStudi->insert($getPostData);
 				if ($insert) {
+					$dosenId = $this->main_lib->getPost('id_dosen');
+
+					if(!empty(trim($dosenId))) {
+
+						//Update user level as Kaprodi
+						$this->User->update(['level' => 'KAPRODI'], [
+							'id_dosen' => $dosenId
+						]);
+					}
+
 					$messages = setArrayMessage('success', 'insert', 'program studi');
 				} else {
 					$messages = setArrayMessage('error', 'insert', 'program studi');
@@ -62,11 +74,13 @@ class Programstudi extends CI_Controller
 	{
 		$fakultas = $this->Fakultas->all();
 		$jenjang = listJenjang();
-		$programStudi = $this->ProgramStudi->findById(['id_program_studi' => $id_program_studi]);
+		$programStudi = $this->ProgramStudi->findById(['program_studi.id_program_studi' => $id_program_studi]);
+		$dosen = $this->Dosen->all();
 
 		$data = [
 			'prodi' => $programStudi,
 			'fakultas' => $fakultas,
+			'dosen' => $dosen,
 			'jenjang' => $jenjang
 		];
 
@@ -81,10 +95,20 @@ class Programstudi extends CI_Controller
 				$getPostData = $this->getPostData();
 
 				$update = $this->ProgramStudi->update($getPostData, [
-					'id_program_studi' => $id_program_studi
+					'program_studi.id_program_studi' => $id_program_studi
 				]);
 
 				if ($update) {
+					$dosenId = $this->main_lib->getPost('id_dosen');
+
+					if(!empty(trim($dosenId))) {
+
+						//Update user level as Kaprodi
+						$this->User->update(['level' => 'KAPRODI'], [
+							'id_dosen' => $dosenId
+						]);
+					}
+
 					$messages = setArrayMessage('success', 'update', 'program studi');
 				} else {
 					$messages = setArrayMessage('error', 'update', 'program studi');
@@ -105,7 +129,7 @@ class Programstudi extends CI_Controller
 			$data_type = $this->main_lib->getPost('data_type');
 
 			if ($data_id === $id_program_studi && $data_type === 'program-studi') {
-				$delete = $this->ProgramStudi->delete(['id_program_studi' => $data_id]);
+				$delete = $this->ProgramStudi->delete(['program_studi.id_program_studi' => $data_id]);
 				if ($delete) {
 					$messages = setArrayMessage('success', 'delete', 'program studi');
 				} else {
@@ -130,6 +154,7 @@ class Programstudi extends CI_Controller
 			'nama_program_studi' => $this->main_lib->getPost('nama_program_studi'),
 			'id_fakultas' => $this->main_lib->getPost('id_fakultas'),
 			'jenjang' => $this->main_lib->getPost('jenjang'),
+			'id_dosen' => $this->main_lib->getPost('id_dosen')
 		];
 	}
 

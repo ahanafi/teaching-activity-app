@@ -43,7 +43,7 @@
 									<div class="form-group row">
 										<label class="col-sm-3 col-form-label">Fakultas</label>
 										<div class="col-sm-8">
-											<select name="id_fakultas" id="" class="form-control">
+											<select name="id_fakultas" id="" class="form-control select2" required>
 												<option selected disabled>-- Pilih Fakultas --</option>
 												<?php foreach ($fakultas as $fak):?>
 													<option <?php echo (set_value('id_fakultas') === $fak->id_fakultas) ? "selected" : ""; ?> value="<?php echo $fak->id_fakultas; ?>"><?php echo $fak->kode_fakultas . " - " . $fak->nama_fakultas; ?></option>
@@ -55,10 +55,22 @@
 									<div class="form-group row">
 										<label class="col-sm-3 col-form-label">Jenjang</label>
 										<div class="col-sm-8">
-											<select name="jenjang" id="" class="form-control">
+											<select name="jenjang" id="" class="form-control select2" required>
 												<option selected disabled>-- Pilih Jenjang --</option>
 												<?php foreach ($jenjang as $jenjang):?>
 													<option <?php echo (set_value('jenjang') === $jenjang) ? "selected" : ""; ?> value="<?php echo $jenjang; ?>"><?php echo $jenjang; ?></option>
+												<?php endforeach; ?>
+											</select>
+											<?php echo form_error('jenjang'); ?>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-3 col-form-label">Ketua Prodi</label>
+										<div class="col-sm-8">
+											<select name="id_dosen" id="" class="form-control select2" required>
+												<option selected disabled>-- Pilih Dosen --</option>
+												<?php foreach ($dosen as $dosen):?>
+													<option <?php echo (set_value('id_dosen') === $dosen->id_dosen) ? "selected" : ""; ?> value="<?php echo $dosen->id_dosen; ?>"><?php echo $dosen->nama_lengkap; ?></option>
 												<?php endforeach; ?>
 											</select>
 											<?php echo form_error('jenjang'); ?>
