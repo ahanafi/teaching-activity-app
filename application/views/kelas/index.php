@@ -36,8 +36,8 @@
 								<?php foreach ($kelas as $kelas): ?>
 									<tr>
 										<td><?php echo $nomor++; ?></td>
-										<td><?php echo $kelas->nama_kelas; ?></td>
-										<td><?php echo $kelas->id_program_studi; ?></td>
+										<td><?php echo $kelas->nama_kelas . "/" . $kelas->semester; ?></td>
+										<td><?php echo $kelas->jenjang . " - ". $kelas->prodi; ?></td>
 										<td><?php echo $kelas->semester; ?></td>
 										<td>
 											<a href="<?php echo base_url('kelas/edit/' . $kelas->id_kelas); ?>"

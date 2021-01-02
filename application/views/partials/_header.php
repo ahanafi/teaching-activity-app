@@ -8,7 +8,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>Star Admin Premium Bootstrap Admin Dashboard Template</title>
+	<title>Sistem Pencatatan Kegiatan Dosen</title>
 	<!-- plugins:css -->
 	<link rel="stylesheet" href="<?php echo assets('vendors/iconfonts/mdi/css/materialdesignicons.min.css'); ?>">
 	<link rel="stylesheet" href="<?php echo assets('vendors/iconfonts/ionicons/dist/css/ionicons.css'); ?>">
@@ -33,7 +33,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<!-- Layout styles -->
 	<link rel="stylesheet" href="<?php echo assets('css/demo/style.css'); ?>">
 	<!-- End Layout styles -->
-	<link rel="shortcut icon" href="<?php echo assets('images/favicon.ico'); ?>"/>
+	<link rel="shortcut icon" href="<?php echo assets('images/ucic.png'); ?>"/>
 </head>
 <body>
 <div class="container-scroller">

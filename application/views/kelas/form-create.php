@@ -36,7 +36,7 @@
 									<div class="form-group row">
 										<label class="col-sm-3 col-form-label">Program Studi</label>
 										<div class="col-sm-8">
-											<select name="id_program_studi" id="" class="form-control">
+											<select name="id_program_studi" id="" class="form-control select2">
 												<option selected disabled>-- Pilih Program Studi --</option>
 												<?php foreach ($program_studi as $prodi):?>
 													<option <?php echo (set_value('id_program_studi') === $prodi->id_program_studi) ? "selected" : ""; ?> value="<?php echo $prodi->id_program_studi; ?>"><?php echo $prodi->jenjang . " - ". $prodi->nama_program_studi; ?></option>
@@ -48,7 +48,7 @@
 									<div class="form-group row">
 										<label class="col-sm-3 col-form-label">Semester</label>
 										<div class="col-sm-8">
-											<select name="semester" id="" class="form-control">
+											<select name="semester" id="" class="form-control select2">
 												<option selected disabled>-- Pilih Semester --</option>
 												<?php for ($i=1; $i<=8; $i++):?>
 													<option <?php echo (set_value('semester') == $i) ? "selected" : ""; ?> value="<?php echo $i; ?>"><?php echo $i; ?></option>
@@ -60,7 +60,7 @@
 									<div class="form-group row text-right">
 										<div class="col-sm-8 offset-3">
 											<button class="btn btn-success" type="submit" name="submit">SIMPAN</button>
-											<a href="<?php echo base_url('program-studi'); ?>" class="btn btn-secondary">KEMBALI</a>
+											<a href="<?php echo base_url('kelas'); ?>" class="btn btn-secondary">KEMBALI</a>
 										</div>
 									</div>
 								</div>
