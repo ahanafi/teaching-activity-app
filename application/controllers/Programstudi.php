@@ -135,50 +135,34 @@ class Programstudi extends CI_Controller
 
 	private function _rules($type)
 	{
-		if ($type == "insert") {
+		$rules = [
+			[
+				'field' => 'nama_program_studi',
+				'label' => 'Nama program studi',
+				'rules' => 'required'
+			],
+			[
+				'field' => 'id_fakultas',
+				'label' => 'Fakultas',
+				'rules' => 'required'
+			],
+			[
+				'field' => 'jenjang',
+				'label' => 'Jenjang',
+				'rules' => 'required'
+			],
+		];
+
+		if ($type == "insert" || $type == 'create') {
 			//Rule when create new user
-			$rules = [
+			$rules[] = [
 				[
 					'field' => 'kode_program_studi',
 					'label' => 'Kode Program Studi',
 					'rules' => 'required|is_unique[program_studi.kode_program_studi]'
-				],
-				[
-					'field' => 'nama_program_studi',
-					'label' => 'Nama program studi',
-					'rules' => 'required'
-				],
-				[
-					'field' => 'id_fakultas',
-					'label' => 'Fakultas',
-					'rules' => 'required'
-				],
-				[
-					'field' => 'jenjang',
-					'label' => 'Jenjang',
-					'rules' => 'required'
-				],
+				]
 			];
 
-		} else if ($type == "update") {
-			//Rule when update user
-			$rules = [
-				[
-					'field' => 'nama_program_studi',
-					'label' => 'Nama program studi',
-					'rules' => 'required'
-				],
-				[
-					'field' => 'id_fakultas',
-					'label' => 'Fakultas',
-					'rules' => 'required'
-				],
-				[
-					'field' => 'jenjang',
-					'label' => 'Jenjang',
-					'rules' => 'required'
-				],
-			];
 		}
 
 		return $rules;

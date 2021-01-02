@@ -83,7 +83,7 @@ class Dosen extends CI_Controller
 		];
 
 		if (isset($_POST['update'])) {
-			$rules = $this->_rules();
+			$rules = $this->_rules('update');
 			$this->form_validation->set_rules($rules);
 			$this->form_validation->set_error_delimiters("<small class='form-text text-danger'>", "</small>");
 

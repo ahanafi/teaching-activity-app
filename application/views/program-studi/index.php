@@ -40,7 +40,7 @@
 										<td><?php echo $prodi->kode_program_studi; ?></td>
 										<td><?php echo $prodi->nama_program_studi; ?></td>
 										<td><?php echo $prodi->jenjang; ?></td>
-										<td><?php echo $prodi->id_fakultas; ?></td>
+										<td><?php echo $prodi->fakultas; ?></td>
 										<td>
 											<a href="<?php echo base_url('program-studi/edit/' . $prodi->id_program_studi); ?>"
 											   class="btn btn-success text-white">Edit</a>
