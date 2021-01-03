@@ -98,22 +98,18 @@ function showPageHeader($title = '')
 	$ci =& get_instance();
 	$firstSegment = $ci->uri->segment(1);
 	$firstUri = ($title !== '') ? $title : "Data " . $firstSegment;
-	if ($firstSegment == "verifikasi") {
-		$firstUri = ucfirst($firstSegment) . " Donasi";
-	}
+
 	$totalSegment = $ci->uri->total_segments();
-	$class = "breadcrumb-item";
+	$class = "";
 	$pageTitle = ucwords(strtolower(str_replace("-", " ", $firstUri)));
 
 	$pageHeader = "
-		<div class='content-header'>
-			<div class='container-fluid'>
-				<div class='row mb-2'>
-					<div class='col-sm-6'>
-						<h1 class='m-0 text-dark'>" . $pageTitle . "</h1>
-					</div>
-					<div class='col-sm-6'>
-						<ol class='breadcrumb float-sm-right'>
+		<div class='row page-title-header'>
+			<div class='col-12'>
+				<div class='page-header'>
+					<h4 class='page-title'>" . $pageTitle . "</h4>
+					<!--div class='quick-link-wrapper w-100 d-md-flex flex-md-wrap'>
+						<ul class='quick-links ml-auto'>
 							<li class='$class'><a href='" . base_url('dashboard') . "'>Dashboard</a></li>";
 
 	for ($i = 1; $i <= $totalSegment; $i++) {
@@ -149,8 +145,8 @@ function showPageHeader($title = '')
 		}
 	}
 
-	$pageHeader .= "	</ol>
-					</div>
+	$pageHeader .= "	</ul>
+					</div-->
 				</div>
 			</div>
 		</div>";
@@ -221,7 +217,7 @@ function daringApps($key = null)
 function materialType($key = null)
 {
 	$types = [
-		'Video' => 'Video',
+		'VIDEO' => 'Video',
 		'PPT' => 'Powerpoint',
 		'PDF_DOC' => 'PDF/Doc',
 	];
@@ -230,4 +226,19 @@ function materialType($key = null)
 		return $types[$key];
 	}
 	return $types;
+}
+
+function namaDosen($nama, $gelar) {
+	$arrNama = explode(" ", ucwords(strtolower($nama)));
+
+	if(count($arrNama) == 2 || count($arrNama) == 0) {
+		$namaDosen = $nama;
+	} else if(count($arrNama) == 3) {
+		$namaDosen = $arrNama[0] . " " . $arrNama[1] . " " . $arrNama[2][0].". ";
+	} else if(count($arrNama) == 4) {
+		$namaDosen = $arrNama[0] . " " . $arrNama[1];
+		$namaDosen .= " " . $arrNama[2][0].".". $arrNama[3][0] . "." ;
+	}
+
+	return $namaDosen . " " . $gelar;
 }

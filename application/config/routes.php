@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 $route['default_controller'] = 'authentication';
 $route['404_override'] = 'Errorpage';
-$route['translate_uri_dashes'] = FALSE;
+$route['translate_uri_dashes'] = TRUE;
 
 //Restrict page route
 $route['restrict-page'] = 'Errorpage/restrict_page';

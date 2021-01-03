@@ -38,5 +38,5 @@ $uri2 = $this->uri->segment(2);
 	<!-- End Layout styles -->
 	<link rel="shortcut icon" href="<?php echo assets('images/ucic.png'); ?>"/>
 </head>
-<body>
+<body class="sidebar-fixed">
 <div class="container-scroller">

@@ -27,7 +27,7 @@ class Berita_acara_model extends Main_model
 		$columnsInMataKuliah = $this->_MATA_KULIAH.".nama_mata_kuliah AS mata_kuliah, ";
 		$columnsInMataKuliah .= $this->_MATA_KULIAH.".sks, ";
 		$columnsInKelas = $this->_KELAS.".nama_kelas AS kelas, $this->_KELAS.semester, ";
-		$columnsInDosen = $this->_DOSEN.".nama_lengkap AS dosen";
+		$columnsInDosen = $this->_DOSEN.".nama_lengkap AS dosen, $this->_DOSEN.gelar";
 
 		$columns = $this->table.".*, ";
 		$columns .= $columnsInJadwal . $columnsInMataKuliah . $columnsInKelas . $columnsInDosen;

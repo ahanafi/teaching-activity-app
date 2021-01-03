@@ -1,7 +1,7 @@
 <div class="main-panel">
 	<div class="content-wrapper">
 		<!-- Page Title Header Starts-->
-		<div class="row page-title-header">
+		<div class="row">
 			<div class="col-12">
 				<div class="page-header">
 					<h4 class="page-title">Dashboard</h4>
@@ -17,6 +17,23 @@
 		</div>
 		<!-- Page Title Header Ends-->
 		<div class="row">
+			<div class="col-md-12 grid-margin mb-3">
+				<div class="card">
+					<div class="card-body no-gutter">
+						<div class="d-flex align-items-center border-bottom py-3 px-4">
+							<div class="d-flex align-items-end">
+								<h4 class="font-weight-medium mb-0 ml-0 ml-md-3">
+									Detail Berita Acara Perkuliahan
+								</h4>
+							</div>
+							<a target="_blank" href="<?php echo base_url('cetak/berita-acara/' . $bap->id_berita_acara); ?>" class="ml-auto btn btn-primary btn-fw">
+								<i class="fa fa-file-pdf-o"></i>
+								<span>Cetak PDF</span>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
 			<div class="col-md-6 grid-margin stretch-card">
 				<div class="card">
 					<div class="card-header header-sm d-flex justify-content-between align-items-center">
@@ -88,7 +105,7 @@
 						<h4 class="card-title">Bentuk materi dan Verifikasi Mahasiswa</h4>
 					</div>
 					<div class="card-body">
-						<h4 class="card-title">Jadwal Perkuliahan</h4>
+						<h4 class="card-title">Bentuk Materi</h4>
 						<table class="table table-bordered table-striped">
 							<tr>
 								<td style="vertical-align: top;">Aplikasi Daring</td>
