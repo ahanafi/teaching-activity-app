@@ -53,12 +53,12 @@
 									<div class="form-group row">
 										<label class="col-sm-3 col-form-label">Waktu</label>
 										<div class="col-sm-4">
-											<input type="time" name="jam_mulai" class="form-control" required
+											<input type="text" name="jam_mulai" class="form-control" required
 												   value="<?php echo set_value('jam_mulai'); ?>">
 											<?php echo form_error('jam_mulai'); ?>
 										</div>
 										<div class="col-sm-4">
-											<input type="time" name="jam_selesai" class="form-control" required
+											<input type="text" name="jam_selesai" class="form-control" required
 												   value="<?php echo set_value('jam_selesai'); ?>">
 											<?php echo form_error('jam_selesai'); ?>
 										</div>
@@ -66,13 +66,13 @@
 									<div class="form-group row">
 										<label class="col-sm-3 col-form-label">Jumlah kehadiran</label>
 										<div class="col-sm-3">
-											<input type="number" min="1" name="jumlah_hadir" class="form-control"
+											<input type="number" min="1" name="jumlah_hadir" class="form-control" autocomplete="off"
 												   placeholder="Jumlah Hadir" value="<?php echo set_value('jumlah_hadir'); ?>">
 											<?php echo form_error('jumlah_hadir'); ?>
 										</div>
 										<label class="col-sm-2 col-form-label">Dari</label>
 										<div class="col-sm-3">
-											<input type="number" min="1" name="total_mahasiswa" class="form-control"
+											<input type="number" min="1" name="total_mahasiswa" class="form-control" autocomplete="off"
 												   placeholder="Total Mahasiswa" value="<?php echo set_value('total_mahasiswa'); ?>">
 											<?php echo form_error('total_mahasiswa'); ?>
 										</div>

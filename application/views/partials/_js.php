@@ -27,7 +27,7 @@ $uri2 = $this->uri->segment(2);
 <script src="<?php echo assets('vendors/summernote/dist/summernote-bs4.min.js'); ?>"></script>
 <script src="<?php echo assets('vendors/select2/select2.min.js'); ?>"></script>
 
-<?php if($uri1 == "jadwal" || $uri1 == "jadwal-kuliah"): ?>
+<?php if(($uri1 == "berita-acara" || $uri1 == "jadwal-kuliah") && ($uri2 == "create" || $uri2 == "edit")): ?>
 <script src="<?php echo assets('vendors/gijgo/js/gijgo.min.js'); ?>"></script>
 <?php endif; ?>
 <!-- End plugin js for this page-->

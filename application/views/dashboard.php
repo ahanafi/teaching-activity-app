@@ -22,12 +22,12 @@
 					<div class="card-body">
 						<div class="clearfix">
 							<div class="float-left">
-								<i class="mdi mdi-cube icon-lg"></i>
+								<i class="fa fa-users icon-lg"></i>
 							</div>
 							<div class="float-right">
-								<p class="mb-0 text-right text-white">Total Revenue</p>
+								<p class="mb-0 text-right text-white">Total Dosen</p>
 								<div class="fluid-container">
-									<h3 class="font-weight-medium text-right mb-0">$65,650</h3>
+									<h1 class="font-weight-medium text-right mb-0"><?php echo $total_dosen; ?></h1>
 								</div>
 							</div>
 						</div>
@@ -41,12 +41,12 @@
 					<div class="card-body">
 						<div class="clearfix">
 							<div class="float-left">
-								<i class="mdi mdi-receipt icon-lg"></i>
+								<i class="fa fa-book icon-lg"></i>
 							</div>
 							<div class="float-right">
-								<p class="mb-0 text-right text-white">Orders</p>
+								<p class="mb-0 text-right text-white">BAP Terverifikasi</p>
 								<div class="fluid-container">
-									<h3 class="font-weight-medium text-right mb-0">3455</h3>
+									<h1 class="font-weight-medium text-right mb-0">3455</h1>
 								</div>
 							</div>
 						</div>
@@ -60,12 +60,12 @@
 					<div class="card-body">
 						<div class="clearfix">
 							<div class="float-left">
-								<i class="mdi mdi-poll-box icon-lg"></i>
+								<i class="fa fa-file-text icon-lg"></i>
 							</div>
 							<div class="float-right">
-								<p class="mb-0 text-right text-white">Sales</p>
+								<p class="mb-0 text-right text-white">BAP Belum Verifikasi</p>
 								<div class="fluid-container">
-									<h3 class="font-weight-medium text-right mb-0">5693</h3>
+									<h1 class="font-weight-medium text-right mb-0">5693</h1>
 								</div>
 							</div>
 						</div>

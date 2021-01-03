@@ -8,7 +8,13 @@
 							<div class="dot-indicator bg-success"></div>
 						</div>
 						<div class="text-wrapper">
-							<p class="profile-name"><?php echo getUser('nama_lengkap');?></p>
+							<p class="profile-name">
+								<?php
+									$namaLengkap = getUser('nama_lengkap');
+									$arrNama = explode(" ", $namaLengkap);
+									echo $arrNama[0] . " ...";
+									?>
+							</p>
 							<p class="designation"><?php echo str_replace("_", " ", getUser('level'));?></p>
 						</div>
 					</a>

@@ -50,6 +50,8 @@
 										<td>
 											<a href="<?php echo base_url('berita-acara/edit/' . $bap->id_berita_acara); ?>"
 											   class="btn btn-success text-white">Edit</a>
+											<a href="<?php echo base_url('berita-acara/detail/' . $bap->id_berita_acara); ?>"
+											   class="btn btn-info text-white">Detail</a>
 											<a href="#" onclick="showConfirmDelete('berita-acara', <?php echo $bap->id_berita_acara; ?>)" class="btn btn-danger">Hapus</a>
 										</td>
 									</tr>

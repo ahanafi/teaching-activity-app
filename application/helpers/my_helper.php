@@ -5,8 +5,9 @@ function isAuthenticated()
 	return $ci->session->is_logged_in === TRUE;
 }
 
-function assets($pathFile) {
-	return base_url('assets/'. $pathFile);
+function assets($pathFile)
+{
+	return base_url('assets/' . $pathFile);
 }
 
 function getData($tableName, $columns = '*', $where = [])
@@ -97,7 +98,7 @@ function showPageHeader($title = '')
 	$ci =& get_instance();
 	$firstSegment = $ci->uri->segment(1);
 	$firstUri = ($title !== '') ? $title : "Data " . $firstSegment;
-	if($firstSegment == "verifikasi") {
+	if ($firstSegment == "verifikasi") {
 		$firstUri = ucfirst($firstSegment) . " Donasi";
 	}
 	$totalSegment = $ci->uri->total_segments();
@@ -157,7 +158,8 @@ function showPageHeader($title = '')
 	return $pageHeader;
 }
 
-function showUserLevel($index = NULL) {
+function showUserLevel($index = NULL)
+{
 	$userLevel = [
 		'SUPER_USER' => 'ADMINISTRATOR',
 		'DOSEN' => 'DOSEN',
@@ -167,20 +169,23 @@ function showUserLevel($index = NULL) {
 	return ($index !== null) ? $userLevel[$index] : $userLevel;
 }
 
-function listJenjang() {
+function listJenjang()
+{
 	return [
 		'D1', 'D2', 'D3', 'D4',
 		'S1', 'S2', 'S3'
 	];
 }
 
-function listHari() {
+function listHari()
+{
 	return [
 		'SENIN', 'SELASA', 'RABU', 'KAMIS', "JUM'AT", "SABTU"
 	];
 }
 
-function showJamKuliah($jamMulai, $jamSelesai) {
+function showJamKuliah($jamMulai, $jamSelesai)
+{
 	$startTime = date_create($jamMulai);
 	$startTime = date_format($startTime, "H:i");
 
@@ -190,9 +195,39 @@ function showJamKuliah($jamMulai, $jamSelesai) {
 	return $startTime . " ~ " . $endTime;
 }
 
-function showJam($jam) {
-
+function showJam($jam)
+{
 	$jam = explode(":", $jam);
-	return $jam[0].":".$jam[1];
+	return $jam[0] . ":" . $jam[1];
+}
 
+function daringApps($key = null)
+{
+	$apps = [
+		'ZOOM' => 'Zoom',
+		'WA_GROUP' => 'WA Group',
+		'EDMODO' => 'Edmodo',
+		'GOOGLE_CLASS' => 'Google Class',
+		'QUIZIZZ' => 'Quizizz',
+		'LAINNYA' => 'Lainnya',
+	];
+
+	if ($key != null) {
+		return $apps[$key];
+	}
+	return $apps;
+}
+
+function materialType($key = null)
+{
+	$types = [
+		'Video' => 'Video',
+		'PPT' => 'Powerpoint',
+		'PDF_DOC' => 'PDF/Doc',
+	];
+
+	if ($key != null) {
+		return $types[$key];
+	}
+	return $types;
 }

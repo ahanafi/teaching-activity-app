@@ -84,7 +84,6 @@ class Beritaacara extends CI_Controller
 					}
 				}
 
-
 				//Insert parent table
 				$insert = $this->BeritaAcara->insert($getPostData);
 
@@ -95,45 +94,32 @@ class Beritaacara extends CI_Controller
 					for ($i = 0; $i < $fileCount; $i++) {
 
 						//Define new $_FILES array - $_FILES['file']
-						$_FILES['bukti_kegiatan']['name'] = $_FILES['bukti_kegiatan']['name'][$i];
-						$_FILES['bukti_kegiatan']['type'] = $_FILES['bukti_kegiatan']['type'][$i];
-						$_FILES['bukti_kegiatan']['tmp_name'] = $_FILES['bukti_kegiatan']['tmp_name'][$i];
-						$_FILES['bukti_kegiatan']['error'] = $_FILES['bukti_kegiatan']['error'][$i];
-						$_FILES['bukti_kegiatan']['size'] = $_FILES['bukti_kegiatan']['size'][$i];
+						$_FILES['file']['name'] = $_FILES['bukti_kegiatan']['name'][$i];
+						$_FILES['file']['type'] = $_FILES['bukti_kegiatan']['type'][$i];
+						$_FILES['file']['tmp_name'] = $_FILES['bukti_kegiatan']['tmp_name'][$i];
+						$_FILES['file']['error'] = $_FILES['bukti_kegiatan']['error'][$i];
+						$_FILES['file']['size'] = $_FILES['bukti_kegiatan']['size'][$i];
 
 						$myConfig = $this->uploadConfig;
 						$myConfig['upload_path'] = './uploads/bukti-kegiatan/';
-						//$this->upload->initialize($myConfig);
-						$buktiKegiatan = $this->_doUpload('bukti_kegiatan');
-						if (is_string($buktiKegiatan)) {
-							$fileName = explode("/", $buktiKegiatan);
-							$fileType = explode(".", $buktiKegiatan);
+						$this->upload->initialize($myConfig);
+
+						if ($this->upload->do_upload('file')) {
+							$uploadData = $this->upload->data();
+
+							$fileName = $uploadData['file_name'];
+							$fileType = $uploadData['file_type'];
+							$fileLocation = 'uploads/bukti-kegiatan/' . $fileName;
 
 							$buktiKegiatanData = [
-						    	'id_berita_acara' => $IdBeritaAcara,
-								'nama_file' => end($fileName),
-								'jenis_file' => end($fileType),
-								'lokasi' => $buktiKegiatan
+								'id_berita_acara' => $IdBeritaAcara,
+								'nama_file' => $fileName,
+								'jenis_file' => $fileType,
+								'lokasi' => $fileLocation
 							];
+
 							$this->BuktiKegiatan->insert($buktiKegiatanData);
 						}
-
-//						if ($this->upload->do_upload('file')) {
-//							$uploadData = $this->upload->data();
-//
-//							$fileName = $uploadData['file_name'];
-//							$fileType = $uploadData['file_type'];
-//							$fileLocation = 'uploads/bukti-kegiatan/' . $fileName;
-//
-//							$buktiKegiatanData = [
-//								'id_berita_acara' => $IdBeritaAcara,
-//								'nama_file' => $fileName,
-//								'jenis_file' => $fileType,
-//								'lokasi' => $fileLocation
-//							];
-//
-//							$this->BuktiKegiatan->insert($buktiKegiatanData);
-//						}
 
 					}
 				}
@@ -154,12 +140,22 @@ class Beritaacara extends CI_Controller
 
 	public function edit($id_berita_acara)
 	{
+		$jadwal = $this->Jadwal->all();
+		$currentUserLevel = getUser('level');
 		$beritaAcara = $this->BeritaAcara->findById([
 			'id_berita_acara' => $id_berita_acara
 		]);
 
+		if ($currentUserLevel === "DOSEN" || $currentUserLevel === "KAPRODI") {
+			$id_dosen = getUser('id_dosen');
+			$jadwal = $this->Jadwal->findById([
+				'id_dosen' => $id_dosen
+			], true);
+		}
+
 		$data = [
-			'berita_acara' => $beritaAcara,
+			'jadwal' => $jadwal,
+			'bap' => $beritaAcara,
 		];
 
 		if (isset($_POST['update'])) {
@@ -172,9 +168,76 @@ class Beritaacara extends CI_Controller
 			} else {
 				$getPostData = $this->getPostData();
 
+				//Proccess upload
+				if (isset($_FILES['paraf_mhs']) && $_FILES['paraf_mhs']['name'] !== '') {
+					$parafMhs = $this->_doUpload('paraf_mhs');
+
+					if (is_array($parafMhs)) {
+						$data['err_upload'] = $parafMhs;
+						$this->main_lib->getTemplate('berita-acara/form-create', $data);
+						return false;
+					} elseif(is_string($parafMhs)) {
+						$getPostData['paraf_mhs'] = $parafMhs;
+
+						unlink(FCPATH . $beritaAcara->paraf_mhs);
+					}
+				}
+
 				$update = $this->BeritaAcara->update($getPostData, [
 					'id_berita_acara' => $id_berita_acara
 				]);
+
+				if (isset($_FILES['bukti_kegiatan']) && count($_FILES['bukti_kegiatan']['name']) > 0) {
+					$fileCount = count($_FILES['bukti_kegiatan']['name']);
+
+					//Get all bukti kegiatan
+					$buktiKegiatan = $this->BuktiKegiatan->findById([
+						'id_berita_acara' => $id_berita_acara
+					], true);
+
+					foreach ($buktiKegiatan as $bukti) {
+						if(file_exists(FCPATH . $bukti->lokasi)) {
+							//Delte uploaded file
+							unlink(FCPATH . $bukti->lokasi);
+						}
+					}
+
+					//Delete old bukti kegiatan
+					$this->BuktiKegiatan->delete([
+						'id_berita_acara' => $id_berita_acara
+					]);
+
+					for ($i = 0; $i < $fileCount; $i++) {
+						//Define new $_FILES array - $_FILES['file']
+						$_FILES['file']['name'] = $_FILES['bukti_kegiatan']['name'][$i];
+						$_FILES['file']['type'] = $_FILES['bukti_kegiatan']['type'][$i];
+						$_FILES['file']['tmp_name'] = $_FILES['bukti_kegiatan']['tmp_name'][$i];
+						$_FILES['file']['error'] = $_FILES['bukti_kegiatan']['error'][$i];
+						$_FILES['file']['size'] = $_FILES['bukti_kegiatan']['size'][$i];
+
+						$myConfig = $this->uploadConfig;
+						$myConfig['upload_path'] = './uploads/bukti-kegiatan/';
+						$this->upload->initialize($myConfig);
+
+						if ($this->upload->do_upload('file')) {
+							$uploadData = $this->upload->data();
+
+							$fileName = $uploadData['file_name'];
+							$fileType = $uploadData['file_type'];
+							$fileLocation = 'uploads/bukti-kegiatan/' . $fileName;
+
+							$buktiKegiatanData = [
+								'id_berita_acara' => $id_berita_acara,
+								'nama_file' => $fileName,
+								'jenis_file' => $fileType,
+								'lokasi' => $fileLocation
+							];
+
+							//Insert new bukti kegiatan
+							$this->BuktiKegiatan->insert($buktiKegiatanData);
+						}
+					}
+				}
 
 				if ($update) {
 					$messages = setArrayMessage('success', 'update', 'berita acara');
@@ -186,7 +249,7 @@ class Beritaacara extends CI_Controller
 				redirect(base_url('berita-acara'), 'refresh');
 			}
 		} else {
-			$this->main_lib->getTemplate("berita-acara/form-create", $data);
+			$this->main_lib->getTemplate("berita-acara/form-update", $data);
 		}
 	}
 
@@ -241,6 +304,27 @@ class Beritaacara extends CI_Controller
 		}
 	}
 
+	public function detail($id_berita_acara = null)
+	{
+		$beritaAcara = $this->BeritaAcara->findById([
+			'id_berita_acara' => $id_berita_acara
+		]);
+
+		if(!$id_berita_acara || $id_berita_acara == '') {
+			redirect(base_url('error'));
+		}
+		$buktiKegiatan = $this->BuktiKegiatan->findById([
+			'id_berita_acara' => $id_berita_acara
+		], true);
+
+		$data = [
+			'bap' => $beritaAcara,
+			'dokumentasi' => $buktiKegiatan
+		];
+
+		$this->main_lib->getTemplate("berita-acara/detail", $data);
+	}
+
 	private function getPostData()
 	{
 		$jenisAplikasi = $this->main_lib->getPost('jenis_aplikasi');
@@ -254,8 +338,10 @@ class Beritaacara extends CI_Controller
 			'pertemuan_ke' => $this->main_lib->getPost('pertemuan_ke'),
 			'jumlah_hadir' => $this->main_lib->getPost('jumlah_hadir'),
 			'total_mahasiswa' => $this->main_lib->getPost('total_mahasiswa'),
+
 			'jenis_aplikasi' => $jenisAplikasi,
 			'bentuk_materi' => $bentukMateri,
+
 			'file_materi' => $this->main_lib->getPost('file_materi'),
 			'uraian_materi' => $this->main_lib->getPost('uraian_materi'),
 			'ada_tugas' => $this->main_lib->getPost('penugasan'),

@@ -14,7 +14,10 @@ class Dashboard extends CI_Controller {
 
 	public function index()
 	{
-		$data = [];
+		$totalDosen = $this->Dosen->count();
+		$data = [
+			'total_dosen' => $totalDosen
+		];
 		$this->main_lib->getTemplate('dashboard', $data);
 	}
 

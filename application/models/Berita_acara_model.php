@@ -10,14 +10,14 @@ class Berita_acara_model extends Main_model
 			$_MATA_KULIAH = 'mata_kuliah',
 			$_KELAS = 'kelas',
 			$_DOSEN = 'dosen',
-			$_RUANGAN = 'ruangan';
+			$_BUKTI_KEGIATAN = 'bukti_kegiatan';
 
 	//FOREIGN KEY
 	private $_ID_JADWAL = 'id_jadwal',
 			$_ID_MATA_KULIAH = 'id_mata_kuliah',
 			$_ID_KELAS = 'id_kelas',
 			$_ID_DOSEN = 'id_dosen',
-			$_ID_RUANGAN = 'id_ruangan';
+			$_ID_BUKTI_KEGIATAN = 'id_bukti_kegiatan';
 
 	private function getColumns()
     {
@@ -26,7 +26,7 @@ class Berita_acara_model extends Main_model
 		$columnsInJadwal = "$this->_JADWAL.*, ";
 		$columnsInMataKuliah = $this->_MATA_KULIAH.".nama_mata_kuliah AS mata_kuliah, ";
 		$columnsInMataKuliah .= $this->_MATA_KULIAH.".sks, ";
-		$columnsInKelas = $this->_KELAS.".nama_kelas AS kelas, ";
+		$columnsInKelas = $this->_KELAS.".nama_kelas AS kelas, $this->_KELAS.semester, ";
 		$columnsInDosen = $this->_DOSEN.".nama_lengkap AS dosen";
 
 		$columns = $this->table.".*, ";

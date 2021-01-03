@@ -1,6 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 $uri1 = $this->uri->segment(1);
+$uri2 = $this->uri->segment(2);
 ?>
 
 <!DOCTYPE html>
@@ -13,7 +14,7 @@ $uri1 = $this->uri->segment(1);
 	<!-- plugins:css -->
 	<link rel="stylesheet" href="<?php echo assets('vendors/iconfonts/mdi/css/materialdesignicons.min.css'); ?>">
 	<link rel="stylesheet" href="<?php echo assets('vendors/iconfonts/ionicons/dist/css/ionicons.css'); ?>">
-	<link rel="stylesheet" href="<?php echo assets('vendors/iconfonts/flag-icon-css/css/flag-icon.min.css'); ?>">
+	<link rel="stylesheet" href="<?php echo assets('vendors/iconfonts/font-awesome/css/font-awesome.min.css'); ?>">
 	<link rel="stylesheet" href="<?php echo assets('vendors/css/vendor.bundle.base.css'); ?>">
 	<link rel="stylesheet" href="<?php echo assets('vendors/css/vendor.bundle.addons.css'); ?>">
 	<!-- endinject -->
@@ -23,7 +24,7 @@ $uri1 = $this->uri->segment(1);
 	<link rel="stylesheet" href="<?php echo assets('vendors/summernote/dist/summernote-bs4.css'); ?>">
 	<link rel="stylesheet" href="<?php echo assets('vendors/select2/select2.min.css'); ?>">
 	<link rel="stylesheet" href="<?php echo assets('vendors/select2-bootstrap-theme/select2-bootstrap.min.css'); ?>">
-	<?php if($uri1 == "jadwal" || $uri1 == "jadwal-kuliah"): ?>
+	<?php if(($uri1 == "berita-acara" || $uri1 == "jadwal-kuliah") && ($uri2 == "create" || $uri2 == "edit")): ?>
 	<link rel="stylesheet" href="<?php echo assets('vendors/gijgo/css/gijgo.min.css'); ?>">
 	<?php endif; ?>
 
