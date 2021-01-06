@@ -148,7 +148,7 @@
 					<?php
 					$index = 1;
 					foreach (explode(",", $bap->jenis_aplikasi) as $appCode):
-						echo $index . ". " . daringApps(strtoupper($appCode)) . "<br>";
+						echo $index . ". " . daringApps(strtoupper(trim($appCode))) . "<br>";
 						$index++;
 					endforeach;
 					?>
@@ -160,7 +160,7 @@
 					<?php
 					$index = 1;
 					foreach (explode(",", $bap->bentuk_materi) as $materialCode):
-						echo $index . ". " . materialType(strtoupper($materialCode)) . "<br>";
+						echo $index . ". " . materialType(strtoupper(trim($materialCode))) . "<br>";
 						$index++;
 					endforeach;
 					?>

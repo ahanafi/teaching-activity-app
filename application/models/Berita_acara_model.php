@@ -70,6 +70,13 @@ class Berita_acara_model extends Main_model
         }
         return $this->db->query($query)->row();
     }
+
+    public function getByFilter($where = [])
+	{
+		$query = $this->getJoinQueries($where);
+
+        return $this->db->query($query)->result();
+	}
 }
 
 /* End of file Berita_acara_model.php */

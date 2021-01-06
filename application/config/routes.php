@@ -30,3 +30,6 @@ $route['ruang-kelas/(:any)/(:num)'] = 'ruangan/$1/$2';
 $route['berita-acara'] = 'beritaacara/index';
 $route['berita-acara/create'] = 'beritaacara/create';
 $route['berita-acara/(:any)/(:num)'] = 'beritaacara/$1/$2';
+
+$route['laporan/generate'] = 'laporan/index';
+$route['laporan/berita-acara/(:any)'] = 'laporan/berita-acara/$1';

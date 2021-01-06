@@ -112,7 +112,7 @@
 								<td style="vertical-align: top;">:</td>
 								<td>
 									<?php foreach (explode(",", $bap->jenis_aplikasi) as $appCode): ?>
-										<?php echo ucwords(daringApps(strtoupper($appCode))); ?><br>
+										<?php echo ucwords(daringApps(strtoupper(trim($appCode)))); ?><br>
 									<?php endforeach; ?>
 								</td>
 							</tr>
@@ -121,7 +121,7 @@
 								<td>:</td>
 								<td>
 									<?php foreach (explode(",", $bap->bentuk_materi) as $materialCode): ?>
-										<?php echo ucwords(materialType(strtoupper($materialCode))); ?><br>
+										<?php echo ucwords(materialType(strtoupper(trim($materialCode)))); ?><br>
 									<?php endforeach; ?>
 								</td>
 							</tr>

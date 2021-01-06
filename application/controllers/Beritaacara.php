@@ -138,13 +138,17 @@ class Beritaacara extends CI_Controller
 		}
 	}
 
-	public function edit($id_berita_acara)
+	public function edit($id_berita_acara = null)
 	{
 		$jadwal = $this->Jadwal->all();
 		$currentUserLevel = getUser('level');
 		$beritaAcara = $this->BeritaAcara->findById([
 			'id_berita_acara' => $id_berita_acara
 		]);
+
+		if(!$beritaAcara || $id_berita_acara == '') {
+			redirect(base_url('error'));
+		}
 
 		if ($currentUserLevel === "DOSEN" || $currentUserLevel === "KAPRODI") {
 			$id_dosen = getUser('id_dosen');
@@ -253,9 +257,9 @@ class Beritaacara extends CI_Controller
 		}
 	}
 
-	public function delete($id_berita_acara)
+	public function delete($id_berita_acara = null)
 	{
-		if (isset($_POST['_method']) && $_POST['_method'] == "DELETE") {
+		if (isset($_POST['_method']) && $_POST['_method'] == "DELETE" && $id_berita_acara != '') {
 			$data_id = $this->main_lib->getPost('data_id');
 			$data_type = $this->main_lib->getPost('data_type');
 
@@ -310,9 +314,10 @@ class Beritaacara extends CI_Controller
 			'id_berita_acara' => $id_berita_acara
 		]);
 
-		if(!$id_berita_acara || $id_berita_acara == '') {
+		if(!$beritaAcara || $id_berita_acara == '') {
 			redirect(base_url('error'));
 		}
+
 		$buktiKegiatan = $this->BuktiKegiatan->findById([
 			'id_berita_acara' => $id_berita_acara
 		], true);
