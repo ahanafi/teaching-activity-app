@@ -1,20 +1,7 @@
 <div class="main-panel">
 	<div class="content-wrapper">
 		<!-- Page Title Header Starts-->
-		<div class="row page-title-header">
-			<div class="col-12">
-				<div class="page-header">
-					<h4 class="page-title">Dashboard</h4>
-					<div class="quick-link-wrapper w-100 d-md-flex flex-md-wrap">
-						<ul class="quick-links ml-auto">
-							<li><a href="#">Settings</a></li>
-							<li><a href="#">Analytics</a></li>
-							<li><a href="#">Watchlist</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
+		<?php echo showPageHeader(); ?>
 		<!-- Page Title Header Ends-->
 		<div class="row">
 			<div class="col-md-6 grid-margin stretch-card">
@@ -43,7 +30,7 @@
 									<div class="form-group row text-right">
 										<div class="col-sm-8 offset-3">
 											<button class="btn btn-success" type="submit" name="submit">SIMPAN</button>
-											<a href="<?php echo base_url('user'); ?>" class="btn btn-secondary">KEMBALI</a>
+											<a href="<?php echo base_url('fakultas'); ?>" class="btn btn-secondary">KEMBALI</a>
 										</div>
 									</div>
 								</div>

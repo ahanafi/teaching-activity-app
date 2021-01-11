@@ -97,61 +97,21 @@ function showPageHeader($title = '')
 {
 	$ci =& get_instance();
 	$firstSegment = $ci->uri->segment(1);
-	$firstUri = ($title !== '') ? $title : "Data " . $firstSegment;
+	$firstUri = ($title !== '') ? $title : $firstSegment;
 
-	$totalSegment = $ci->uri->total_segments();
-	$class = "";
-	$pageTitle = ucwords(strtolower(str_replace("-", " ", $firstUri)));
-
-	$pageHeader = "
-		<div class='row page-title-header'>
-			<div class='col-12'>
-				<div class='page-header'>
-					<h4 class='page-title'>" . $pageTitle . "</h4>
-					<!--div class='quick-link-wrapper w-100 d-md-flex flex-md-wrap'>
-						<ul class='quick-links ml-auto'>
-							<li class='$class'><a href='" . base_url('dashboard') . "'>Dashboard</a></li>";
-
-	for ($i = 1; $i <= $totalSegment; $i++) {
-		$uri = $ci->uri->segment($i);
-		if ($uri !== 'dashboard') {
-
-			$label = ucfirst(str_replace("-", " ", $uri));
-
-			if ($uri == 'edit' || $uri == 'update') {
-				$uri_before = $ci->uri->segment($i - 1);
-				$uri_after = $ci->uri->segment($i + 1);
-				$uri = $uri_before . "/edit/" . $uri_after;
-			}
-
-			if ($uri == "create") {
-				$label = "Tambah";
-			}
-
-			if ($uri == "change-password") {
-				$label = "Ubah Password";
-			}
-
-			if ($uri == "user") {
-				$label = "Pengguna";
-			}
-
-			if ($i == $totalSegment) {
-				$class .= " active";
-				$pageHeader .= "<li class='$class'>$label</li>";
-			} else {
-				$pageHeader .= "<li class='$class'><a href='" . base_url($uri) . "'>" . $label . "</a></li>";
-			}
-		}
+	if($firstUri != 'dashboard') {
+		$firstUri = "Data " . $firstUri;
 	}
 
-	$pageHeader .= "	</ul>
-					</div-->
-				</div>
-			</div>
-		</div>";
+	$pageTitle = ucwords(strtolower(str_replace("-", " ", $firstUri)));
 
-	return $pageHeader;
+	return "<div class='row page-title-header'>
+				<div class='col-12'>
+					<div class='page-header'>
+						<h4 class='page-title'>" . $pageTitle . "</h4>
+					</div>
+				</div>
+			</div>";
 }
 
 function showUserLevel($index = NULL)
