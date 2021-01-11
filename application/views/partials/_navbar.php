@@ -1,10 +1,10 @@
 <!-- partial:partials/_navbar.html -->
 <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
 	<div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
-		<a class="navbar-brand brand-logo" href="<?php echo base_url('dashboard'); ?>">
-			<img src="<?php echo assets('images/logo.svg'); ?>" alt="logo"/> </a>
-		<a class="navbar-brand brand-logo-mini" href="<?php echo base_url('dashboard'); ?>">
-			<img src="<?php echo assets('images/logo-mini.svg'); ?>" alt="logo"/> </a>
+		<a class="navbar-brand brand-logo pt-0" href="<?php echo base_url('dashboard'); ?>">
+			<img src="<?php echo assets('images/ucic-yellow.png'); ?>" alt="logo"/> </a>
+		<a class="navbar-brand brand-logo-mini pt-0" href="<?php echo base_url('dashboard'); ?>">
+			<img src="<?php echo assets('images/ucic-simple.png'); ?>" alt="logo"/> </a>
 	</div>
 	<div class="navbar-menu-wrapper d-flex align-items-center">
 		<ul class="navbar-nav">

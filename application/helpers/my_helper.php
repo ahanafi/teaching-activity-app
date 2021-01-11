@@ -99,13 +99,13 @@ function showPageHeader($title = '')
 	$firstSegment = $ci->uri->segment(1);
 	$firstUri = ($title !== '') ? $title : $firstSegment;
 
-	if($firstUri != 'dashboard') {
+	if($firstUri != 'dashboard' && $title == '') {
 		$firstUri = "Data " . $firstUri;
 	}
 
 	$pageTitle = ucwords(strtolower(str_replace("-", " ", $firstUri)));
 
-	return "<div class='row page-title-header'>
+	return "<div class='row page-title-header mb-0'>
 				<div class='col-12'>
 					<div class='page-header'>
 						<h4 class='page-title'>" . $pageTitle . "</h4>
@@ -197,7 +197,7 @@ function namaDosen($nama, $gelar) {
 	$arrNama = explode(" ", ucwords(strtolower($nama)));
 
 	if(count($arrNama) == 2 || count($arrNama) == 0) {
-		$namaDosen = $nama;
+		$namaDosen = ucwords(strtolower($nama));
 	} else if(count($arrNama) == 3) {
 		$namaDosen = $arrNama[0] . " " . $arrNama[1] . " " . $arrNama[2][0].". ";
 	} else if(count($arrNama) == 4) {
@@ -205,5 +205,10 @@ function namaDosen($nama, $gelar) {
 		$namaDosen .= " " . $arrNama[2][0].".". $arrNama[3][0] . "." ;
 	}
 
-	return $namaDosen . " " . $gelar;
+	return $namaDosen . ", " . $gelar;
+}
+
+function uriSegment($index) {
+	$ci =& get_instance();
+	return  $ci->uri->segment($index);
 }

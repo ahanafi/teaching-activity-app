@@ -19,7 +19,6 @@
 						</div>
 					</a>
 				</li>
-				<li class="nav-item nav-category">Main Menu</li>
 				<li class="nav-item">
 					<a class="nav-link" href="<?php echo base_url('dashboard'); ?>">
 						<i class="menu-icon typcn typcn-document-text"></i>

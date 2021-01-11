@@ -30,7 +30,7 @@
 										</div>
 									</div>
 									<div class="form-group row">
-										<label class="col-sm-3 col-form-label">Tanggal</label>
+										<label class="col-sm-3 col-form-label">Tanggal Realisasi</label>
 										<div class="col-sm-8">
 											<input type="date" name="tanggal" class="form-control" required
 												   value="<?php echo set_value('tanggal'); ?>">
@@ -136,7 +136,7 @@
 										<label class="col-sm-3 col-form-label">Nama File Materi</label>
 										<div class="col-sm-8">
 											<input type="text" name="file_materi" placeholder="Nama file materi"
-												   class="form-control" value="<?php echo set_value('file_materi'); ?>">
+												   class="form-control" value="<?php echo set_value('file_materi'); ?>" autocomplete="off">
 											<?php echo form_error('file_materi'); ?>
 										</div>
 									</div>
@@ -200,7 +200,7 @@
 										<label class="col-sm-2 col-form-label">Pokok Bahasan</label>
 										<div class="col-sm-6">
 											<input type="text" name="pokok_bahasan" placeholder="Pokok bahasan materi"
-												   class="form-control" value="<?php echo set_value('pokok_bahasan'); ?>">
+												   class="form-control" value="<?php echo set_value('pokok_bahasan'); ?>" autocomplete="off">
 											<?php echo form_error('pokok_bahasan'); ?>
 										</div>
 									</div>
