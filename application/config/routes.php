@@ -33,3 +33,5 @@ $route['berita-acara/(:any)/(:num)'] = 'beritaacara/$1/$2';
 
 $route['laporan/generate'] = 'laporan/index';
 $route['laporan/berita-acara/(:any)'] = 'laporan/berita-acara/$1';
+
+$route['tahun-akademik'] = 'TahunAkademik/index';

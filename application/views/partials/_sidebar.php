@@ -83,6 +83,12 @@
 						<span class="menu-title">Manajemen Pengguna</span>
 					</a>
 				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="<?php echo base_url('tahun-akademik'); ?>">
+						<i class="menu-icon typcn typcn-user-outline"></i>
+						<span class="menu-title">Tahun Akademik</span>
+					</a>
+				</li>
 				<?php endif; ?>
 			</ul>
 		</nav>

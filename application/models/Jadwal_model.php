@@ -76,6 +76,13 @@ class Jadwal_model extends Main_model
 		$query .= " WHERE id_dosen IN " . $selectedDosenId;
 		return $this->db->query($query)->result();
 	}
+
+	public function validate($where = [])
+	{
+		return $this->db->where($where)
+					->get($this->table)
+					->num_rows();
+	}
 }
 
 /* End of file Jadwal_model.php */

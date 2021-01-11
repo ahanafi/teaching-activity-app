@@ -16,7 +16,7 @@ class Beritaacara extends CI_Controller
 
 		$this->uploadConfig = [
 			'allowed_types' => 'gif|jpg|png',
-			'max_size' => 2048, // 1MB
+			'max_size' => 2048, // 2MB
 			'max_width' => 1280,
 			'max_height' => 768,
 			'encrypt_name' => true

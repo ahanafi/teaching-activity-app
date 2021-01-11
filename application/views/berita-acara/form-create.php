@@ -101,83 +101,47 @@
 								<div class="col-md-12">
 									<div class="form-group row">
 										<label class="col-sm-3 col-form-label">Aplikasi Daring</label>
-										<div class="col-sm-3">
-											<div class="form-check form-check-flat mt-1">
-												<label class="form-check-label">
-													<input value="ZOOM" name="jenis_aplikasi[]" type="checkbox" class="form-check-input">
-													Zoom
-												</label>
+										<div class="col-sm-9">
+											<div class="row">
+												<?php foreach (daringApps() as $appCode => $appName):?>
+												<div class="col-sm-4">
+													<div class="form-check form-check-flat mt-1">
+														<label class="form-check-label">
+															<input <?php echo (in_array($appCode, explode(",", set_value('jenis_aplikasi')))) ? "checked" : ""; ?>
+																	value="<?php echo strtolower($appCode); ?>"
+																	name="jenis_aplikasi[]"
+																	type="checkbox"
+																	class="form-check-input"
+																	<?php echo ($appCode == 'LAINNYA') ? "onclick='toggleOtherApp(this)'" : ""; ?>
+																	data-checked="false"
+															>
+															<?php echo ucwords($appName); ?>
+														</label>
+													</div>
+												</div>
+												<?php endforeach; ?>
 											</div>
 										</div>
-										<div class="col-sm-3">
-											<div class="form-check form-check-flat mt-1">
-												<label class="form-check-label">
-													<input value="WA_GROUP" name="jenis_aplikasi[]" type="checkbox" class="form-check-input">
-													WA Group
-												</label>
-											</div>
-										</div>
-										<div class="col-sm-3">
-											<div class="form-check form-check-flat mt-1">
-												<label class="form-check-label">
-													<input value="EDMODO" name="jenis_aplikasi[]" type="checkbox" class="form-check-input">
-													Edmodo
-												</label>
-											</div>
-										</div>
-									</div>
-									<div class="form-group row">
-										<label class="col-sm-3 col-form-label">&nbsp;</label>
-										<div class="col-sm-3">
-											<div class="form-check form-check-flat mt-0">
-												<label class="form-check-label">
-													<input value="GOOGLE_CLASS" name="jenis_aplikasi[]" type="checkbox"
-														   class="form-check-input">
-													Google Class
-												</label>
-											</div>
-										</div>
-										<div class="col-sm-3">
-											<div class="form-check form-check-flat mt-0">
-												<label class="form-check-label">
-													<input value="QUIZIZZ" name="jenis_aplikasi[]" type="checkbox" class="form-check-input">
-													Quizizz
-												</label>
-											</div>
-										</div>
-										<div class="col-sm-3">
-											<div class="form-check form-check-flat mt-0">
-												<label class="form-check-label">
-													<input value="LAINNYA" name="jenis_aplikasi[]" type="checkbox" class="form-check-input">
-													Lainnya
-												</label>
-											</div>
+										<div class="col-sm-8 offset-3 hidden" id="otherAppName">
+											<input type="text" name="jenis_aplikasi[]" placeholder="Masukkan nama aplikasi yang digunakan"
+												   class="form-control" value="<?php echo set_value('jenis_aplikasi'); ?>">
+											<?php echo form_error('jenis_aplikasi'); ?>
 										</div>
 									</div>
 									<div class="form-group row">
 										<label class="col-sm-3 col-form-label">Bentuk Materi</label>
-										<div class="col-sm-3">
-											<div class="form-check form-check-flat mt-1">
-												<label class="form-check-label">
-													<input value="Video" name="bentuk_materi[]" type="checkbox" class="form-check-input">
-													Video
-												</label>
-											</div>
-										</div>
-										<div class="col-sm-3">
-											<div class="form-check form-check-flat mt-1">
-												<label class="form-check-label">
-													<input value="PPT" name="bentuk_materi[]" type="checkbox" class="form-check-input">
-													Powerpoint
-												</label>
-											</div>
-										</div>
-										<div class="col-sm-3">
-											<div class="form-check form-check-flat mt-1">
-												<label class="form-check-label">
-													<input value="PDF_DOC" name="bentuk_materi[]" type="checkbox" class="form-check-input">
-													PDF/Doc
-												</label>
+										<div class="col-sm-9">
+											<div class="row">
+												<?php foreach (materialType() as $materialCode => $materialName):?>
+												<div class="col-sm-4">
+													<div class="form-check form-check-flat mt-1">
+														<label class="form-check-label">
+															<input <?php echo (in_array($materialCode, explode(",", set_value('bentuk_materi')))) ? "checked" : ""; ?> value="<?php echo strtolower($materialCode); ?>" name="bentuk_materi[]" type="checkbox" class="form-check-input">
+															<?php echo ucwords($materialName); ?>
+														</label>
+													</div>
+												</div>
+												<?php endforeach; ?>
 											</div>
 										</div>
 									</div>

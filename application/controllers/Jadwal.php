@@ -172,7 +172,7 @@ class Jadwal extends CI_Controller
 			[
 				'field' => 'hari',
 				'label' => 'Hari',
-				'rules' => 'required'
+				'rules' => 'required|callback_unique_jadwal'
 			],
 			[
 				'field' => 'jam_mulai',
@@ -205,7 +205,68 @@ class Jadwal extends CI_Controller
 				'rules' => 'required'
 			],
 		];
+	}
 
+	public function unique_jadwal()
+	{
+		$hari = $this->main_lib->getPost('hari');
+		$jamMulai = $this->main_lib->getPost('jam_mulai');
+		$jamSelesai = $this->main_lib->getPost('jam_selesai');
+		$kelasId = $this->main_lib->getPost('kelas');
+		$mataKuliahId = $this->main_lib->getPost('mata_kuliah');
+		$dosenId = $this->main_lib->getPost('dosen');
+		$ruanganId = $this->main_lib->getPost('ruangan');
+
+		//validate ruangan - hari
+		$validateRuanganHari = $this->Jadwal->validate([
+			'id_ruangan' => $ruanganId,
+			'hari' => $hari
+		]);
+
+		$isExists = false;
+
+		if($validateRuanganHari) {
+			$ruangan = $this->Ruangan->findById([
+				'id_ruangan' => $ruanganId
+			]);
+			$kodeRuangan = $ruangan->kode_ruangan;
+			$this->form_validation->set_message('unique_jadwal', 'Jadwal hari ' . $hari . ' di ruangan ' . $kodeRuangan . ' sudah ada!');
+			$isExists = true;
+		}
+
+		//Validate dosen, hari dan Jam
+		$validateDosenHariJam = $this->Jadwal->validate([
+			'id_dosen' => $dosenId,
+			'hari' => $hari,
+			'jam_mulai' => $jamMulai
+		]);
+
+		if($validateDosenHariJam) {
+			$dosen = $this->Dosen->findById(['id_dosen' => $dosenId]);
+			$namaDosen = $dosen->nama_lengkap;
+			$this->form_validation->set_message('unique_jadwal', "Jadwal dosen $namaDosen di hari $hari jam $jamMulai sudah ada!");
+			$isExists = true;
+		}
+
+		//Validate kelas dan mata kuliah
+		$validateKelasJamHari = $this->Jadwal->validate([
+			'id_kelas' => $kelasId,
+			'jam_mulai' => $jamMulai,
+			'hari' => $hari
+		]);
+
+		if($validateKelasJamHari) {
+			$kelas = $this->Kelas->findById(['id_kelas' => $kelasId]);
+			$namaKelas = $kelas->nama_kelas . "/" . $kelas->semester;
+			$this->form_validation->set_message('unique_jadwal', "Jadwal kelas $namaKelas di hari $hari jam $jamMulai sudah ada!");
+			$isExists = true;
+		}
+
+		if($isExists) {
+			return false;
+		}
+
+		return true;
 	}
 
 }

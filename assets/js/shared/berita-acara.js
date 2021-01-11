@@ -25,3 +25,13 @@ if(document.getElementById("uraian_materi")) {
 		tabSize:1
 	});
 }
+
+ const toggleOtherApp = (el) => {
+	if(el.getAttribute('data-checked') == 'false') {
+		el.setAttribute('data-checked', 'true');
+		document.getElementById("otherAppName").classList.remove('hidden');
+	} else {
+		el.setAttribute('data-checked', 'false');
+		document.getElementById("otherAppName").classList.add('hidden');
+	}
+ }

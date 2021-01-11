@@ -209,6 +209,9 @@ function daringApps($key = null)
 	];
 
 	if ($key != null) {
+		if(!key_exists($key, $apps)) {
+			return $apps['LAINNYA'];
+		}
 		return $apps[$key];
 	}
 	return $apps;
@@ -219,7 +222,9 @@ function materialType($key = null)
 	$types = [
 		'VIDEO' => 'Video',
 		'PPT' => 'Powerpoint',
-		'PDF_DOC' => 'PDF/Doc',
+		'DOC' => 'Doc/Docx',
+		'XLS' => 'Spreadsheet',
+		'PDF' => 'PDF',
 	];
 
 	if ($key != null) {

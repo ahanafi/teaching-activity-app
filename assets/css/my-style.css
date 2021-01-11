@@ -7,3 +7,7 @@
 	font-size: 0.65rem !important;
 }
 
+.hidden{
+	display: none !important;
+	visibility: hidden !important;
+}

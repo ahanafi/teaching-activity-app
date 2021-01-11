@@ -63,6 +63,18 @@
                                             </select>
                                         </div>
                                     </div>
+									<div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Filter Temu Kuliah</label>
+                                        <div class="col-sm-8">
+                                            <select name="pertemuan" id="" class="form-control select2">
+                                                <option value="all">Semua Pertemuan</option>
+                                                <?php for($mggu = 1; $mggu<=14; $mggu++): ?>
+                                                    <option <?php echo (set_value('pertemuan') === $mggu) ? "selected" : ""; ?>
+                                                        value="<?php echo $mggu; ?>"><?php echo "Temu ke - " . $mggu; ?></option>
+                                                <?php endfor; ?>
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div class="form-group row text-right">
                                         <div class="col-sm-8 offset-3">
                                             <button class="btn btn-fw btn-success" type="submit" name="submit">

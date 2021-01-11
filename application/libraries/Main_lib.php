@@ -24,6 +24,11 @@ class Main_lib
 		return $this->ci->input->post($key, true);
 	}
 
+	public function getParams($key)
+	{
+		return $this->ci->input->get($key, true);
+	}
+
 	public function createFirstUser()
 	{
 		$check_in_users_table = $this->ci->db->query("SELECT * FROM pengguna")->num_rows();
