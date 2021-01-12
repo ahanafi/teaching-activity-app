@@ -13,7 +13,8 @@ class Dosen_model extends Main_model
 					program_studi.nama_program_studi AS prodi";
 
 		$query = $this->db->select($columns)
-			->from($this->table)->join('program_studi', 'id_program_studi');
+			->from($this->table)->join('program_studi', 'id_program_studi')
+			->order_by('nama_lengkap', 'asc');
 		if (!empty($where)) {
 		    return $query->where($where)->get();
 		}

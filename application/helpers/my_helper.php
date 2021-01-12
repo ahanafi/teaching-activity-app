@@ -148,7 +148,7 @@ function showJamKuliah($jamMulai, $jamSelesai)
 	$endTime = date_create($jamSelesai);
 	$endTime = date_format($endTime, "H:i");
 
-	return $startTime . " ~ " . $endTime;
+	return $startTime . "-" . $endTime;
 }
 
 function showJam($jam)

@@ -73,11 +73,12 @@ class Laporan extends CI_Controller
 		$data['selected_hari'] = $hari;
 		$data['id_dosen'] = $dosenId;
 		$data['id_program_studi'] = $programStudiId;
+		$data['temu_kuliah'] = $temuKuliah;
 
 		return $data;
 	}
 
-	private function _doFilter($hari, $dosenId, $programStudiId, $temu): array
+	private function _doFilter($hari, $dosenId, $programStudiId, $temu)
 	{
 		$arrFilter = [];
 
@@ -198,11 +199,12 @@ class Laporan extends CI_Controller
 		 * Four categories
 		 * */
 		//Filter all
-		if ($hari != 'all_days' && $dosenId != 'all_dosen' && $programStudiId != 'all_prodi') {
+		if ($hari != 'all_days' && $dosenId != 'all_dosen' && $programStudiId != 'all_prodi' && $temu != 'all') {
 			$arrFilter = [
 				'hari' => $hari,
 				'id_dosen' => $dosenId,
-				'dosen.id_program_studi' => $programStudiId
+				'dosen.id_program_studi' => $programStudiId,
+				'pertemuan_ke' => $temu
 			];
 		}
 
@@ -213,6 +215,7 @@ class Laporan extends CI_Controller
 	{
 		if (isset($_POST['export'])) {
 			$data = $this->_grabData();
+
 			if ($exportType == 'excel') {
 				$this->exportExcel($data);
 			} elseif ($exportType == 'pdf') {
@@ -312,23 +315,25 @@ class Laporan extends CI_Controller
 		$cellIndex = 8;
 
 		$beritaAcara = $data['berita_acara'];
+
 		foreach ($beritaAcara as $bap) {
+			$namaHari = ucfirst(strtolower($bap->hari));
 			$namaDosen = namaDosen($bap->dosen, $bap->gelar);
 			$jamKuliah = showJamKuliah($bap->jam_mulai, $bap->jam_selesai);
 			$penugasan = ($bap->ada_tugas == 1) ? "V" : "";
 
-			$edmodo = (in_array("EDMODO", explode(",", strtoupper($bap->jenis_aplikasi)))) ? "V" : "-";
-			$zoom = (in_array("ZOOM", explode(",", strtoupper($bap->jenis_aplikasi)))) ? "V" : "-";
-			$youtube = (in_array("YOUTUBE", explode(",", strtoupper($bap->jenis_aplikasi)))) ? "V" : "-";
-			$waGroup = (in_array("WA_GROUP", explode(",", strtoupper($bap->jenis_aplikasi)))) ? "V" : "-";
-			$doc = (in_array("DOC", explode(",", strtoupper($bap->jenis_aplikasi)))) ? "V" : "-";
-			$ppt = (in_array("PPT", explode(",", strtoupper($bap->jenis_aplikasi)))) ? "V" : "-";
-			$pdf = (in_array("PDF", explode(",", strtoupper($bap->jenis_aplikasi)))) ? "V" : "-";
-			$video = (in_array("VIDEO", explode(",", strtoupper($bap->jenis_aplikasi)))) ? "V" : "-";
-			$lainnya = (in_array("LAINNYA", explode(",", strtoupper($bap->jenis_aplikasi)))) ? "V" : "-";
+			$edmodo	= (in_array("EDMODO", explode(",", strtoupper($bap->jenis_aplikasi)))) ? "V" : "-";
+			$zoom	= (in_array("ZOOM", explode(",", strtoupper($bap->jenis_aplikasi)))) ? "V" : "-";
+			$youtube= (in_array("YOUTUBE", explode(",", strtoupper($bap->jenis_aplikasi)))) ? "V" : "-";
+			$waGroup= (in_array("WA_GROUP", explode(",", strtoupper($bap->jenis_aplikasi)))) ? "V" : "-";
+			$doc	= (in_array("DOC", explode(",", strtoupper($bap->jenis_aplikasi)))) ? "V" : "-";
+			$ppt	= (in_array("PPT", explode(",", strtoupper($bap->jenis_aplikasi)))) ? "V" : "-";
+			$pdf	= (in_array("PDF", explode(",", strtoupper($bap->jenis_aplikasi)))) ? "V" : "-";
+			$video	= (in_array("VIDEO", explode(",", strtoupper($bap->jenis_aplikasi)))) ? "V" : "-";
+			$lainnya= (in_array("LAINNYA", explode(",", strtoupper($bap->jenis_aplikasi)))) ? "V" : "-";
 
 			$sheet->setCellValue('B' . $cellIndex, $nomor);
-			$sheet->setCellValue('C' . $cellIndex, $bap->hari);
+			$sheet->setCellValue('C' . $cellIndex, $namaHari);
 
 			$sheet->setCellValue('D' . $cellIndex, $namaDosen);
 
@@ -361,11 +366,28 @@ class Laporan extends CI_Controller
 			$cellIndex++;
 		}
 
+		$sheet->getColumnDimension("A")->setWidth(2);
+		$sheet->getColumnDimension("B")->setWidth(5);
 		$sheet->getColumnDimension("D")->setAutoSize(true);
 		$sheet->getColumnDimension("E")->setAutoSize(true);
 		$sheet->getColumnDimension("G")->setAutoSize(true);
 		$sheet->getColumnDimension("U")->setAutoSize(true);
 		$sheet->getColumnDimension("W")->setAutoSize(true);
+
+		$lastIndex = $cellIndex - 1;
+		//Border
+		try {
+			$sheet->getStyle('B6:W' . $lastIndex)->getBorders()
+				->getAllBorders()
+				->setBorderStyle(Border::BORDER_THIN);
+		} catch (Exception $e) {
+		}
+
+		//Alignment
+		$sheet->getStyle('F6:W' . $lastIndex)
+            ->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+        $sheet->getStyle('F6:W' . $lastIndex)
+            ->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
 
 		$writer = new Xlsx($spreadsheet);
 		header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT+7");

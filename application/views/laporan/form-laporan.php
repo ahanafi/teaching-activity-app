@@ -33,7 +33,7 @@
                                                 <option value="all_dosen">Semua Dosen</option>
                                                 <?php foreach ($dosen as $dosen): ?>
                                                     <option <?php echo (set_value('id_dosen') == $dosen->id_dosen) ? "selected" : ""; ?>
-                                                        value="<?php echo $dosen->id_dosen; ?>"><?php echo $dosen->nama_lengkap; ?></option>
+                                                        value="<?php echo $dosen->id_dosen; ?>"><?php echo namaDosen($dosen->nama_lengkap, $dosen->gelar); ?></option>
                                                 <?php endforeach; ?>
                                             </select>
                                         </div>
@@ -53,7 +53,7 @@
 									<div class="form-group row">
                                         <label class="col-sm-3 col-form-label">Filter Temu Kuliah</label>
                                         <div class="col-sm-8">
-                                            <select name="pertemuan" id="" class="form-control select2">
+                                            <select name="pertemuan" class="form-control select2">
                                                 <option value="all">Semua Pertemuan</option>
                                                 <?php for($mggu = 1; $mggu<=14; $mggu++): ?>
                                                     <option <?php echo (set_value('pertemuan') === $mggu) ? "selected" : ""; ?>
@@ -87,6 +87,7 @@
                                 <input type="hidden" name="hari" value="<?php echo $selected_hari; ?>" />
                                 <input type="hidden" name="id_dosen" value="<?php echo $id_dosen; ?>" />
                                 <input type="hidden" name="id_program_studi" value="<?php echo $id_program_studi; ?>" />
+								<input type="hidden" name="pertemuan" value="<?php echo $temu_kuliah; ?>" />
                                 <button type="submit" name="export" class="ml-auto btn btn-outline-success btn-fw">
                                     <i class="fa fa-file-excel-o"></i>
                                     <span>Export Excel</span>
