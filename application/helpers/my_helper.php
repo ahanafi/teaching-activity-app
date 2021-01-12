@@ -170,7 +170,7 @@ function daringApps($key = null)
 
 	if ($key != null) {
 		if(!key_exists($key, $apps)) {
-			return $apps['LAINNYA'];
+			return ucwords(strtolower($key));
 		}
 		return $apps[$key];
 	}
@@ -195,14 +195,19 @@ function materialType($key = null)
 
 function namaDosen($nama, $gelar) {
 	$arrNama = explode(" ", ucwords(strtolower($nama)));
+	$namaDosen = "";
 
-	if(count($arrNama) == 2 || count($arrNama) == 0) {
+	if(count($arrNama) <= 2) {
 		$namaDosen = ucwords(strtolower($nama));
-	} else if(count($arrNama) == 3) {
-		$namaDosen = $arrNama[0] . " " . $arrNama[1] . " " . $arrNama[2][0].". ";
-	} else if(count($arrNama) == 4) {
+	} else {
 		$namaDosen = $arrNama[0] . " " . $arrNama[1];
-		$namaDosen .= " " . $arrNama[2][0].".". $arrNama[3][0] . "." ;
+		$namaBelakang = " ";
+        foreach($arrNama as $key => $val) {
+            if($key >= 2) {
+                $namaBelakang .= $val[0];
+            }
+        }
+        $namaDosen .= $namaBelakang;
 	}
 
 	return $namaDosen . ", " . $gelar;

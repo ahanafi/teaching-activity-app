@@ -5,9 +5,8 @@ const showConfirmDelete = (dataType, dataId) => {
 			text: 'Apakah Anda yakin akan menghapus data ini?',
 			icon: 'warning',
 			showCancelButton: true,
-			confirmButtonColor: '#007bff',
+			confirmButtonColor: '#dc3544',
 			confirmButtonText: 'Ya, Hapus.',
-			cancelButtonColor: '#dc3544',
 			cancelButtonText: 'Batalkan',
 		}).then((value) => {
 			if (value.isConfirmed) {

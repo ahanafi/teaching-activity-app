@@ -34,7 +34,7 @@
 										</td>
 										<td><?php echo $jadwal->nama_kelas . "/" . $jadwal->semester; ?></td>
 										<td><?php echo $jadwal->nama_mata_kuliah; ?></td>
-										<td><?php echo $jadwal->nama_lengkap; ?></td>
+										<td><?php echo namaDosen($jadwal->dosen, $jadwal->gelar); ?></td>
 										<td><?php echo $jadwal->kode_ruangan; ?></td>
 										<?php if(getUser('level') == "SUPER_USER"): ?>
 										<td>

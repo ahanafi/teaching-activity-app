@@ -22,7 +22,7 @@
 												<?php foreach ($jadwal as $jadwal): ?>
 													<option <?php echo (set_value('id_jadwal') == $jadwal->id_jadwal) ? "selected" : ""; ?>
 															value="<?php echo $jadwal->id_jadwal; ?>">
-														<?php echo $jadwal->hari . " - " . showJamKuliah($jadwal->jam_mulai, $jadwal->jam_selesai) . " - " . $jadwal->nama_mata_kuliah . " - " . $jadwal->nama_kelas . "/".$jadwal->semester; ?>
+														<?php echo $jadwal->hari . " - " . showJamKuliah($jadwal->jam_mulai, $jadwal->jam_selesai) . " - " . $jadwal->nama_mata_kuliah . " - " . $jadwal->nama_kelas . "/".$jadwal->semester ." - " . namaDosen($jadwal->dosen, $jadwal->gelar); ?>
 													</option>
 												<?php endforeach; ?>
 											</select>

@@ -1,7 +1,7 @@
 		<!-- partial:partials/_sidebar.html -->
 		<nav class="sidebar sidebar-offcanvas" id="sidebar">
 			<ul class="nav">
-				<li class="nav-item nav-profile">
+				<li class="nav-item nav-profile ml-3 mr-3">
 					<a href="#" class="nav-link">
 						<div class="profile-image">
 							<img class="img-xs rounded-circle" src="<?php echo assets('images/faces/face8.jpg'); ?>" alt="profile image">
@@ -12,7 +12,11 @@
 								<?php
 									$namaLengkap = getUser('nama_lengkap');
 									$arrNama = explode(" ", $namaLengkap);
-									echo $arrNama[0] . " ...";
+									if(count($arrNama) > 2) {
+										$namaLengkap = $arrNama[0]. " ". $arrNama[1];
+									}
+
+									echo $namaLengkap;
 									?>
 							</p>
 							<p class="designation"><?php echo str_replace("_", " ", getUser('level'));?></p>

@@ -94,7 +94,14 @@
 												<div class="col-sm-4">
 													<div class="form-check form-check-flat mt-1">
 														<label class="form-check-label">
-															<input <?php echo (in_array($appCode, explode(",", $bap->jenis_aplikasi))) ? "checked" : ""; ?> value="<?php echo strtolower($appCode); ?>" name="jenis_aplikasi[]" type="checkbox" class="form-check-input">
+															<input <?php echo (in_array($appCode, explode(",", strtoupper($bap->jenis_aplikasi)))) ? "checked" : ""; ?>
+																	value="<?php echo strtolower($appCode); ?>"
+																	name="jenis_aplikasi[]"
+																	type="checkbox"
+																	class="form-check-input"
+																	<?php echo ($appCode == 'LAINNYA') ? "onclick='toggleOtherApp(this)'" : ""; ?>
+																	data-checked="false"
+															>
 															<?php echo ucwords($appName); ?>
 														</label>
 													</div>
@@ -102,19 +109,28 @@
 												<?php endforeach; ?>
 											</div>
 										</div>
+										<div class="col-sm-8 offset-3 hidden" id="otherAppName">
+											<input type="text" name="jenis_aplikasi[]" placeholder="Masukkan nama aplikasi yang digunakan"
+												   class="form-control" value="<?php echo set_value('jenis_aplikasi'); ?>">
+											<?php echo form_error('jenis_aplikasi'); ?>
+										</div>
 									</div>
 									<div class="form-group row">
 										<label class="col-sm-3 col-form-label">Bentuk Materi</label>
-										<?php foreach (materialType() as $materialCode => $materialName):?>
-										<div class="col-sm-3">
-											<div class="form-check form-check-flat mt-1">
-												<label class="form-check-label">
-													<input <?php echo (in_array($materialCode, explode(",", $bap->bentuk_materi))) ? "checked" : ""; ?> value="<?php echo strtolower($materialCode); ?>" name="bentuk_materi[]" type="checkbox" class="form-check-input">
-													<?php echo ucwords($materialName); ?>
-												</label>
+										<div class="col-sm-9">
+											<div class="row">
+												<?php foreach (materialType() as $materialCode => $materialName):?>
+												<div class="col-sm-4">
+													<div class="form-check form-check-flat mt-1">
+														<label class="form-check-label">
+															<input <?php echo (in_array($materialCode, explode(",", strtoupper($bap->bentuk_materi)))) ? "checked" : ""; ?> value="<?php echo strtolower($materialCode); ?>" name="bentuk_materi[]" type="checkbox" class="form-check-input">
+															<?php echo ucwords($materialName); ?>
+														</label>
+													</div>
+												</div>
+												<?php endforeach; ?>
 											</div>
 										</div>
-										<?php endforeach; ?>
 									</div>
 									<div class="form-group row">
 										<label class="col-sm-3 col-form-label">Nama File Materi</label>

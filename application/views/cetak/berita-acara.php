@@ -93,11 +93,22 @@
 		float: none;
 		clear: both;
 	}
+	#bukti-kegiatan{
+	}
+	#foto{
+		border:1px solid #333;
+		padding: 15px;
+	}
+	#foto img{
+		position: relative;
+		width: 100%;
+		margin-bottom: 20px;
+	}
 </style>
 <body>
 <div id="header">
 	<div class="logo">
-		<img src="<?php echo  'assets/images/ucic.png'; ?>" alt="Logo UCIC">
+		<img src="<?php echo 'assets/images/ucic.png'; ?>" alt="Logo UCIC">
 	</div>
 	<div class="kop-text">
 		<h2>
@@ -197,7 +208,7 @@
 				<td>Tanda Tangan</td>
 				<td class="text-center">
 					<?php if ($bap->paraf_mhs != '' && file_exists(FCPATH . $bap->paraf_mhs)) : ?>
-						<img src="<?php echo ($bap->paraf_mhs); ?>" alt="" width="50px">
+						<img src="<?php echo($bap->paraf_mhs); ?>" alt="" width="50px">
 					<?php else: echo "-"; endif; ?>
 				</td>
 			</tr>
@@ -205,7 +216,7 @@
 				<td class="bg-gray align-middle">Tanda tangan Dosen</td>
 				<td colspan="2" class="text-center">
 					<?php if ($bap->paraf_mhs != '' && file_exists(FCPATH . $bap->paraf_mhs)) : ?>
-						<img src="<?php echo ($bap->paraf_mhs); ?>" alt="" width="50px">
+						<img src="<?php echo($bap->paraf_mhs); ?>" alt="" width="50px">
 					<?php else: echo "-"; endif; ?>
 				</td>
 			</tr>
@@ -237,28 +248,28 @@
 				<td><?php echo $bap->pokok_bahasan; ?></td>
 			</tr>
 			<tr>
-				<td style="width: 150px;" class="bg-gray">Uraian Materi Bahasan</td>
+				<td style="width: 150px;vertical-align: middle;" class="bg-gray">Uraian Materi Bahasan</td>
 				<td><?php echo $bap->uraian_materi; ?></td>
 			</tr>
 		</table>
 		<br>
 		<div style="page-break-after: always;"></div>
-		<table class="table" style="width: 100%;">
-			<tr>
-				<td class="bg-gray">
-					Bukti Kegiatan (Screenshoots, Video, dll)
-				</td>
-			</tr>
-			<tr>
-				<td style="padding: 10px;">
-					<?php foreach ($dokumentasi as $dok): ?>
-						<?php if (file_exists(FCPATH . $dok->lokasi)): ?>
-							<img src="<?php echo  $dok->lokasi; ?>" alt="">
-						<?php endif; ?>
-					<?php endforeach; ?>
-				</td>
-			</tr>
-		</table>
+		<div id="bukti-kegiatan">
+			<table class="table" style="width: 100%;">
+				<tr>
+					<td class="bg-gray">
+						Bukti Kegiatan (Screenshoots, Video, dll)
+					</td>
+				</tr>
+			</table>
+			<div id="foto">
+				<?php foreach ($dokumentasi as $dok): ?>
+					<?php if (file_exists(FCPATH . $dok->lokasi)): ?>
+						<img src="<?php echo $dok->lokasi; ?>" alt="">
+					<?php endif; ?>
+				<?php endforeach; ?>
+			</div>
+		</div>
 	</div>
 </div>
 </body>

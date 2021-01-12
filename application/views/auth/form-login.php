@@ -26,7 +26,9 @@
 		<div class="content-wrapper d-flex align-items-center auth auth-bg-1 theme-one">
 			<div class="row w-100">
 				<div class="col-lg-4 mx-auto">
-					<div class="auto-form-wrapper mb-5">
+					<div class="auto-form-wrapper mb-5 pt-0">
+					<img src="<?php echo assets('images/ucic.png'); ?>" alt="" class="img-fluid mb-4">
+
 						<form action="<?php echo base_url('login'); ?>" method="POST">
 							<div class="form-group">
 								<label class="label">Username</label>

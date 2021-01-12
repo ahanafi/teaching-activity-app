@@ -20,7 +20,8 @@ class Jadwal_model extends Main_model
 	private function getColumns()
     {
         $columns = $this->table . ".*, $this->_MATA_KULIAH.nama_mata_kuliah, $this->_KELAS.nama_kelas, $this->_KELAS.semester, ";
-        $columns .= $this->_DOSEN . ".nama_lengkap, $this->_RUANGAN.kode_ruangan ";
+        $columns .= $this->_DOSEN . ".nama_lengkap AS dosen, $this->_DOSEN.gelar, ";
+        $columns .= $this->_RUANGAN. ".kode_ruangan ";
 
         return $columns;
     }
@@ -43,6 +44,8 @@ class Jadwal_model extends Main_model
             $query = "SELECT " . $columns . " FROM " . $this->table . " " . $joinTo;
             $query .= " WHERE $column = '$value' ";
         }
+
+        $query .= " ORDER BY $this->table.id_jadwal ASC";
 
         return $query;
     }

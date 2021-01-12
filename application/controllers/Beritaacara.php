@@ -333,10 +333,10 @@ class Beritaacara extends CI_Controller
 	private function getPostData()
 	{
 		$jenisAplikasi = $this->main_lib->getPost('jenis_aplikasi');
-		$jenisAplikasi = implode(", ", $jenisAplikasi);
+		$jenisAplikasi = implode(",", $jenisAplikasi);
 
 		$bentukMateri = $this->main_lib->getPost('bentuk_materi');
-		$bentukMateri = implode(", ", $bentukMateri);
+		$bentukMateri = implode(",", $bentukMateri);
 
 		return [
 			'id_jadwal' => $this->main_lib->getPost('id_jadwal'),
