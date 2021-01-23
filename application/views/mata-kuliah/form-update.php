@@ -7,7 +7,7 @@
 			<div class="col-md-7 grid-margin stretch-card">
 				<div class="card">
 					<div class="card-header header-sm d-flex justify-content-between align-items-center">
-						<h4 class="card-title">Form Tambah Fakultas</h4>
+						<h4 class="card-title">Form Edit Mata Kuliah</h4>
 					</div>
 					<div class="card-body">
 						<form action="<?php echo base_url('mata-kuliah/edit/' . $mata_kuliah->id_mata_kuliah); ?>" class="form-sample" method="POST"

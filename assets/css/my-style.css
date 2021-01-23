@@ -23,3 +23,7 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+
+.no-border-radius{
+	border-radius: 0 !important;
+}

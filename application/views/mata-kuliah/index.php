@@ -8,11 +8,18 @@
 				<div class="card">
 					<div class="card-header header-sm d-flex justify-content-between align-items-center">
 						<h4 class="card-title">Data Mata Kuliah</h4>
-						<a href="<?php echo base_url(uriSegment(1) . '/create'); ?>"
-						   class="ml-auto btn btn-primary btn-fw">
-							<i class="fa fa-plus"></i>
-							<span>Tambah Data</span>
-						</a>
+						<div class="btn-group">
+							<a href="<?php echo base_url(uriSegment(1) . '/import'); ?>"
+							   class="ml-auto btn btn-success btn-fw">
+								<i class="fa fa-download"></i>
+								<span>Import Data</span>
+							</a>
+							<a href="<?php echo base_url(uriSegment(1) . '/create'); ?>"
+							   class="ml-auto btn btn-primary btn-fw">
+								<i class="fa fa-plus"></i>
+								<span>Tambah Data</span>
+							</a>
+						</div>
 					</div>
 					<div class="card-body">
 						<div class="table-responsive">

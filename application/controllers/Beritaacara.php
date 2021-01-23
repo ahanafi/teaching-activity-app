@@ -195,21 +195,21 @@ class Beritaacara extends CI_Controller
 					$fileCount = count($_FILES['bukti_kegiatan']['name']);
 
 					//Get all bukti kegiatan
-					$buktiKegiatan = $this->BuktiKegiatan->findById([
-						'id_berita_acara' => $id_berita_acara
-					], true);
-
-					foreach ($buktiKegiatan as $bukti) {
-						if(file_exists(FCPATH . $bukti->lokasi)) {
-							//Delte uploaded file
-							unlink(FCPATH . $bukti->lokasi);
-						}
-					}
-
-					//Delete old bukti kegiatan
-					$this->BuktiKegiatan->delete([
-						'id_berita_acara' => $id_berita_acara
-					]);
+//					$buktiKegiatan = $this->BuktiKegiatan->findById([
+//						'id_berita_acara' => $id_berita_acara
+//					], true);
+//
+//					foreach ($buktiKegiatan as $bukti) {
+//						if(file_exists(FCPATH . $bukti->lokasi)) {
+//							//Delte uploaded file
+//							unlink(FCPATH . $bukti->lokasi);
+//						}
+//					}
+//
+//					//Delete old bukti kegiatan
+//					$this->BuktiKegiatan->delete([
+//						'id_berita_acara' => $id_berita_acara
+//					]);
 
 					for ($i = 0; $i < $fileCount; $i++) {
 						//Define new $_FILES array - $_FILES['file']

@@ -17,6 +17,7 @@ $route['program-studi/(:any)/(:num)'] = 'programstudi/$1/$2';
 
 $route['mata-kuliah'] = 'matakuliah/index';
 $route['mata-kuliah/create'] = 'matakuliah/create';
+$route['mata-kuliah/import'] = 'matakuliah/import';
 $route['mata-kuliah/(:any)/(:num)'] = 'matakuliah/$1/$2';
 
 $route['jadwal-kuliah'] = 'jadwal/index';

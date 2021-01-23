@@ -7,7 +7,7 @@
 			<div class="col-md-7 grid-margin stretch-card">
 				<div class="card">
 					<div class="card-header header-sm d-flex justify-content-between align-items-center">
-						<h4 class="card-title">Form Tambah Jadwal</h4>
+						<h4 class="card-title">Form Edit Jadwal</h4>
 					</div>
 					<div class="card-body">
 						<form action="<?php echo base_url('jadwal-kuliah/edit/' . $jadwal->id_jadwal); ?>" class="form-sample" method="POST">

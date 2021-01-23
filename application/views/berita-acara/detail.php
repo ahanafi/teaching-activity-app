@@ -99,7 +99,7 @@
 								<td style="vertical-align: top;">:</td>
 								<td>
 									<?php foreach (explode(",", $bap->jenis_aplikasi) as $appCode): ?>
-										<?php echo ucwords(daringApps(strtoupper(trim($appCode)))); ?>,
+										<?php echo (trim($appCode) != '') ? ucwords(daringApps(strtoupper(trim($appCode)))) : ""; ?>,
 									<?php endforeach; ?>
 								</td>
 							</tr>

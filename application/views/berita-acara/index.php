@@ -21,6 +21,7 @@
 								<tr>
 									<th>No.</th>
 									<th>Hari</th>
+									<th>Dosen</th>
 									<th>Mata Kuliah</th>
 									<th>SKS</th>
 									<th>Waktu</th>
@@ -34,13 +35,16 @@
 									<tr>
 										<td><?php echo $nomor++; ?></td>
 										<td><?php echo $bap->hari; ?></td>
+										<td>
+											<a href="<?php echo base_url('dosen/detail/' . $bap->id_dosen); ?>"><?php echo namaDosen($bap->dosen, $bap->gelar); ?></a>
+										</td>
 										<td><?php echo $bap->mata_kuliah; ?></td>
-										<td><?php echo $bap->sks; ?></td>
+										<td class="text-center"><?php echo $bap->sks; ?></td>
 										<td>
 											<?php echo showJamKuliah($bap->jam_mulai, $bap->jam_selesai); ?>
 										</td>
-										<td><?php echo $bap->pertemuan_ke; ?></td>
-										<td><?php echo $bap->jumlah_hadir; ?></td>
+										<td class="text-center"><?php echo $bap->pertemuan_ke; ?></td>
+										<td class="text-center"><?php echo $bap->jumlah_hadir; ?></td>
 										<td>
 											<a href="<?php echo base_url('berita-acara/edit/' . $bap->id_berita_acara); ?>"
 											   class="btn btn-success text-white">Edit</a>
