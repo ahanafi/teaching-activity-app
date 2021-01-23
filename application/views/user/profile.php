@@ -10,7 +10,7 @@
 								<div
 										class="profile-info d-flex align-items-center justify-content-center flex-wrap mr-sm-3">
 									<img class="rounded-circle img-lg mb-3 mb-sm-0"
-										 src="<?php echo base_url('assets/'); ?>images/faces/profile/profile.jpg"
+										 src="<?php echo base_url('assets/'); ?>images/faces/face8.jpg"
 										 alt="profile image">
 									<div class="wrapper pl-sm-4">
 										<p class="profile-user-name text-center text-sm-left"><?php echo getUser('nama_lengkap'); ?></p>

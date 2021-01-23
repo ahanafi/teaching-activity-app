@@ -4,7 +4,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Exception;
-use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 
@@ -27,6 +26,20 @@ class Laporan extends CI_Controller
 		$programStudi = $this->ProgramStudi->all();
 		$hari = listHari();
 
+		$userLevel = getUser('level');
+		if ($userLevel == 'KAPRODI') {
+			$programStudiId = getUser('id_program_studi');
+			$dosen = [];
+
+			//Get Id Dosen from jadwal
+			$selectedIdDosen = $this->Jadwal->getByIdProgramStudi($programStudiId, true);
+			$selectedIdDosen = str_replace(["(", ")"], "", $selectedIdDosen);
+			$arrSelectedIdDosen = explode(",", $selectedIdDosen);
+			foreach ($arrSelectedIdDosen as $dosenId) {
+				$dosen[] = $this->Dosen->findById(['dosen.id_dosen' => $dosenId]);
+			}
+		}
+
 		$this->data = [
 			'dosen' => $dosen,
 			'program_studi' => $programStudi,
@@ -47,11 +60,12 @@ class Laporan extends CI_Controller
 		$hari = $this->main_lib->getPost('hari');
 		$dosenId = $this->main_lib->getPost('id_dosen');
 		$programStudiId = $this->main_lib->getPost('id_program_studi');
-		$temuKuliah =  $this->main_lib->getPost('pertemuan');
+		$temuKuliah = $this->main_lib->getPost('pertemuan');
 
 		$filter = $this->_doFilter($hari, $dosenId, $programStudiId, $temuKuliah);
 
 		$beritaAcara = $this->BeritaAcara->all();
+
 		if ($filter != '') {
 			$beritaAcara = $this->BeritaAcara->getByFilter($filter);
 		}
@@ -96,12 +110,12 @@ class Laporan extends CI_Controller
 		}
 
 		//Filter only program studi Id
-		if ($hari == 'all_days' && $dosenId == 'all_dosen' && $programStudiId != 'all_prodi'  && $temu == 'all') {
+		if ($hari == 'all_days' && $dosenId == 'all_dosen' && $programStudiId != 'all_prodi' && $temu == 'all') {
 			$arrFilter = ['dosen.id_program_studi' => $programStudiId];
 		}
 
 		//Filter only pertemuan
-		if ($hari == 'all_days' && $dosenId == 'all_dosen' && $programStudiId == 'all_prodi'  && $temu != 'all') {
+		if ($hari == 'all_days' && $dosenId == 'all_dosen' && $programStudiId == 'all_prodi' && $temu != 'all') {
 			$arrFilter = ['pertemuan_ke' => $temu];
 		}
 
@@ -181,7 +195,7 @@ class Laporan extends CI_Controller
 		if ($hari != 'all_days' && $dosenId == 'all_dosen' && $programStudiId != 'all_prodi' && $temu != 'all') {
 			$arrFilter = [
 				'hari' => $hari,
-				'dosen.program_studi' => $programStudiId,
+				'dosen.id_program_studi' => $programStudiId,
 				'pertemuan_ke' => $temu
 			];
 		}
@@ -190,7 +204,7 @@ class Laporan extends CI_Controller
 		if ($hari == 'all_days' && $dosenId != 'all_dosen' && $programStudiId != 'all_prodi' && $temu != 'all') {
 			$arrFilter = [
 				'id_dosen' => $dosenId,
-				'dosen.program_studi' => $programStudiId,
+				'dosen.id_program_studi' => $programStudiId,
 				'pertemuan_ke' => $temu
 			];
 		}
@@ -322,15 +336,15 @@ class Laporan extends CI_Controller
 			$jamKuliah = showJamKuliah($bap->jam_mulai, $bap->jam_selesai);
 			$penugasan = ($bap->ada_tugas == 1) ? "V" : "";
 
-			$edmodo	= (in_array("EDMODO", explode(",", strtoupper($bap->jenis_aplikasi)))) ? "V" : "-";
-			$zoom	= (in_array("ZOOM", explode(",", strtoupper($bap->jenis_aplikasi)))) ? "V" : "-";
-			$youtube= (in_array("YOUTUBE", explode(",", strtoupper($bap->jenis_aplikasi)))) ? "V" : "-";
-			$waGroup= (in_array("WA_GROUP", explode(",", strtoupper($bap->jenis_aplikasi)))) ? "V" : "-";
-			$doc	= (in_array("DOC", explode(",", strtoupper($bap->jenis_aplikasi)))) ? "V" : "-";
-			$ppt	= (in_array("PPT", explode(",", strtoupper($bap->jenis_aplikasi)))) ? "V" : "-";
-			$pdf	= (in_array("PDF", explode(",", strtoupper($bap->jenis_aplikasi)))) ? "V" : "-";
-			$video	= (in_array("VIDEO", explode(",", strtoupper($bap->jenis_aplikasi)))) ? "V" : "-";
-			$lainnya= (in_array("LAINNYA", explode(",", strtoupper($bap->jenis_aplikasi)))) ? "V" : "-";
+			$edmodo = (in_array("EDMODO", explode(",", strtoupper($bap->jenis_aplikasi)))) ? "V" : "-";
+			$zoom = (in_array("ZOOM", explode(",", strtoupper($bap->jenis_aplikasi)))) ? "V" : "-";
+			$youtube = (in_array("YOUTUBE", explode(",", strtoupper($bap->jenis_aplikasi)))) ? "V" : "-";
+			$waGroup = (in_array("WA_GROUP", explode(",", strtoupper($bap->jenis_aplikasi)))) ? "V" : "-";
+			$doc = (in_array("DOC", explode(",", strtoupper($bap->jenis_aplikasi)))) ? "V" : "-";
+			$ppt = (in_array("PPT", explode(",", strtoupper($bap->jenis_aplikasi)))) ? "V" : "-";
+			$pdf = (in_array("PDF", explode(",", strtoupper($bap->jenis_aplikasi)))) ? "V" : "-";
+			$video = (in_array("VIDEO", explode(",", strtoupper($bap->jenis_aplikasi)))) ? "V" : "-";
+			$lainnya = (in_array("LAINNYA", explode(",", strtoupper($bap->jenis_aplikasi)))) ? "V" : "-";
 
 			$sheet->setCellValue('B' . $cellIndex, $nomor);
 			$sheet->setCellValue('C' . $cellIndex, $namaHari);
@@ -385,9 +399,9 @@ class Laporan extends CI_Controller
 
 		//Alignment
 		$sheet->getStyle('F6:W' . $lastIndex)
-            ->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
-        $sheet->getStyle('F6:W' . $lastIndex)
-            ->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
+			->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+		$sheet->getStyle('F6:W' . $lastIndex)
+			->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
 
 		$writer = new Xlsx($spreadsheet);
 		header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT+7");

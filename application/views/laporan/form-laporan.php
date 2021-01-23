@@ -38,6 +38,7 @@
                                             </select>
                                         </div>
                                     </div>
+									<?php if(getUser("level") == 'SUPER_USER'): ?>
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label">Filter Program Studi</label>
                                         <div class="col-sm-8">
@@ -50,6 +51,9 @@
                                             </select>
                                         </div>
                                     </div>
+									<?php elseif(getUser('level') == 'KAPRODI'):?>
+										<input type="hidden" name="id_program_studi" value="<?php echo getUser('id_program_studi'); ?>">
+									<?php endif; ?>
 									<div class="form-group row">
                                         <label class="col-sm-3 col-form-label">Filter Temu Kuliah</label>
                                         <div class="col-sm-8">
@@ -185,7 +189,7 @@
                                         <?php endforeach; ?>
                                     <?php else: ?>
                                         <tr>
-                                            <td colspan="7" class="text-center font-weight-light">
+                                            <td colspan="22" class="text-center font-weight-light">
                                                 <span class="font-italic">Data tidak ditemukan.</span>
                                             </td>
                                         </tr>

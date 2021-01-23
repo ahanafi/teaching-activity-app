@@ -46,10 +46,22 @@ class Berita_acara_model extends Main_model
         $query = "SELECT " . $columns . " FROM " . $this->table . " " . $joinTo;
 
         if (!empty($where)) {
-            $column = array_keys($where)[0];
-            $value = array_values($where)[0];
+        	if(count($where) == 1) {
+				$column = array_keys($where)[0];
+				$value = array_values($where)[0];
 
-            $query .= " WHERE $column = '$value' ";
+				$query .= " WHERE $column = '$value' ";
+			} else if(count($where) > 1) {
+        		$query .= " WHERE ";
+        		$index = 0;
+				foreach ($where as $col => $val) {
+					$query .= "{$col} = '$val'";
+					if($index < count($where) - 1) {
+						$query .= " AND ";
+					}
+					$index++;
+        		}
+			}
         }
 
         return $query;

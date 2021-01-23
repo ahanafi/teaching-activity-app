@@ -26,7 +26,7 @@ class Jadwal_model extends Main_model
         return $columns;
     }
 
-    private function getJoinQueries($where = [])
+    private function getJoinQueries($where = [], $operator = '=')
     {
         $joinTo = " JOIN $this->_MATA_KULIAH USING ($this->_ID_MATA_KULIAH) ";
         $joinTo .= " JOIN $this->_KELAS USING ($this->_ID_KELAS) ";
@@ -42,10 +42,13 @@ class Jadwal_model extends Main_model
             $value = array_values($where)[0];
 
             $query = "SELECT " . $columns . " FROM " . $this->table . " " . $joinTo;
-            $query .= " WHERE $column = '$value' ";
+
+            $query .= " WHERE $column $operator $value ";
         }
 
-        $query .= " ORDER BY $this->table.id_jadwal ASC";
+        if($operator == '=') {
+        	$query .= " ORDER BY $this->table.id_jadwal ASC";
+		}
 
         return $query;
     }
@@ -65,7 +68,7 @@ class Jadwal_model extends Main_model
         return $this->db->query($query)->row();
     }
 
-    public function getByIdProgramStudi($id_program_studi)
+    public function getByIdProgramStudi($id_program_studi, $getIdDosenOnly = false)
 	{
 		$dosenId = $this->db->select('GROUP_CONCAT(id_dosen) AS id_dosen')
 			->from('dosen')
@@ -75,8 +78,15 @@ class Jadwal_model extends Main_model
 
 		$selectedDosenId = "($dosenId->id_dosen)";
 
-		$query = $this->getJoinQueries();
-		$query .= " WHERE id_dosen IN " . $selectedDosenId;
+		$query = $this->getJoinQueries([
+			'id_dosen' => $selectedDosenId
+		], 'IN');
+		$query .= " ORDER BY $this->table.id_jadwal ASC";
+
+		if($getIdDosenOnly == true) {
+			return $selectedDosenId;
+		}
+
 		return $this->db->query($query)->result();
 	}
 

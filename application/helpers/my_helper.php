@@ -217,3 +217,8 @@ function uriSegment($index) {
 	$ci =& get_instance();
 	return  $ci->uri->segment($index);
 }
+
+function dd($data) {
+	echo json_encode($data);
+    die();
+}
