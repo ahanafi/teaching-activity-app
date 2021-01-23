@@ -50,6 +50,7 @@ $uri2 = $this->uri->segment(2);
 	</script>
 <?php endif;
 $_SESSION['message'] = ''; ?>
+<?php if(($uri1 == "jadwal" || $uri1 == "berita-acara") && ($uri1 == "create" || $uri2 == "edit")):?>
 <script type="text/javascript">
 	loadSelect2();
 	$("input[name=jam_mulai]").timepicker({
@@ -61,5 +62,6 @@ $_SESSION['message'] = ''; ?>
 		format: 'HH:MM'
 	});
 </script>
+<?php endif; ?>
 </body>
 </html>

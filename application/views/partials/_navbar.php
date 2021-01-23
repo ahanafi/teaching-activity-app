@@ -28,11 +28,11 @@
 						<p class="mb-1 mt-3 font-weight-semibold"><?php echo getUser('nama_lengkap'); ?></p>
 						<p class="font-weight-light text-muted mb-0"><?php echo getUser('level'); ?></p>
 					</div>
-					<a href="#" class="dropdown-item">
+					<a href="<?php echo base_url('user/profile'); ?>" class="dropdown-item">
 						Profil Saya
 						<i class="dropdown-item-icon ti-dashboard"></i>
 					</a>
-					<a href="#" class="dropdown-item">
+					<a href="<?php echo base_url('user/change-password'); ?>" class="dropdown-item">
 						Ubah Kata Sandi
 						<i class="dropdown-item-icon ti-comment-alt"></i>
 					</a>

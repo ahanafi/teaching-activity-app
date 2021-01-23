@@ -193,7 +193,7 @@ class User extends CI_Controller
 				[
 					'field' => 'old_password',
 					'label' => 'Password lama',
-					'rules' => 'required|min_length[6]'
+					'rules' => 'required|min_length[6]|validate_old_password'
 				],
 				[
 					'field' => 'new_password',
@@ -201,7 +201,7 @@ class User extends CI_Controller
 					'rules' => 'required|min_length[6]'
 				],
 				[
-					'field' => 'confirm_password',
+					'field' => 'konfirmasi_password',
 					'label' => 'Konfirmasi password',
 					'rules' => 'required|matches[new_password]|trim'
 				]
@@ -209,6 +209,75 @@ class User extends CI_Controller
 		}
 
 		return $rules;
+	}
+
+	public function profile()
+	{
+		$userId = getUser('id_pengguna');
+		$user = $this->User->findById(['id_pengguna' => $userId]);
+		if(!$user) {
+			redirect(base_url('error'));
+		}
+		$data['user'] = $user;
+		$this->main_lib->getTemplate("user/profile", $data);
+	}
+
+	public function change_password()
+	{
+		$id_pengguna = getUser('id_pengguna');
+
+		if (isset($_POST['update-password'])) {
+			$rules = $this->_rules('password');
+			$this->form_validation->set_rules($rules);
+			$this->form_validation->set_error_delimiters("<small class='form-text text-danger'>", "</small>");
+
+			if ($this->form_validation->run() === FALSE) {
+				$this->main_lib->getTemplate("user/form-password");
+			} else {
+
+				$newPassword = $this->main_lib->getPost('new_password');
+				$encryptPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+
+				$update = $this->User->update([
+					'password' => $encryptPassword
+				], [
+					'id_pengguna' => $id_pengguna
+				]);
+
+				if ($update) {
+					$messages = [
+						'type' => 'success',
+						'text' => 'Password berhasil diubah.'
+					];
+				} else {
+					$messages = [
+						'type' => 'error',
+						'text' => 'Password gagal diubah.'
+					];
+				}
+
+				$this->session->set_flashdata('message', $messages);
+				redirect('user/profile', 'refresh');
+			}
+		} else {
+			$this->main_lib->getTemplate("user/form-password");
+		}
+	}
+
+	public function validate_old_password()
+	{
+		$password = $this->main_lib->getPost('old_password');
+		$userId = getUser('id_pengguna');
+		$user = $this->User->findById(['id_pengguna' => $userId]);
+		$userHashedPassword = $user->password;
+
+		$validate = password_verify($password, $userHashedPassword);
+		if($validate) {
+			return true;
+		} else {
+			$this->form_validation->set_message('validate_old_password', 'Password lama yang Anda masukan salah!');
+			return false;
+		}
 	}
 
 }
