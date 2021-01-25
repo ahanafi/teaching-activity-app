@@ -18,6 +18,7 @@ class Laporan extends CI_Controller
 		if (!isAuthenticated()) {
 			redirect('login');
 		}
+		provideAccessTo("SUPER_USER|KAPRODI");
 	}
 
 	public function index()

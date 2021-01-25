@@ -26,9 +26,7 @@
 									<th>Mata Kuliah</th>
 									<th>Dosen Pengampu</th>
 									<th>Ruangan</th>
-									<?php if(getUser('level') == "SUPER_USER"): ?>
 									<th>Actions</th>
-									<?php endif; ?>
 								</tr>
 								</thead>
 								<tbody>
@@ -43,13 +41,17 @@
 										<td><?php echo $jadwal->nama_mata_kuliah; ?></td>
 										<td><?php echo namaDosen($jadwal->dosen, $jadwal->gelar); ?></td>
 										<td><?php echo $jadwal->kode_ruangan; ?></td>
-										<?php if(getUser('level') == "SUPER_USER"): ?>
 										<td>
-											<a href="<?php echo base_url('jadwal/edit/' . $jadwal->id_jadwal); ?>"
-											   class="btn btn-success text-white">Edit</a>
-											<a href="#" onclick="showConfirmDelete('jadwal', <?php echo $jadwal->id_jadwal; ?>)" class="btn btn-danger">Hapus</a>
+											<?php if (getUser('level') == "SUPER_USER" || getUser('id_dosen') == $jadwal->id_dosen): ?>
+												<a href="<?php echo base_url('jadwal/edit/' . $jadwal->id_jadwal); ?>"
+												   class="btn btn-success text-white">Edit</a>
+												<?php if (getUser('level') == "SUPER_USER"): ?>
+													<a href="#"
+													   onclick="showConfirmDelete('jadwal', <?php echo $jadwal->id_jadwal; ?>)"
+													   class="btn btn-danger">Hapus</a>
+												<?php endif; ?>
+											<?php endif; ?>
 										</td>
-										<?php endif; ?>
 									</tr>
 								<?php endforeach; ?>
 								</tbody>

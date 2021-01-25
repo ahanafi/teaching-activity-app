@@ -27,8 +27,8 @@ $uri2 = $this->uri->segment(2);
 <script src="<?php echo assets('vendors/summernote/dist/summernote-bs4.min.js'); ?>"></script>
 <script src="<?php echo assets('vendors/select2/select2.min.js'); ?>"></script>
 
-<?php if(($uri1 == "berita-acara" || $uri1 == "jadwal-kuliah") && ($uri2 == "create" || $uri2 == "edit")): ?>
-<script src="<?php echo assets('vendors/gijgo/js/gijgo.min.js'); ?>"></script>
+<?php if (($uri1 == "berita-acara" || $uri1 == "jadwal-kuliah") && ($uri2 == "create" || $uri2 == "edit")): ?>
+	<script src="<?php echo assets('vendors/gijgo/js/gijgo.min.js'); ?>"></script>
 <?php endif; ?>
 <!-- End plugin js for this page-->
 <!-- inject:js -->
@@ -38,7 +38,31 @@ $uri2 = $this->uri->segment(2);
 <script src="<?php echo assets('js/shared/alerts.js'); ?>"></script>
 <script src="<?php echo assets('js/shared/custom.js'); ?>"></script>
 <!-- endinject -->
-<?php if($uri1 == "berita-acara"): ?>
+<?php if ($uri1 == "dashboard"): ?>
+	<script type="text/javascript">
+		const myData = {
+			labels: <?php echo json_encode($app_label);?>,
+			datasets: [{
+				label: 'Jumlah Penggunaan',
+				data: <?php echo json_encode($app_value); ?>,
+				backgroundColor: ChartColor[0],
+				borderColor: ChartColor[0],
+				borderWidth: 0
+			}]
+		};
+		const materialExtensionTypeData = {
+			datasets: [{
+				data: <?php echo json_encode($material_value); ?>,
+				backgroundColor: <?php echo json_encode($material_colors); ?>,
+				borderColor: <?php echo json_encode($material_colors); ?>,
+			}],
+
+			// These labels appear in the legend and in the tooltips when hovering different arcs
+			labels: <?php echo json_encode($material_label); ?>
+		};
+	</script>
+<?php endif; ?>
+<?php if ($uri1 == "berita-acara"): ?>
 	<script src="<?php echo assets('js/shared/berita-acara.js'); ?>"></script>
 <?php endif; ?>
 <!-- Custom js for this page-->
@@ -50,18 +74,18 @@ $uri2 = $this->uri->segment(2);
 	</script>
 <?php endif;
 $_SESSION['message'] = ''; ?>
-<?php if(($uri1 == "jadwal" || $uri1 == "berita-acara") && ($uri1 == "create" || $uri2 == "edit")):?>
-<script type="text/javascript">
-	loadSelect2();
-	$("input[name=jam_mulai]").timepicker({
-		uiLibrary: 'bootstrap4',
-		format: 'HH:MM'
-	});
-	$("input[name=jam_selesai]").timepicker({
-		uiLibrary: 'bootstrap4',
-		format: 'HH:MM'
-	});
-</script>
+<?php if (($uri1 == "jadwal" || $uri1 == "berita-acara") && ($uri1 == "create" || $uri2 == "edit")): ?>
+	<script type="text/javascript">
+		loadSelect2();
+		$("input[name=jam_mulai]").timepicker({
+			uiLibrary: 'bootstrap4',
+			format: 'HH:MM'
+		});
+		$("input[name=jam_selesai]").timepicker({
+			uiLibrary: 'bootstrap4',
+			format: 'HH:MM'
+		});
+	</script>
 <?php endif; ?>
 </body>
 </html>

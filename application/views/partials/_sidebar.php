@@ -73,12 +73,14 @@
 						<span class="menu-title">Berita Acara Perkuliahan</span>
 					</a>
 				</li>
+				<?php if(showOnlyTo('SUPER_USER|KAPRODI')):?>
 				<li class="nav-item">
 					<a class="nav-link" href="<?php echo base_url('laporan'); ?>">
 						<i class="menu-icon typcn typcn-bell"></i>
 						<span class="menu-title">Laporan</span>
 					</a>
 				</li>
+				<?php endif; ?>
 				<?php if(showOnlyTo('SUPER_USER')):?>
 				<li class="nav-item">
 					<a class="nav-link" href="<?php echo base_url('user'); ?>">

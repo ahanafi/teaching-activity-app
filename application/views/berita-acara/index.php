@@ -36,8 +36,8 @@
 										<td><?php echo $nomor++; ?></td>
 										<td><?php echo $bap->hari; ?></td>
 										<td>
-											<?php if(getUser('level') == 'SUPER_USER'): ?>
-											<a href="<?php echo base_url('dosen/detail/' . $bap->id_dosen); ?>"><?php echo namaDosen($bap->dosen, $bap->gelar); ?></a>
+											<?php if (getUser('level') == 'SUPER_USER'): ?>
+												<a href="<?php echo base_url('dosen/detail/' . $bap->id_dosen); ?>"><?php echo namaDosen($bap->dosen, $bap->gelar); ?></a>
 											<?php else: echo namaDosen($bap->dosen, $bap->gelar); endif; ?>
 										</td>
 										<td><?php echo $bap->mata_kuliah; ?></td>
@@ -50,10 +50,14 @@
 										<td>
 											<a href="<?php echo base_url('berita-acara/detail/' . $bap->id_berita_acara); ?>"
 											   class="btn btn-info text-white">Detail</a>
-											<?php if(getUser('level') == 'SUPER_USER' || getUser('id_dosen') == $bap->id_dosen):?>
-											<a href="<?php echo base_url('berita-acara/edit/' . $bap->id_berita_acara); ?>"
-											   class="btn btn-success text-white">Edit</a>
-											<a href="#" onclick="showConfirmDelete('berita-acara', <?php echo $bap->id_berita_acara; ?>)" class="btn btn-danger">Hapus</a>
+											<?php if (getUser('level') == 'SUPER_USER' || getUser('id_dosen') == $bap->id_dosen): ?>
+												<a href="<?php echo base_url('berita-acara/edit/' . $bap->id_berita_acara); ?>"
+												   class="btn btn-success text-white">Edit</a>
+												<?php if (getUser('level') == "SUPER_USER"): ?>
+													<a href="#"
+													   onclick="showConfirmDelete('berita-acara', <?php echo $bap->id_berita_acara; ?>)"
+													   class="btn btn-danger">Hapus</a>
+												<?php endif; ?>
 											<?php endif; ?>
 										</td>
 									</tr>

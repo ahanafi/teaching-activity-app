@@ -11,11 +11,11 @@ class User extends CI_Controller
 		if(!isAuthenticated()) {
 			redirect('login');
 		}
-		provideAccessTo('SUPER_USER');
 	}
 
 	public function index()
 	{
+		provideAccessTo('SUPER_USER');
 		$users = $this->User->all();
 		$data = [
 			'users' => $users,
@@ -26,6 +26,7 @@ class User extends CI_Controller
 
 	public function create()
 	{
+		provideAccessTo('SUPER_USER');
 		$data = [
 			'user_level' => showUserLevel()
 		];
@@ -99,6 +100,7 @@ class User extends CI_Controller
 
 	public function delete($id_pengguna)
 	{
+		provideAccessTo('SUPER_USER');
 		if (isset($_POST['_method']) && $_POST['_method'] == "DELETE") {
 			$data_id = $this->main_lib->getPost('data_id');
 			$data_type = $this->main_lib->getPost('data_type');

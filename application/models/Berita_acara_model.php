@@ -89,6 +89,13 @@ class Berita_acara_model extends Main_model
 
         return $this->db->query($query)->result();
 	}
+
+	public function getCount($key, $value)
+	{
+		return $this->db->where($key, $value)
+					->get($this->table)
+					->num_rows();
+	}
 }
 
 /* End of file Berita_acara_model.php */
