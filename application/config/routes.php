@@ -36,3 +36,5 @@ $route['laporan/generate'] = 'laporan/index';
 $route['laporan/berita-acara/(:any)'] = 'laporan/berita-acara/$1';
 
 $route['tahun-akademik'] = 'TahunAkademik/index';
+
+$route['get-akurasi-jadwal/(:num)'] = 'Dashboard/akurasi-jadwal/$1';

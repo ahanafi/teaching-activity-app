@@ -18,8 +18,6 @@
 								</div>
 							</div>
 						</div>
-						<p class="mt-3 mb-0 text-white">
-							<i class="mdi mdi-alert-octagon mr-1" aria-hidden="true"></i> 65% lower growth </p>
 					</div>
 				</div>
 			</div>
@@ -37,8 +35,6 @@
 								</div>
 							</div>
 						</div>
-						<p class="mt-3 mb-0 text-white">
-							<i class="mdi mdi-bookmark-outline mr-1" aria-hidden="true"></i> Product-wise sales </p>
 					</div>
 				</div>
 			</div>
@@ -56,8 +52,6 @@
 								</div>
 							</div>
 						</div>
-						<p class="mt-3 mb-0 text-white">
-							<i class="mdi mdi-calendar mr-1" aria-hidden="true"></i> Weekly Sales </p>
 					</div>
 				</div>
 			</div>
@@ -84,15 +78,78 @@
 						<canvas class="my-auto" id="doughnutChart" height="200"></canvas>
 						<div class="d-flex pt-3 border-top">
 							<table class="table table-bordered">
-								<?php for($i=0; $i<count($material_value); $i++):?>
-								<tr>
-									<td>
-										<span style="display:block;width: 10px;height: 10px;background-color: '<?php echo $material_colors[$i]; ?>';"></span>
-										<?php echo $material_label[$i]; ?></td>
-									<td><?php echo $material_value[$i]; ?></td>
-								</tr>
+								<?php for ($i = 0; $i < count($material_value); $i++): ?>
+									<tr>
+										<td>
+											<span style="display:block;width: 10px;height: 10px;background-color: '<?php echo $material_colors[$i]; ?>';"></span>
+											<?php echo $material_label[$i]; ?></td>
+										<td><?php echo $material_value[$i]; ?></td>
+									</tr>
 								<?php endfor; ?>
 							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-8 grid-margin">
+				<div class="card">
+					<div class="card-header header-sm">
+						<div class="d-flex align-items-center">
+							<h4 class="card-title mb-0">Grafik Ketepatan Jadwal dan Pelaksanaan Perkuliahan</h4>
+							<div class="dropdown ml-auto">
+								<select name="" id="" class="form-control" onchange="showScheduleAccuracy(this)">
+									<?php foreach ($jadwal_per_dosen as $jadwal_dosen): ?>
+									<optgroup label="<?php echo namaDosen($jadwal_dosen['nama_dosen'], $jadwal_dosen['gelar']); ?>">
+										<?php foreach ($jadwal_dosen['jadwal'] as $jadwal): ?>
+											<option value="<?php echo $jadwal->id_jadwal; ?>">
+											<?php echo $jadwal->nama_mata_kuliah . " - " . $jadwal->nama_kelas; ?>
+											</option>
+										<?php endforeach; ?>
+									</optgroup>
+									<?php endforeach; ?>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="card-body">
+						<div class="row">
+							<div class="col-lg-6 d-none d-lg-flex align-items-center justify-content-center order-lg-first">
+								<div class="wrapper">
+									<div class="chartjs-size-monitor">
+										<div class="chartjs-size-monitor-expand">
+											<div class=""></div>
+										</div>
+										<div class="chartjs-size-monitor-shrink">
+											<div class=""></div>
+										</div>
+									</div>
+									<canvas id="trafficDoughnutChart" height="325" width="375"
+											class="chartjs-render-monitor"
+											style="display: block; height: 140px; width: 300px;"></canvas>
+								</div>
+							</div>
+							<div class="col-lg-6 order-lg-last">
+								<table class="table table-bordered">
+									<tr>
+										<td style="background-color: #dee2e6;">Nama Dosen</td>
+										<td id="lecture-name"><?php echo namaDosen($jadwal->dosen, $jadwal->gelar); ?></td>
+									</tr>
+									<tr>
+										<td style="background-color: #dee2e6;">Mata Kuliah</td>
+										<td id="study-name"><?php echo $jadwal->nama_mata_kuliah; ?></td>
+									</tr>
+									<tr>
+										<td style="background-color: #dee2e6;">Kelas</td>
+										<td id="class-name"><?php echo $jadwal->nama_kelas; ?></td>
+									</tr>
+									<tr>
+										<td style="background-color: #dee2e6;">Jadwal</td>
+										<td id="schedule"><?php echo ucfirst(strtolower($jadwal->hari)) . ", " . showJamKuliah($jadwal->jam_mulai, $jadwal->jam_selesai); ?></td>
+									</tr>
+								</table>
+							</div>
 						</div>
 					</div>
 				</div>

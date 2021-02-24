@@ -40,7 +40,68 @@ $uri2 = $this->uri->segment(2);
 <!-- endinject -->
 <?php if ($uri1 == "dashboard"): ?>
 	<script type="text/javascript">
-		const myData = {
+
+		const drawSheduleAccurationChart = (chartData) => {
+			var doughnutChartCanvas = $("#trafficDoughnutChart").get(0).getContext("2d");
+
+			var doughnutPieOptions = {
+				//cutoutPercentage: 50,
+				animationEasing: "easeOutBounce",
+				animateRotate: true,
+				animateScale: false,
+				responsive: true,
+				maintainAspectRatio: true,
+				showScale: true,
+				legend: {
+					display: false
+				},
+				layout: {
+					padding: {
+						left: 0,
+						right: 0,
+						top: 0,
+						bottom: 0
+					}
+				}
+			};
+			var doughnutChart = new Chart(doughnutChartCanvas, {
+				type: 'doughnut',
+				data: chartData,
+				options: doughnutPieOptions
+			});
+		}
+
+		const showScheduleAccuracy = async (el) => {
+			const jadwalId = el.value;
+			const URL = BASE_URL + 'get-akurasi-jadwal/' + jadwalId;
+			const request = await fetch(URL, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					'X-Requested-With': 'XMLHttpRequest'
+				}
+			}).then(res => res.json());
+			const jadwal = request.jadwal;
+			const scheduleAccurationData = {
+				datasets: [{
+					data: request.data,
+					backgroundColor: request.colors,
+					borderColor: request.colors,
+				}],
+
+				// These labels appear in the legend and in the tooltips when hovering different arcs
+				labels: request.label
+			};
+
+			document.getElementById('lecture-name').innerText = jadwal.dosen;
+			document.getElementById('study-name').innerText = jadwal.nama_mata_kuliah;
+			document.getElementById('class-name').innerText = jadwal.nama_kelas;
+			document.getElementById('schedule').innerText = jadwal.jadwal;
+
+			drawSheduleAccurationChart(scheduleAccurationData);
+		}
+
+		const usedAppTypeData = {
 			labels: <?php echo json_encode($app_label);?>,
 			datasets: [{
 				label: 'Jumlah Penggunaan',
@@ -60,6 +121,19 @@ $uri2 = $this->uri->segment(2);
 			// These labels appear in the legend and in the tooltips when hovering different arcs
 			labels: <?php echo json_encode($material_label); ?>
 		};
+
+		const accurationScheduleAndImplementationData = {
+			datasets: [{
+				data: <?php echo json_encode($akurasi_jadwal_value); ?>,
+				backgroundColor: <?php echo json_encode($akurasi_jadwal_colors); ?>,
+				borderColor: <?php echo json_encode($akurasi_jadwal_colors); ?>,
+			}],
+
+			// These labels appear in the legend and in the tooltips when hovering different arcs
+			labels: <?php echo json_encode($akurasi_jadwal_label); ?>
+		};
+
+		drawSheduleAccurationChart(accurationScheduleAndImplementationData);
 	</script>
 <?php endif; ?>
 <?php if ($uri1 == "berita-acara"): ?>
@@ -74,7 +148,7 @@ $uri2 = $this->uri->segment(2);
 	</script>
 <?php endif;
 $_SESSION['message'] = ''; ?>
-<?php if (($uri1 == "jadwal" || $uri1 == "berita-acara") && ($uri1 == "create" || $uri2 == "edit")): ?>
+<?php if (($uri1 == "jadwal" || $uri1 == "jadwal-kuliah" || $uri1 == "berita-acara") && ($uri2 == "create" || $uri2 == "edit")): ?>
 	<script type="text/javascript">
 		loadSelect2();
 		$("input[name=jam_mulai]").timepicker({

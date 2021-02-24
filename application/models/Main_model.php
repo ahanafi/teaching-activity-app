@@ -134,6 +134,25 @@ class Main_model extends CI_Model
 		return $query->result();
 	}
 
+	public function customQuery($query, $all = true)
+	{
+		$query = $this->db->query($query);
+		if($all == false) {
+			return $query->row();
+		}
+		return $query->result();
+
+	}
+
+	public function getDistinct($columnName, $where = [])
+	{
+	 	$query = $this->db->select("DISTINCT($columnName)")
+			->from($this->table)
+			->where($where)
+			->get();
+	 	return $query->result();
+	}
+
 }
 
 /* End of file Main_model.php */

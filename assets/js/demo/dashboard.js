@@ -1005,7 +1005,7 @@
 		var barChartCanvas = $("#barChart").get(0).getContext("2d");
 		var barChart = new Chart(barChartCanvas, {
 			type: 'bar',
-			data: myData,
+			data: usedAppTypeData,
 			options: {
 				responsive: true,
 				maintainAspectRatio: true,
@@ -1087,30 +1087,8 @@
 
 	if ($("#doughnutChart").length) {
 		var doughnutChartCanvas = $("#doughnutChart").get(0).getContext("2d");
-		var doughnutPieData = {
-			datasets: [{
-				data: [20, 80, 83],
-				backgroundColor: [
-					ChartColor[0],
-					ChartColor[1],
-					ChartColor[2]
-				],
-				borderColor: [
-					ChartColor[0],
-					ChartColor[1],
-					ChartColor[2]
-				],
-			}],
-
-			// These labels appear in the legend and in the tooltips when hovering different arcs
-			labels: [
-				'Sales',
-				'Profit',
-				'Return',
-			]
-		};
 		var doughnutPieOptions = {
-			cutoutPercentage: 75,
+			cutoutPercentage: 65,
 			animationEasing: "easeOutBounce",
 			animateRotate: true,
 			animateScale: false,
@@ -1146,6 +1124,10 @@
 			data: materialExtensionTypeData,
 			options: doughnutPieOptions
 		});
-		document.getElementById('doughnut-chart-legend').innerHTML = doughnutChart.generateLegend();
+		//document.getElementById('doughnut-chart-legend').innerHTML = doughnutChart.generateLegend();
+	}
+
+	if ($(".select2").length) {
+		$(".select2").select2();
 	}
 })(jQuery);
