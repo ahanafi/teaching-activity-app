@@ -102,9 +102,9 @@
 								<select name="" id="" class="form-control" onchange="showScheduleAccuracy(this)">
 									<?php foreach ($jadwal_per_dosen as $jadwal_dosen): ?>
 									<optgroup label="<?php echo namaDosen($jadwal_dosen['nama_dosen'], $jadwal_dosen['gelar']); ?>">
-										<?php foreach ($jadwal_dosen['jadwal'] as $jadwal): ?>
-											<option value="<?php echo $jadwal->id_jadwal; ?>">
-											<?php echo $jadwal->nama_mata_kuliah . " - " . $jadwal->nama_kelas; ?>
+										<?php foreach ($jadwal_dosen['jadwal'] as $jadwalDosen): ?>
+											<option value="<?php echo $jadwalDosen->id_jadwal; ?>">
+											<?php echo $jadwalDosen->nama_mata_kuliah . " - " . $jadwalDosen->nama_kelas ."/" . $jadwalDosen->semester; ?>
 											</option>
 										<?php endforeach; ?>
 									</optgroup>
@@ -142,7 +142,7 @@
 									</tr>
 									<tr>
 										<td style="background-color: #dee2e6;">Kelas</td>
-										<td id="class-name"><?php echo $jadwal->nama_kelas; ?></td>
+										<td id="class-name"><?php echo $jadwal->nama_kelas ."/" . $jadwal->semester; ?></td>
 									</tr>
 									<tr>
 										<td style="background-color: #dee2e6;">Jadwal</td>

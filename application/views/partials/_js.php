@@ -42,9 +42,8 @@ $uri2 = $this->uri->segment(2);
 	<script type="text/javascript">
 
 		const drawSheduleAccurationChart = (chartData) => {
-			var doughnutChartCanvas = $("#trafficDoughnutChart").get(0).getContext("2d");
-
-			var doughnutPieOptions = {
+			let doughnutChartCanvas = $("#trafficDoughnutChart").get(0).getContext("2d");
+			let doughnutPieOptions = {
 				//cutoutPercentage: 50,
 				animationEasing: "easeOutBounce",
 				animateRotate: true,
@@ -64,8 +63,8 @@ $uri2 = $this->uri->segment(2);
 					}
 				}
 			};
-			var doughnutChart = new Chart(doughnutChartCanvas, {
-				type: 'doughnut',
+			window.scheduleAccurationChart = new Chart(doughnutChartCanvas, {
+				type: 'bar',
 				data: chartData,
 				options: doughnutPieOptions
 			});
@@ -95,10 +94,11 @@ $uri2 = $this->uri->segment(2);
 
 			document.getElementById('lecture-name').innerText = jadwal.dosen;
 			document.getElementById('study-name').innerText = jadwal.nama_mata_kuliah;
-			document.getElementById('class-name').innerText = jadwal.nama_kelas;
+			document.getElementById('class-name').innerText = `${jadwal.nama_kelas}/${jadwal.semester}`;
 			document.getElementById('schedule').innerText = jadwal.jadwal;
 
-			drawSheduleAccurationChart(scheduleAccurationData);
+			window.scheduleAccurationChart.data = scheduleAccurationData;
+			window.scheduleAccurationChart.update();
 		}
 
 		const usedAppTypeData = {
@@ -106,11 +106,12 @@ $uri2 = $this->uri->segment(2);
 			datasets: [{
 				label: 'Jumlah Penggunaan',
 				data: <?php echo json_encode($app_value); ?>,
-				backgroundColor: ChartColor[0],
-				borderColor: ChartColor[0],
+				backgroundColor: <?php echo json_encode($app_colors); ?>,
+				borderColor: <?php echo json_encode($app_colors); ?>,
 				borderWidth: 0
 			}]
 		};
+
 		const materialExtensionTypeData = {
 			datasets: [{
 				data: <?php echo json_encode($material_value); ?>,
@@ -133,7 +134,9 @@ $uri2 = $this->uri->segment(2);
 			labels: <?php echo json_encode($akurasi_jadwal_label); ?>
 		};
 
-		drawSheduleAccurationChart(accurationScheduleAndImplementationData);
+		window.onload = () => {
+			drawSheduleAccurationChart(accurationScheduleAndImplementationData);
+		}
 	</script>
 <?php endif; ?>
 <?php if ($uri1 == "berita-acara"): ?>

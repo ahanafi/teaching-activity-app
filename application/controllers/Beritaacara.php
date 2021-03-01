@@ -21,7 +21,8 @@ class Beritaacara extends CI_Controller
 			'max_height' => 768,
 			'encrypt_name' => true
 		];
-		$this->load->library('upload');
+
+		$this->load->library(['upload', 'clouds']);
 	}
 
 	public function index()
@@ -80,8 +81,10 @@ class Beritaacara extends CI_Controller
 						$this->main_lib->getTemplate('berita-acara/form-create', $data);
 						return false;
 					} else {
-						$getPostData['paraf_mhs'] = $parafMhs;
+						$uploads = $this->clouds->save($parafMhs, 'paraf-mhs');
+						$getPostData['paraf_mhs'] = $uploads;
 					}
+
 				}
 
 				//Insert parent table
@@ -111,11 +114,13 @@ class Beritaacara extends CI_Controller
 							$fileType = $uploadData['file_type'];
 							$fileLocation = 'uploads/bukti-kegiatan/' . $fileName;
 
+							$uploads = $this->clouds->save($fileLocation, 'foto-kegiatan');
+
 							$buktiKegiatanData = [
 								'id_berita_acara' => $IdBeritaAcara,
 								'nama_file' => $fileName,
 								'jenis_file' => $fileType,
-								'lokasi' => $fileLocation
+								'lokasi' => $uploads
 							];
 
 							$this->BuktiKegiatan->insert($buktiKegiatanData);

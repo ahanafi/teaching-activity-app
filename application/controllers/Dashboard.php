@@ -21,12 +21,14 @@ class Dashboard extends CI_Controller
 
 		$arrLabelApps = [];
 		$arrValueApps = [];
+		$arrColorApps = [];
 
 		//Grafik Penggunaan Aplikasi
 		foreach (daringApps() as $appCode => $appName) {
 			$arrLabelApps[] = $appName;
 			$appCode = strtolower($appCode);
 			$arrValueApps[] = $this->BeritaAcara->getCount('jenis_aplikasi LIKE', "%$appCode%");
+			$arrColorApps[] = randomHexColor();
 		}
 
 		$materialLabel = [];
@@ -62,12 +64,14 @@ class Dashboard extends CI_Controller
 		");
 
 		$selectedJadwal = [];
-
+		$index = 0;
 		foreach ($dosenInJadwal as $dosen) {
 			$dosenId = $dosen->id_dosen;
-			if (empty($selectedJadwal)) {
+			if ($index == 0) {
 				$selectedJadwal = $this->Jadwal->findById(['id_dosen' => $dosenId]);
 			}
+
+			$index++;
 
 			$arrJadwalDosen[] = [
 				'id_dosen' => $dosenId,
@@ -85,6 +89,7 @@ class Dashboard extends CI_Controller
 		$hariBySelectedJadwal = $selectedJadwal->hari;
 
 		$beritaAcaraBySelectedJadwal = $this->BeritaAcara->findById(['id_jadwal' => $selectedJadwal->id_jadwal], true);
+
 		foreach ($beritaAcaraBySelectedJadwal as $bap) {
 
 			$tanggalRealisasi = $bap->tanggal_realisasi;
@@ -104,6 +109,7 @@ class Dashboard extends CI_Controller
 			'total_dosen' => $totalDosen,
 			'app_label' => $arrLabelApps,
 			'app_value' => $arrValueApps,
+			'app_colors' => $arrColorApps,
 
 			'material_label' => $materialLabel,
 			'material_value' => $materialValue,
