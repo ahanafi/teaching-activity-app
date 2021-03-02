@@ -1,6 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
+use Nim4n\SimpleDate;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Exception;
@@ -277,14 +278,14 @@ class Laporan extends CI_Controller
 			$sheet->mergeCells("L6:O6");
 			$sheet->mergeCells("P6:T6");
 			$sheet->mergeCells("U6:V6");
-			$sheet->mergeCells("W6:W7");
+			$sheet->mergeCells("W6:Y6");
 		} catch (Exception $e) {
 		}
 
 		$sheet->setCellValue("L6", "APLIKASI");
 		$sheet->setCellValue("P6", "MATERI");
 		$sheet->setCellValue("U6", "BUKTI KEHADIRAN");
-		$sheet->setCellValue("W6", "KETERANGAN");
+		$sheet->setCellValue("W6", "PELAKSANAAN");
 
 		$sheet->setCellValue("L7", "Edmodo");
 		$sheet->setCellValue("M7", "ZOOM");
@@ -300,12 +301,16 @@ class Laporan extends CI_Controller
 		$sheet->setCellValue("U7", "SCREENSHOOT");
 		$sheet->setCellValue("V7", "TUGAS");
 
+		$sheet->setCellValue("W7", "HARI");
+		$sheet->setCellValue("X7", "TANGGAL");
+		$sheet->setCellValue("Y7", "JAM");
+
 		//Styling font
 		$sheet->getStyle('B2:B4')->getFont()
 			->setSize('16')
 			->setBold(true)
 			->setName('Arial');
-		$sheet->getStyle('B6:W6')->getFont()
+		$sheet->getStyle('B6:Y6')->getFont()
 			->setSize('10')
 			->setBold(true)
 			->setName('Arial');
@@ -375,7 +380,13 @@ class Laporan extends CI_Controller
 
 			$sheet->setCellValue('U' . $cellIndex, $bap->ada_bukti);
 			$sheet->setCellValue('V' . $cellIndex, $penugasan);
-			$sheet->setCellValue('W' . $cellIndex, $bap->tanggal_realisasi);
+
+			$hariPelaksanaan = SimpleDate::createFormat("dddd", $bap->tanggal_realisasi);
+			$jamPelaksanaan = showJamKuliah($bap->jam_mulai_pelaksanaan, $bap->jam_selesai_pelaksanaan);
+
+			$sheet->setCellValue('W' . $cellIndex, $hariPelaksanaan);
+			$sheet->setCellValue('X' . $cellIndex, $bap->tanggal_realisasi);
+			$sheet->setCellValue('Y' . $cellIndex, $jamPelaksanaan);
 
 			$nomor++;
 			$cellIndex++;
@@ -392,7 +403,7 @@ class Laporan extends CI_Controller
 		$lastIndex = $cellIndex - 1;
 		//Border
 		try {
-			$sheet->getStyle('B6:W' . $lastIndex)->getBorders()
+			$sheet->getStyle('B6:Y' . $lastIndex)->getBorders()
 				->getAllBorders()
 				->setBorderStyle(Border::BORDER_THIN);
 		} catch (Exception $e) {

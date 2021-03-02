@@ -3,10 +3,10 @@
 	$(function () {
 		$('#order-listing').DataTable({
 			"aLengthMenu": [
-				[5, 10, 30, 50,  -1],
-				[5, 10, 30, 50, "All"],
+				[10, 30, 50,  -1],
+				[10, 30, 50, "All"],
 			],
-			"iDisplayLength": 5,
+			"iDisplayLength": 10,
 			"bLengthChange": false,
 			"language": {
 				search: "Pencarian :"

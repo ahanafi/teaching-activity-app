@@ -235,11 +235,13 @@ class Beritaacara extends CI_Controller
 							$fileType = $uploadData['file_type'];
 							$fileLocation = 'uploads/bukti-kegiatan/' . $fileName;
 
+							$uploads = $this->clouds->save($parafMhs, 'paraf-mhs');
+
 							$buktiKegiatanData = [
 								'id_berita_acara' => $id_berita_acara,
 								'nama_file' => $fileName,
 								'jenis_file' => $fileType,
-								'lokasi' => $fileLocation
+								'lokasi' => $uploads
 							];
 
 							//Insert new bukti kegiatan

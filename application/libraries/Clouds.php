@@ -37,6 +37,9 @@ class Clouds
 			$uploadCloud = (new UploadApi())->upload($files, [
 				'folder' => $folderName
 			]);
+			if(file_exists(FCPATH . $files)) {
+				unlink(FCPATH . $files);
+			}
 			return $uploadCloud['secure_url'];
 		} catch (\Cloudinary\Api\Exception\ApiError $e) {
 			echo "Error: " . $e->getMessage();

@@ -185,6 +185,7 @@ function materialType($key = null)
 		'DOC' => 'Doc/Docx',
 		'XLS' => 'Spreadsheet',
 		'PDF' => 'PDF',
+		'LAINNYA' => 'Lainnya'
 	];
 
 	if ($key != null) {

@@ -16,25 +16,29 @@
 					</div>
 					<div class="card-body">
 						<div class="table-responsive">
-							<table id="order-listing" class="table table-striped">
+							<table id="order-listing" class="table table-striped table-bordered">
 								<thead>
 								<tr>
-									<th>No.</th>
-									<th>Hari</th>
-									<th>Dosen</th>
-									<th>Mata Kuliah</th>
-									<th>SKS</th>
-									<th>Waktu</th>
-									<th>Temu Ke</th>
-									<th>Jumlah Hadir</th>
-									<th>Actions</th>
+									<th rowspan="2" class="align-middle border-right">No.</th>
+									<th colspan="4" class="text-center border-right">Jadwal</th>
+									<th rowspan="2" class="align-middle border-right">Temu Ke</th>
+									<th rowspan="2" class="align-middle border-right">Jumlah Hadir</th>
+									<th rowspan="2" class="border-right">Realisasi</th>
+									<th class="border-right align-middle text-center" rowspan="2">Actions</th>
+								</tr>
+								<tr>
+									<th class="border-right">Hari</th>
+									<th class="border-right">Dosen</th>
+									<th class="border-right">Mata Kuliah</th>
+									<th class="border-right">SKS</th>
+									<!--<th class="border-right">Waktu</th>-->
 								</tr>
 								</thead>
 								<tbody>
 								<?php foreach ($berita_acara as $bap): ?>
 									<tr>
 										<td><?php echo $nomor++; ?></td>
-										<td><?php echo $bap->hari; ?></td>
+										<td><?php echo ucfirst(strtolower($bap->hari)) . "<br>" . showJamKuliah($bap->jam_mulai, $bap->jam_selesai); ?></td>
 										<td>
 											<?php if (getUser('level') == 'SUPER_USER'): ?>
 												<a href="<?php echo base_url('dosen/detail/' . $bap->id_dosen); ?>"><?php echo namaDosen($bap->dosen, $bap->gelar); ?></a>
@@ -42,11 +46,12 @@
 										</td>
 										<td><?php echo $bap->mata_kuliah; ?></td>
 										<td class="text-center"><?php echo $bap->sks; ?></td>
-										<td>
-											<?php echo showJamKuliah($bap->jam_mulai, $bap->jam_selesai); ?>
-										</td>
+										<!--<td>
+											<?php /*echo showJamKuliah($bap->jam_mulai, $bap->jam_selesai); */?>
+										</td>-->
 										<td class="text-center"><?php echo $bap->pertemuan_ke; ?></td>
 										<td class="text-center"><?php echo $bap->jumlah_hadir; ?></td>
+										<td class="text-center"><?php echo Nim4n\SimpleDate::createFormat("dddd", $bap->tanggal_realisasi); ?></td>
 										<td>
 											<a href="<?php echo base_url('berita-acara/detail/' . $bap->id_berita_acara); ?>"
 											   class="btn btn-info text-white">Detail</a>

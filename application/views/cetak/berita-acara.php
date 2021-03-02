@@ -158,7 +158,7 @@
 				<td>
 					<?php
 					$index = 1;
-					foreach (explode(",", $bap->jenis_aplikasi) as $appCode):
+					foreach (explode(", ", str_replace(" ", "", $bap->jenis_aplikasi)) as $appCode):
 						echo $index . ". " . daringApps(strtoupper(trim($appCode))) . "<br>";
 						$index++;
 					endforeach;

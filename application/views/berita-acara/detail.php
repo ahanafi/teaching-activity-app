@@ -147,13 +147,8 @@
 								<td>Paraf Mahasiswa</td>
 								<td>:</td>
 								<td>
-									<?php if ($bap->paraf_mhs != '' && file_exists(FCPATH . $bap->paraf_mhs)): ?>
-										<img src="<?php echo base_url($bap->paraf_mhs); ?>" alt=""
+									<img src="<?php echo $bap->paraf_mhs; ?>" alt=""
 											 class="img-fluid">
-									<?php else: ?>
-										<img src="<?php echo assets('images/avatar.png'); ?>" alt=""
-											 class="img-fluid">
-									<?php endif; ?>
 								</td>
 							</tr>
 						</table>
@@ -177,9 +172,7 @@
 					</div>
 					<div class="card-body">
 						<?php foreach ($dokumentasi as $dok): ?>
-							<?php if (file_exists(FCPATH . $dok->lokasi)): ?>
-								<img src="<?php echo base_url($dok->lokasi); ?>" alt="" class="img-fluid mb-2">
-							<?php endif; ?>
+							<img src="<?php echo $dok->lokasi; ?>" alt="" class="img-fluid mb-2">
 						<?php endforeach; ?>
 					</div>
 				</div>
