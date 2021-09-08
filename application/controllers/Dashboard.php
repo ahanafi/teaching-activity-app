@@ -95,7 +95,7 @@ class Dashboard extends CI_Controller
 			$tanggalRealisasi = $bap->tanggal_realisasi;
 
 			$hari = SimpleDate::createFormat("dddd", $tanggalRealisasi);
-			if(strtolower($hari) == strtolower($hariBySelectedJadwal)){
+			if(strtolower($hari) === strtolower($hariBySelectedJadwal)){
 				$tepat++;
 			} else {
 				$tidakTepat++;
@@ -145,7 +145,7 @@ class Dashboard extends CI_Controller
 				$tanggalRealisasi = $bap->tanggal_realisasi;
 
 				$hari = SimpleDate::createFormat("dddd", $tanggalRealisasi);
-				if(strtolower($hari) == strtolower($hariByJadwal)) {
+				if(strtolower($hari) === strtolower($hariByJadwal)) {
 					$tepat++;
 				} else {
 					$tidakTepat++;

@@ -9,8 +9,7 @@ class Auth_model extends Main_model
 	public function login($credentials)
 	{
 		$sql = $this->db->where([
-			'username' => $credentials['username'],
-			'level' => $credentials['level']
+			'username' => $credentials['username']
 		])->get($this->table);
 
 		$check = $sql->num_rows();
@@ -37,17 +36,17 @@ class Auth_model extends Main_model
 				unset($_SESSION['user']->password);
 				return true;
 
-			} else {
-				return false;
 			}
-		} else {
+
 			return false;
 		}
+
+		return false;
 	}
 
 	public function register($data)
 	{
-		return parent::insert($this->table, $data);
+		return $this->insert($this->table, $data);
 	}
 }
 

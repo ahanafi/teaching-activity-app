@@ -4,7 +4,7 @@
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>Star Admin Premium Bootstrap Admin Dashboard Template</title>
+	<title>Sistem Pencatatan Kegiatan Dosen</title>
 	<!-- plugins:css -->
 	<link rel="stylesheet" href="<?php echo assets('vendors/iconfonts/mdi/css/materialdesignicons.min.css'); ?>">
 	<link rel="stylesheet" href="<?php echo assets('vendors/iconfonts/ionicons/dist/css/ionicons.css'); ?>">
@@ -18,8 +18,13 @@
 	<!-- inject:css -->
 	<link rel="stylesheet" href="<?php echo assets('css/shared/style.css'); ?>">
 	<!-- endinject -->
-	<link rel="shortcut icon" href="<?php echo assets('images/favicon.ico'); ?>"/>
+	<link rel="shortcut icon" href="<?php echo assets('images/ucic-simple.png'); ?>"/>
 </head>
+<style>
+	.auto-form-wrapper > img {
+		width: 40%;
+	}
+</style>
 <body>
 <div class="container-scroller">
 	<div class="container-fluid page-body-wrapper full-page-wrapper">
@@ -34,21 +39,6 @@
 								<label class="label">Username</label>
 								<div class="input-group">
 									<input type="text" class="form-control" placeholder="Username" name="username" required autocomplete="off">
-									<div class="input-group-append">
-										<span class="input-group-text">
-										  <i class="mdi mdi-check-circle-outline"></i>
-										</span>
-									</div>
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="label">Level</label>
-								<div class="input-group">
-									<select name="level" required class="form-control">
-										<option value="SUPER_USER">ADMINISTRATOR</option>
-										<option value="DOSEN">DOSEN</option>
-										<option value="KAPRODI">KEPALA PROGRAM STUDI</option>
-									</select>
 									<div class="input-group-append">
 										<span class="input-group-text">
 										  <i class="mdi mdi-check-circle-outline"></i>
@@ -72,7 +62,7 @@
 							</div>
 						</form>
 					</div>
-					<p class="footer-text text-center">Copyright © 2020 Bootstrapdash. All rights reserved.</p>
+					<p class="footer-text text-white-50 text-center">Copyright &copy; <?= date('Y') ?> <a class="text-white-50" href="https://s.id/ahanafi"><u>Ahmad Hanafi</u></a>. All rights reserved.</p>
 				</div>
 			</div>
 		</div>
@@ -85,7 +75,7 @@
 <script src="<?php echo assets('vendors/js/vendor.bundle.base.js'); ?>"></script>
 <script src="<?php echo assets('vendors/sweetalert2/sweetalert2.min.js'); ?>"></script>
 <script src="<?php echo assets('js/shared/alerts.js'); ?>"></script>
-<?php if (isset($_SESSION['message']) && $_SESSION['message'] != ''): ?>
+<?php if (isset($_SESSION['message']) && $_SESSION['message'] !== ''): ?>
 	<script type="text/javascript">
 		showAlert('message', '<?php echo $_SESSION['message']['type']; ?>', '<?php echo ucfirst($_SESSION['message']['type']); ?>', '<?php echo $_SESSION['message']['text']; ?>');
 	</script>

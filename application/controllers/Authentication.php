@@ -28,11 +28,6 @@ class Authentication extends CI_Controller
 					'field' => 'password',
 					'label' => 'Password',
 					'rules' => 'required'
-				],
-				[
-					'field' => 'level',
-					'label' => 'Level',
-					'rules' => 'required'
 				]
 			];
 			$this->form_validation->set_rules($rules);
@@ -43,11 +38,9 @@ class Authentication extends CI_Controller
 			} else {
 				$username = $this->input->post('username', true);
 				$password = $this->input->post('password', true);
-				$level = $this->input->post('level', true);
 
 				$credentials = [
 					'username' 	=> $username,
-					'level'		=> $level,
 					'password' 	=> $password
 				];
 
@@ -71,7 +64,7 @@ class Authentication extends CI_Controller
 
 	public function logout()
     {
-        if (isset($_POST['logout']) && $_POST['logout'] == 'TRUE') {
+        if (isset($_POST['logout']) && $_POST['logout'] === 'TRUE') {
             $this->session->sess_destroy();
             $this->session->unset_userdata('user');
             redirect('login');

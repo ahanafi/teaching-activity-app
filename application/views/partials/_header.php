@@ -24,7 +24,7 @@ $uri2 = $this->uri->segment(2);
 	<link rel="stylesheet" href="<?php echo assets('vendors/summernote/dist/summernote-bs4.css'); ?>">
 	<link rel="stylesheet" href="<?php echo assets('vendors/select2/select2.min.css'); ?>">
 	<link rel="stylesheet" href="<?php echo assets('vendors/select2-bootstrap-theme/select2-bootstrap.min.css'); ?>">
-	<?php if(($uri1 == "berita-acara" || $uri1 == "jadwal-kuliah") && ($uri2 == "create" || $uri2 == "edit")): ?>
+	<?php if(($uri1 === "berita-acara" || $uri1 === "jadwal-kuliah") && ($uri2 === "create" || $uri2 === "edit")): ?>
 	<link rel="stylesheet" href="<?php echo assets('vendors/gijgo/css/gijgo.min.css'); ?>">
 	<?php endif; ?>
 
