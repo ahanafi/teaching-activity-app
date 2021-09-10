@@ -122,3 +122,33 @@ const loadSelect2 = () => {
 })(jQuery);
 
 $('[data-toggle="tooltip"]').tooltip();
+
+const getKelas = (elmt) => {
+	if(elmt.value !== '') {
+		const programStudiId = elmt.value;
+		$.get(`${BASE_URL}kelas/getkelasbyprogramstudi/${programStudiId}`, (response) => {
+			const result = JSON.parse(response);
+			if(result.data.length > 0) {
+				const listKelas = $("#list-kelas");
+				$("#list-kelas > option").remove();
+				$("#list-kelas").append(`<option selected disabled>-- Pilih Kelas --</option>`);
+				$.each(result.data, (i, v) => {
+					listKelas.append(`<option value='${v.id_kelas}'>${v.nama_kelas}/${v.semester}</option>`);
+				});
+			}
+		});
+	}
+}
+
+const changeKelas = (el) => {
+	const programStudiContainer = $("select[name=id_program_studi]");
+	if(programStudiContainer.val() === '' || programStudiContainer.val() === null) {
+		Swal.fire({
+			title: 'Warning',
+			text: 'Silahkan pilih program studi terlebih dahulu!',
+			icon: 'info',
+		}).then(res => {
+			programStudiContainer.focus();
+		})
+	}
+};

@@ -19,7 +19,7 @@ class Main_model extends CI_Model
 	public function findById($where = [], $all = FALSE)
 	{
 		$sql = $this->db->where($where)->get($this->table);
-		if($all == true) {
+		if($all) {
 			return $sql->result();
 		}
 		return $sql->row();
@@ -28,7 +28,7 @@ class Main_model extends CI_Model
 	public function getBy($column, $value, $all = FALSE)
 	{
 		$sql = $this->db->select('*')->from($this->table)->where($column, $value)->get();
-		if ($all != FALSE) {
+		if ($all !== FALSE) {
 			$result = $sql->result();
 		} else {
 			$result = $sql->row();

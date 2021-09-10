@@ -18,7 +18,7 @@ class Auth_model extends Main_model
 			$user = $sql->row();
 			$validate = password_verify($credentials['password'], $user->password);
 
-			if ($validate === TRUE) {
+			if ($validate) {
 
 				if(in_array($user->level,['KAPRODI', 'DOSEN'])) {
 					$dosenId = $user->id_dosen;
@@ -28,7 +28,6 @@ class Auth_model extends Main_model
 
 					$user->id_program_studi = $dosen->id_program_studi;
 				}
-
 
 				$this->session->set_userdata("user", $user);
 				$this->session->set_userdata("is_logged_in", TRUE);

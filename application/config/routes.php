@@ -38,3 +38,4 @@ $route['laporan/berita-acara/(:any)'] = 'laporan/berita-acara/$1';
 $route['tahun-akademik'] = 'TahunAkademik/index';
 
 $route['get-akurasi-jadwal/(:num)'] = 'Dashboard/akurasi-jadwal/$1';
+$route['get-kelas/(:num)'] = 'Kelas/getKelas/$1';

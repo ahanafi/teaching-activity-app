@@ -27,3 +27,11 @@ input[type=number] {
 .no-border-radius{
 	border-radius: 0 !important;
 }
+
+#sidebar > ul.nav > li.active {
+	background: #0f25d5 !important;
+}
+
+#sidebar > ul.nav > li.active > a > .menu-title{
+	font-weight: bold !important;
+}

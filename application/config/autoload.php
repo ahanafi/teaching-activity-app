@@ -150,5 +150,7 @@ $autoload['model'] = [
 	'Mata_kuliah_model'		=> 'MataKuliah',
 	'Berita_acara_model'	=> 'BeritaAcara',
 	'Bukti_kegiatan_model'	=> 'BuktiKegiatan',
-	'Tahun_akademik_model'	=> 'TahunAkademik'
+	'Tahun_akademik_model'	=> 'TahunAkademik',
+	'Verifikasi_model'		=> 'Verifikasi',
+	'Mahasiswa_model'		=> 'Mahasiswa'
 ];

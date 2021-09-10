@@ -49,6 +49,9 @@
 								<a class="nav-link" href="<?php echo base_url('dosen') ?>">Data Dosen</a>
 							</li>
 							<li class="nav-item">
+								<a class="nav-link" href="<?php echo base_url('mahasiswa') ?>">Data Mahasiswa</a>
+							</li>
+							<li class="nav-item">
 								<a class="nav-link" href="<?php echo base_url('kelas') ?>">Data Kelas</a>
 							</li>
 							<li class="nav-item">

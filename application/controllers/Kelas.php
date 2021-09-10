@@ -130,7 +130,7 @@ class Kelas extends CI_Controller
 
 	private function _rules($type)
 	{
-		if ($type == "insert") {
+		if ($type === "insert") {
 			//Rule when create new user
 			$rules = [
 				[
@@ -150,7 +150,7 @@ class Kelas extends CI_Controller
 				],
 			];
 
-		} else if ($type == "update") {
+		} else if ($type === "update") {
 			//Rule when update user
 			$rules = [
 				[
@@ -174,6 +174,23 @@ class Kelas extends CI_Controller
 		return $rules;
 	}
 
+	public function getKelasByProgramStudi($programStudiId)
+	{
+		if($this->input->is_ajax_request()) {
+			$kelas = $this->Kelas->getBy('id_program_studi', $programStudiId, true);
+			$response = [
+				'status' => 'success',
+				'data' => $kelas
+			];
+		} else {
+			$response = [
+				'status' => 'error',
+				'message' => 'Resource not found.'
+			];
+		}
+
+		echo json_encode($response);
+	}
 }
 
 /* End of file Kelas.php */
