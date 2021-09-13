@@ -57,13 +57,13 @@ function setArrayMessage($type, $actionType, $dataType)
 function getStatus($status, $type = 'status')
 {
 	$badge = "";
-	if ($type == 'status') {
+	if ($type === 'status') {
 		if ($status == 1) {
 			$badge = "<label class='badge badge-success'>AKTIF</label>";
 		} else {
 			$badge = "<label class='badge badge-danger'>NON-AKTIF</label>";
 		}
-	} elseif ($type == 'level') {
+	} elseif ($type === 'level') {
 		if ($status == "ADMIN") {
 			$badge = "<label class='badge badge-info'>ADMIN</label>";
 		} else {
@@ -99,7 +99,7 @@ function showPageHeader($title = '')
 	$firstSegment = $ci->uri->segment(1);
 	$firstUri = ($title !== '') ? $title : $firstSegment;
 
-	if($firstUri != 'dashboard' && $title == '') {
+	if ($firstUri != 'dashboard' && $title == '') {
 		$firstUri = "Data " . $firstUri;
 	}
 
@@ -114,15 +114,45 @@ function showPageHeader($title = '')
 			</div>";
 }
 
-function showUserLevel($index = NULL)
+function showUserLevel($index = NULL, $textOnly = false)
 {
-	$userLevel = [
-		'SUPER_USER' => 'ADMINISTRATOR',
-		'DOSEN' => 'DOSEN',
-		'KAPRODI' => 'KEPALA PROGRAM STUDI'
-	];
+	$text = "";
+	$className = "";
 
-	return ($index !== null) ? $userLevel[$index] : $userLevel;
+	if ($index === null) {
+		return [
+			'SUPER_USER' => 'Supser User',
+			'DOSEN' => 'Dosen',
+			'KAPRODI' => 'Ketua Program Studi',
+			'MAHASISWA' => 'Mahasiswa'
+		];
+	}
+
+	switch (strtoupper($index)) {
+		case 'SUPER_USER':
+			$text = 'Super User';
+			$className = "badge-inverse-success";
+			break;
+		case 'DOSEN':
+			$text = 'Dosen';
+			$className = "badge-inverse-info";
+			break;
+		case 'KAPRODI':
+			$text = 'Ketua Program Studi';
+			$className = "badge-inverse-primary";
+			break;
+
+		default:
+			$text = 'Mahasiswa';
+			$className = "badge-inverse-warning";
+			break;
+	}
+
+	if ($textOnly) {
+		return $textOnly;
+	}
+
+	return "<label class='badge $className text-uppercase'>$text</label>";
 }
 
 function listJenjang()
@@ -169,7 +199,7 @@ function daringApps($key = null)
 	];
 
 	if ($key != null) {
-		if(!key_exists($key, $apps)) {
+		if (!key_exists($key, $apps)) {
 			return ucwords(strtolower($key));
 		}
 		return $apps[$key];
@@ -194,36 +224,40 @@ function materialType($key = null)
 	return $types;
 }
 
-function namaDosen($nama, $gelar) {
+function namaDosen($nama, $gelar)
+{
 	$arrNama = explode(" ", ucwords(strtolower($nama)));
 	$namaDosen = "";
 
-	if(count($arrNama) <= 2) {
+	if (count($arrNama) <= 2) {
 		$namaDosen = ucwords(strtolower($nama));
 	} else {
 		$namaDosen = $arrNama[0] . " " . $arrNama[1];
 		$namaBelakang = " ";
-        foreach($arrNama as $key => $val) {
-            if($key >= 2) {
-                $namaBelakang .= $val[0];
-            }
-        }
-        $namaDosen .= $namaBelakang;
+		foreach ($arrNama as $key => $val) {
+			if ($key >= 2) {
+				$namaBelakang .= $val[0];
+			}
+		}
+		$namaDosen .= $namaBelakang;
 	}
 
 	return $namaDosen . ", " . $gelar;
 }
 
-function uriSegment($index) {
+function uriSegment($index)
+{
 	$ci =& get_instance();
-	return  $ci->uri->segment($index);
+	return $ci->uri->segment($index);
 }
 
-function dd($data) {
+function dd($data)
+{
 	echo json_encode($data);
-    die();
+	die();
 }
 
-function randomHexColor() {
-    return sprintf('#%06X', mt_rand(0, 0xFFFFFF));
+function randomHexColor()
+{
+	return sprintf('#%06X', mt_rand(0, 0xFFFFFF));
 }

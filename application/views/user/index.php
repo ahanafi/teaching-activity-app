@@ -36,15 +36,7 @@
 													: $user->nama_lengkap; ?>
 										</td>
 										<td><?php echo $user->username; ?></td>
-										<td>
-											<?php if ($user->level == "SUPER_USER"): ?>
-												<label class="badge badge-inverse-success">ADMINISTRATOR</label>
-											<?php elseif ($user->level == "KAPRODI"): ?>
-												<label class="badge badge-inverse-info">KAPRODI</label>
-											<?php elseif ($user->level == "DOSEN"): ?>
-												<label class="badge badge-inverse-primary">DOSEN</label>
-											<?php endif; ?>
-										</td>
+										<td><?php echo showUserLevel($user->level); ?></td>
 										<td>
 											<a href="<?php echo base_url('user/edit/' . $user->id_pengguna); ?>"
 											   class="btn btn-success text-white">Edit</a>
