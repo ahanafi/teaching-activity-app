@@ -99,7 +99,7 @@
 								<td style="vertical-align: top;">:</td>
 								<td>
 									<?php foreach (explode(",", $bap->jenis_aplikasi) as $appCode): ?>
-										<?php echo (trim($appCode) != '') ? ucwords(daringApps(strtoupper(trim($appCode)))) : ""; ?>,
+										<?php echo (trim($appCode) !== '') ? ucwords(daringApps(strtoupper(trim($appCode)))) : ""; ?>,
 									<?php endforeach; ?>
 								</td>
 							</tr>
@@ -113,14 +113,9 @@
 								</td>
 							</tr>
 							<tr>
-								<td>Nama File Materi</td>
-								<td>:</td>
-								<td><?php echo $bap->file_materi; ?></td>
-							</tr>
-							<tr>
 								<td>Pemberian tugas</td>
 								<td>:</td>
-								<td><?php echo($bap->ada_tugas == 1 ? "Ya" : "Tidak"); ?></td>
+								<td><?php echo($bap->ada_tugas === 1 ? "Ya" : "Tidak"); ?></td>
 							</tr>
 							<tr>
 								<td>Pokok Bahasan</td>

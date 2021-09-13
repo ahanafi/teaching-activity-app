@@ -10,7 +10,8 @@
 		<ul class="navbar-nav">
 			<li class="nav-item font-weight-semibold d-none d-lg-block">
 				User :
-				<?php echo getUser('nama_lengkap') . " login at " . $_SESSION['logged_in_at']; ?>
+				<?php echo getUser('nama_lengkap'); ?>
+				<b>(<?php echo getUser('level'); ?>)</b> login at <?php echo $_SESSION['logged_in_at']; ?>
 			</li>
 		</ul>
 		<ul class="navbar-nav ml-auto">

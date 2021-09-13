@@ -27,8 +27,24 @@ $uri2 = $this->uri->segment(2);
 <script src="<?php echo assets('vendors/summernote/dist/summernote-bs4.min.js'); ?>"></script>
 <script src="<?php echo assets('vendors/select2/select2.min.js'); ?>"></script>
 
-<?php if (($uri1 == "berita-acara" || $uri1 == "jadwal-kuliah") && ($uri2 == "create" || $uri2 == "edit")): ?>
-	<script src="<?php echo assets('vendors/gijgo/js/gijgo.min.js'); ?>"></script>
+<?php if (($uri1 === "berita-acara" || $uri1 === "jadwal-kuliah") && ($uri2 === "create" || $uri2 === "edit")): ?>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.9/flatpickr.min.js"
+			integrity="sha512-+ruHlyki4CepPr07VklkX/KM5NXdD16K1xVwSva5VqOVbsotyCQVKEwdQ1tAeo3UkHCXfSMtKU/mZpKjYqkxZA=="
+			crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.9/l10n/id.min.js"
+			integrity="sha512-XCJP/fJxX6uFAvyH4yZfgsbzmiBiS7hPiVEGw8C+372GAiMgLlPVy00o585G/kD+Shh2YWXr34Ui0lee7+x0ZA=="
+			crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script>
+		flatpickr('input[name=tanggal]');
+		const timeOptions = {
+			enableTime: true,
+			noCalendar: true,
+			dateFormat: "H:i",
+			time_24hr: true
+		};
+		flatpickr('input[name=jam_mulai]', timeOptions);
+		flatpickr('input[name=jam_selesai]', timeOptions)
+	</script>
 <?php endif; ?>
 <!-- End plugin js for this page-->
 <!-- inject:js -->
@@ -38,7 +54,7 @@ $uri2 = $this->uri->segment(2);
 <script src="<?php echo assets('js/shared/alerts.js'); ?>"></script>
 <script src="<?php echo assets('js/shared/custom.js'); ?>"></script>
 <!-- endinject -->
-<?php if ($uri1 == "dashboard"): ?>
+<?php if ($uri1 === "dashboard"): ?>
 	<script type="text/javascript">
 
 		const drawSheduleAccurationChart = (chartData) => {
@@ -139,19 +155,19 @@ $uri2 = $this->uri->segment(2);
 		}
 	</script>
 <?php endif; ?>
-<?php if ($uri1 == "berita-acara"): ?>
+<?php if ($uri1 === "berita-acara"): ?>
 	<script src="<?php echo assets('js/shared/berita-acara.js'); ?>"></script>
 <?php endif; ?>
 <!-- Custom js for this page-->
 <script src="<?php echo assets('js/demo/dashboard.js'); ?>"></script>
 <!-- End custom js for this page-->
-<?php if (isset($_SESSION['message']) && $_SESSION['message'] != ''): ?>
+<?php if (isset($_SESSION['message']) && $_SESSION['message'] !== ''): ?>
 	<script type="text/javascript">
 		showAlert('message', '<?php echo $_SESSION['message']['type']; ?>', '<?php echo ucfirst($_SESSION['message']['type']); ?>', '<?php echo $_SESSION['message']['text']; ?>');
 	</script>
 <?php endif;
 $_SESSION['message'] = ''; ?>
-<?php if (($uri1 == "jadwal" || $uri1 == "jadwal-kuliah" || $uri1 == "berita-acara") && ($uri2 == "create" || $uri2 == "edit")): ?>
+<?php if (($uri1 === "jadwal" || $uri1 === "jadwal-kuliah" || $uri1 === "berita-acara") && ($uri2 === "create" || $uri2 === "edit")): ?>
 	<script type="text/javascript">
 		loadSelect2();
 		$("input[name=jam_mulai]").timepicker({

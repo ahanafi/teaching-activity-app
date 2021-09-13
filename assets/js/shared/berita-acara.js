@@ -27,11 +27,12 @@ if(document.getElementById("uraian_materi")) {
 }
 
  const toggleOtherApp = (el) => {
-	if(el.getAttribute('data-checked') == 'false') {
+	const customAppNameEl = document.getElementById('otherAppName');
+	if(el.getAttribute('data-checked') === 'false') {
 		el.setAttribute('data-checked', 'true');
-		document.getElementById("otherAppName").classList.remove('hidden');
+		customAppNameEl.innerHTML = `<input type="text" name="jenis_aplikasi[]" placeholder="Masukkan nama aplikasi yang digunakan" class="form-control">`;
 	} else {
 		el.setAttribute('data-checked', 'false');
-		document.getElementById("otherAppName").classList.add('hidden');
+		customAppNameEl.innerHTML = '';
 	}
  }

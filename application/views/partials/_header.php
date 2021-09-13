@@ -25,7 +25,7 @@ $uri2 = $this->uri->segment(2);
 	<link rel="stylesheet" href="<?php echo assets('vendors/select2/select2.min.css'); ?>">
 	<link rel="stylesheet" href="<?php echo assets('vendors/select2-bootstrap-theme/select2-bootstrap.min.css'); ?>">
 	<?php if(($uri1 === "berita-acara" || $uri1 === "jadwal-kuliah") && ($uri2 === "create" || $uri2 === "edit")): ?>
-	<link rel="stylesheet" href="<?php echo assets('vendors/gijgo/css/gijgo.min.css'); ?>">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.9/flatpickr.min.css" integrity="sha512-OtwMKauYE8gmoXusoKzA/wzQoh7WThXJcJVkA29fHP58hBF7osfY0WLCIZbwkeL9OgRCxtAfy17Pn3mndQ4PZQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<?php endif; ?>
 
 	<!-- End plugin css for this page -->

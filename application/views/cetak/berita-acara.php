@@ -178,13 +178,9 @@
 				</td>
 			</tr>
 			<tr>
-				<td class="bg-gray">Nama file materi</td>
-				<td><?php echo $bap->file_materi; ?></td>
-			</tr>
-			<tr>
 				<td class="bg-gray">Pemberian tugas</td>
 				<td>
-					<?php if ($bap->ada_tugas == 1): ?>
+					<?php if ($bap->ada_tugas === 1): ?>
 						<span>Ya</span> / <span><s>Tidak</s></span> <sup>*)</sup>
 					<?php else: ?>
 						<span><s>Ya</s></span> / <span>Tidak</span> <sup>*)</sup>
@@ -207,7 +203,7 @@
 			<tr>
 				<td>Tanda Tangan</td>
 				<td class="text-center">
-					<?php if ($bap->paraf_mhs != '' && file_exists(FCPATH . $bap->paraf_mhs)) : ?>
+					<?php if ($bap->paraf_mhs !== '' && file_exists(FCPATH . $bap->paraf_mhs)) : ?>
 						<img src="<?php echo($bap->paraf_mhs); ?>" alt="" width="50px">
 					<?php else: echo "-"; endif; ?>
 				</td>
@@ -215,7 +211,7 @@
 			<tr>
 				<td class="bg-gray align-middle">Tanda tangan Dosen</td>
 				<td colspan="2" class="text-center">
-					<?php if ($bap->paraf_mhs != '' && file_exists(FCPATH . $bap->paraf_mhs)) : ?>
+					<?php if ($bap->paraf_mhs !== '' && file_exists(FCPATH . $bap->paraf_mhs)) : ?>
 						<img src="<?php echo($bap->paraf_mhs); ?>" alt="" width="50px">
 					<?php else: echo "-"; endif; ?>
 				</td>

@@ -2,6 +2,8 @@
 			<footer class="footer">
 				<div class="container-fluid clearfix">
 					<span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright &copy; Sistem Pencatatan Kegiatan Dosen <?php echo date('Y') ?></span>
+					---
+					<span>Created with <i class="fa fa-heart text-danger"></i> by <a href="https://s.id/ahanafi" target="_blank">Ahmad Hanafi</a></span>
 					<span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a
 								href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Bootstrap admin templates</a> from Bootstrapdash.com</span>
 				</div>

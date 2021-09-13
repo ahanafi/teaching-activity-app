@@ -10,6 +10,8 @@ class Berita_acara_model extends Main_model
 			$_MATA_KULIAH = 'mata_kuliah',
 			$_KELAS = 'kelas',
 			$_DOSEN = 'dosen',
+			$_VERIFIKASI = 'verifikasi',
+			$_MAHASISWA = 'mahasiswa',
 			$_BUKTI_KEGIATAN = 'bukti_kegiatan';
 
 	//FOREIGN KEY
@@ -17,20 +19,22 @@ class Berita_acara_model extends Main_model
 			$_ID_MATA_KULIAH = 'id_mata_kuliah',
 			$_ID_KELAS = 'id_kelas',
 			$_ID_DOSEN = 'id_dosen',
-			$_ID_BUKTI_KEGIATAN = 'id_bukti_kegiatan';
+			$_ID_VERIFIKASI = 'id_verifikasi',
+			$_ID_MAHASISWA = 'id_mahasiswa',
+			$_ID_BERITA_ACARA = 'id_berita_acara';
 
 	private function getColumns()
     {
-//        $columns = $this->table . ".*, $this->_MATA_KULIAH.nama_mata_kuliah, $this->_KELAS.nama_kelas, ";
-//        $columns .= $this->_DOSEN . ".nama_lengkap,  $this->_RUANGAN.kode_ruangan ";
 		$columnsInJadwal = "$this->_JADWAL.*, ";
 		$columnsInMataKuliah = $this->_MATA_KULIAH.".nama_mata_kuliah AS mata_kuliah, ";
 		$columnsInMataKuliah .= $this->_MATA_KULIAH.".sks, ";
 		$columnsInKelas = $this->_KELAS.".nama_kelas AS kelas, $this->_KELAS.semester, ";
-		$columnsInDosen = $this->_DOSEN.".nama_lengkap AS dosen, $this->_DOSEN.gelar";
+		$columnsInDosen = $this->_DOSEN.".nama_lengkap AS dosen, $this->_DOSEN.gelar, ";
+		$columnsInVerifikasi = $this->_VERIFIKASI.'.*, ';
+		$columnsInMahasiswa = "$this->_MAHASISWA.nim, $this->_MAHASISWA.nama_lengkap AS nama_mahasiswa, $this->_MAHASISWA.paraf AS paraf_mhs";
 
 		$columns = $this->table.".*, $this->table.jam_mulai AS jam_mulai_pelaksanaan, $this->table.jam_selesai AS jam_selesai_pelaksanaan, ";
-		$columns .= $columnsInJadwal . $columnsInMataKuliah . $columnsInKelas . $columnsInDosen;
+		$columns .= $columnsInJadwal . $columnsInMataKuliah . $columnsInKelas . $columnsInDosen . $columnsInVerifikasi . $columnsInMahasiswa;
 
         return $columns;
     }
@@ -41,12 +45,14 @@ class Berita_acara_model extends Main_model
         $joinTo .= " JOIN $this->_MATA_KULIAH USING ($this->_ID_MATA_KULIAH) ";
         $joinTo .= " JOIN $this->_KELAS USING ($this->_ID_KELAS) ";
         $joinTo .= " JOIN $this->_DOSEN USING ($this->_ID_DOSEN) ";
+        $joinTo .= " JOIN $this->_VERIFIKASI USING ($this->_ID_BERITA_ACARA)";
+        $joinTo .= " JOIN $this->_MAHASISWA ON $this->_VERIFIKASI.nim_verifikator = $this->_MAHASISWA.nim";
 
         $columns = $this->getColumns();
         $query = "SELECT " . $columns . " FROM " . $this->table . " " . $joinTo;
 
         if (!empty($where)) {
-        	if(count($where) == 1) {
+        	if(count($where) === 1) {
 				$column = array_keys($where)[0];
 				$value = array_values($where)[0];
 
@@ -77,7 +83,7 @@ class Berita_acara_model extends Main_model
     {
         $query = $this->getJoinQueries($where);
 
-        if ($all == true) {
+        if ($all) {
             return $this->db->query($query)->result();
         }
         return $this->db->query($query)->row();

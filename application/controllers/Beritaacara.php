@@ -72,19 +72,25 @@ class Beritaacara extends CI_Controller
 				//get user submit form data
 				$getPostData = $this->getPostData();
 
-				//Proccess upload
-				if (isset($_FILES['paraf_mhs']) && $_FILES['paraf_mhs']['name'] !== '') {
-					$parafMhs = $this->_doUpload('paraf_mhs');
+				$nim = $this->main_lib->getPost('nim');
+				$checkStudent = $this->Mahasiswa->findById(['nim' => $nim]);
+				if(!$checkStudent) {
+					$jadwal = $this->Jadwal->findById([
+						'id_jadwal' => $this->main_lib->getPost('id_jadwal')
+					]);
 
-					if (is_array($parafMhs)) {
-						$data['err_upload'] = $parafMhs;
-						$this->main_lib->getTemplate('berita-acara/form-create', $data);
-						return false;
-					} else {
-						$uploads = $this->clouds->save($parafMhs, 'paraf-mhs');
-						$getPostData['paraf_mhs'] = $uploads;
-					}
+					//Insert to mahasiswa
+					$this->Mahasiswa->insert([
+						'nim' => $nim,
+						'nama_lengkap' => $this->main_lib->getPost('nama_mahasiswa'),
+						'id_kelas' => $jadwal->id_kelas,
+						'jenis_kelamin' => 'P'
+					]);
 
+					$this->User->createStudentAccount([
+						'nim' => $nim,
+						'nama_lengkap' => $this->main_lib->getPost('nama_mahasiswa'),
+					]);
 				}
 
 				//Insert parent table
@@ -129,6 +135,12 @@ class Beritaacara extends CI_Controller
 					}
 				}
 
+				//Insert to Verifikasi
+				$this->Verifikasi->insert([
+					'id_berita_acara' => $IdBeritaAcara,
+					'nim_verifikator' => $nim,
+				]);
+
 				if ($insert) {
 					$messages = setArrayMessage('success', 'insert', 'berita acara');
 				} else {
@@ -151,7 +163,7 @@ class Beritaacara extends CI_Controller
 			'id_berita_acara' => $id_berita_acara
 		]);
 
-		if(!$beritaAcara || $id_berita_acara == '') {
+		if (!$beritaAcara || $id_berita_acara == '') {
 			redirect(base_url('error'));
 		}
 
@@ -185,7 +197,7 @@ class Beritaacara extends CI_Controller
 						$data['err_upload'] = $parafMhs;
 						$this->main_lib->getTemplate('berita-acara/form-create', $data);
 						return false;
-					} elseif(is_string($parafMhs)) {
+					} elseif (is_string($parafMhs)) {
 						$getPostData['paraf_mhs'] = $parafMhs;
 
 						unlink(FCPATH . $beritaAcara->paraf_mhs);
@@ -198,23 +210,6 @@ class Beritaacara extends CI_Controller
 
 				if (isset($_FILES['bukti_kegiatan']) && count($_FILES['bukti_kegiatan']['name']) > 0) {
 					$fileCount = count($_FILES['bukti_kegiatan']['name']);
-
-					//Get all bukti kegiatan
-//					$buktiKegiatan = $this->BuktiKegiatan->findById([
-//						'id_berita_acara' => $id_berita_acara
-//					], true);
-//
-//					foreach ($buktiKegiatan as $bukti) {
-//						if(file_exists(FCPATH . $bukti->lokasi)) {
-//							//Delte uploaded file
-//							unlink(FCPATH . $bukti->lokasi);
-//						}
-//					}
-//
-//					//Delete old bukti kegiatan
-//					$this->BuktiKegiatan->delete([
-//						'id_berita_acara' => $id_berita_acara
-//					]);
 
 					for ($i = 0; $i < $fileCount; $i++) {
 						//Define new $_FILES array - $_FILES['file']
@@ -266,7 +261,7 @@ class Beritaacara extends CI_Controller
 
 	public function delete($id_berita_acara = null)
 	{
-		if (isset($_POST['_method']) && $_POST['_method'] == "DELETE" && $id_berita_acara != '') {
+		if (isset($_POST['_method']) && $_POST['_method'] === "DELETE" && $id_berita_acara !== '') {
 			$data_id = $this->main_lib->getPost('data_id');
 			$data_type = $this->main_lib->getPost('data_type');
 
@@ -277,7 +272,7 @@ class Beritaacara extends CI_Controller
 
 				//Delete uplaoded file
 				$parafMhsPath = FCPATH . $beritaAcara->paraf_mhs;
-				if(file_exists($parafMhsPath)) {
+				if (file_exists($parafMhsPath)) {
 					unlink($parafMhsPath);
 				}
 
@@ -287,7 +282,7 @@ class Beritaacara extends CI_Controller
 
 				foreach ($buktiKegiatan as $bukti) {
 					$buktiKegiatanPath = FCPATH . $bukti->lokasi;
-					if(file_exists($buktiKegiatanPath)) {
+					if (file_exists($buktiKegiatanPath)) {
 						unlink($buktiKegiatanPath);
 					}
 				}
@@ -321,7 +316,7 @@ class Beritaacara extends CI_Controller
 			'id_berita_acara' => $id_berita_acara
 		]);
 
-		if(!$beritaAcara || $id_berita_acara == '') {
+		if (!$beritaAcara || $id_berita_acara == '') {
 			redirect(base_url('error'));
 		}
 
@@ -337,7 +332,7 @@ class Beritaacara extends CI_Controller
 		$this->main_lib->getTemplate("berita-acara/detail", $data);
 	}
 
-	private function getPostData()
+	private function getPostData($type = 'berita-acara')
 	{
 		$jenisAplikasi = $this->main_lib->getPost('jenis_aplikasi');
 		$jenisAplikasi = implode(",", $jenisAplikasi);
@@ -345,27 +340,35 @@ class Beritaacara extends CI_Controller
 		$bentukMateri = $this->main_lib->getPost('bentuk_materi');
 		$bentukMateri = implode(",", $bentukMateri);
 
-		return [
-			'id_jadwal' => $this->main_lib->getPost('id_jadwal'),
-			'pertemuan_ke' => $this->main_lib->getPost('pertemuan_ke'),
-			'jumlah_hadir' => $this->main_lib->getPost('jumlah_hadir'),
-			'total_mahasiswa' => $this->main_lib->getPost('total_mahasiswa'),
+		$postData = [];
+		if ($type === 'berita-acara') {
+			$postData = [
+				'id_jadwal' => $this->main_lib->getPost('id_jadwal'),
+				'pertemuan_ke' => $this->main_lib->getPost('pertemuan_ke'),
+				'jumlah_hadir' => $this->main_lib->getPost('jumlah_hadir'),
+				'total_mahasiswa' => $this->main_lib->getPost('total_mahasiswa'),
 
-			'jenis_aplikasi' => $jenisAplikasi,
-			'bentuk_materi' => $bentukMateri,
+				'jenis_aplikasi' => $jenisAplikasi,
+				'bentuk_materi' => $bentukMateri,
 
-			'file_materi' => $this->main_lib->getPost('file_materi'),
-			'uraian_materi' => $this->main_lib->getPost('uraian_materi'),
-			'ada_tugas' => $this->main_lib->getPost('penugasan'),
-			'pokok_bahasan' => $this->main_lib->getPost('pokok_bahasan'),
-			'nim' => $this->main_lib->getPost('nim'),
-			'nama_mahasiswa' => $this->main_lib->getPost('nama_mahasiswa'),
+				'uraian_materi' => $this->main_lib->getPost('uraian_materi'),
+				'ada_tugas' => $this->main_lib->getPost('penugasan'),
+				'pokok_bahasan' => $this->main_lib->getPost('pokok_bahasan'),
 
-			'paraf_dosen' => 'xx',
-			'tanggal_realisasi' => $this->main_lib->getPost('tanggal'),
-			'jam_mulai' => $this->main_lib->getPost('jam_mulai'),
-			'jam_selesai' => $this->main_lib->getPost('jam_selesai'),
-		];
+				'tanggal_realisasi' => $this->main_lib->getPost('tanggal'),
+				'jam_mulai' => $this->main_lib->getPost('jam_mulai'),
+				'jam_selesai' => $this->main_lib->getPost('jam_selesai'),
+			];
+		}
+
+		if ($type === 'veritikasi') {
+			$postData = [
+				'nim' => $this->main_lib->getPost('nim'),
+			];
+		}
+
+
+		return $postData;
 	}
 
 	/*
@@ -432,19 +435,14 @@ class Beritaacara extends CI_Controller
 				'label' => 'Pertemuan ke',
 				'rules' => 'required'
 			],
-//			[
-//				'field' => 'jenis_aplikasi',
-//				'label' => 'Aplikasi daring',
-//				'rules' => 'required'
-//			],
-//			[
-//				'field' => 'bentuk_materi',
-//				'label' => 'Bentuk materi',
-//				'rules' => 'required'
-//			],
 			[
-				'field' => 'file_materi',
-				'label' => 'File materi',
+				'field' => 'jenis_aplikasi[]',
+				'label' => 'Aplikasi daring',
+				'rules' => 'required'
+			],
+			[
+				'field' => 'bentuk_materi[]',
+				'label' => 'Bentuk materi',
 				'rules' => 'required'
 			],
 			[

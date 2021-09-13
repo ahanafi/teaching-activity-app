@@ -38,7 +38,7 @@ class Main_model extends CI_Model
 
 	public function insert($data = [], $bacth = FALSE)
 	{
-		if ($bacth == TRUE) {
+		if ($bacth) {
 			$insert = $this->db->insert_batch($this->table, $data);
 		} else {
 			$insert = $this->db->insert($this->table, $data);
@@ -65,11 +65,10 @@ class Main_model extends CI_Model
 		return $this->db->where($column, $value)->delete($this->table);
 	}
 
-
 	public function only($table, $where = NULL)
 	{
 		$sql = $this->db->select('*')->from($table);
-		if ($where != NULL) {
+		if ($where !== NULL) {
 			$sql->where($where);
 		}
 		return $sql->get()->result();
@@ -84,7 +83,7 @@ class Main_model extends CI_Model
 	public function sum($column, $where = NULL)
 	{
 		$sql = $this->db->select_sum($column)->from($this->table);
-		if ($where != NULL) {
+		if ($where !== NULL) {
 			$sql->where($where);
 		}
 		return $sql->get()->row();
@@ -128,7 +127,7 @@ class Main_model extends CI_Model
 	public function executeQuery($query, $single = false)
 	{
 		$query = $this->db->query($query);
-		if($single == true) {
+		if($single) {
 			return $query->row();
 		}
 		return $query->result();
@@ -137,7 +136,7 @@ class Main_model extends CI_Model
 	public function customQuery($query, $all = true)
 	{
 		$query = $this->db->query($query);
-		if($all == false) {
+		if(!$all) {
 			return $query->row();
 		}
 		return $query->result();
