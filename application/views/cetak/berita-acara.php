@@ -203,16 +203,16 @@
 			<tr>
 				<td>Tanda Tangan</td>
 				<td class="text-center">
-					<?php if ($bap->paraf_mhs !== '' && file_exists(FCPATH . $bap->paraf_mhs)) : ?>
-						<img src="<?php echo($bap->paraf_mhs); ?>" alt="" width="50px">
+					<?php if ($bap->paraf !== '' && file_exists(FCPATH . $bap->paraf)) : ?>
+						<img src="<?php echo $bap->paraf; ?>" alt="" width="50px">
 					<?php else: echo "-"; endif; ?>
 				</td>
 			</tr>
 			<tr>
 				<td class="bg-gray align-middle">Tanda tangan Dosen</td>
 				<td colspan="2" class="text-center">
-					<?php if ($bap->paraf_mhs !== '' && file_exists(FCPATH . $bap->paraf_mhs)) : ?>
-						<img src="<?php echo($bap->paraf_mhs); ?>" alt="" width="50px">
+					<?php if ($bap->paraf !== '' && file_exists(FCPATH . $bap->paraf)) : ?>
+						<img src="<?php echo($bap->paraf); ?>" alt="" width="50px">
 					<?php else: echo "-"; endif; ?>
 				</td>
 			</tr>
@@ -226,7 +226,7 @@
 			</tr>
 			<tr>
 				<td>Nama</td>
-				<td><?php echo $bap->nama_pemeriksa; ?></td>
+				<td><?php echo "bap->nama_pemeriksa"; ?></td>
 			</tr>
 			<tr style="height: 100px !important;">
 				<td>Tanda Tangan</td>

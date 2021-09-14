@@ -142,15 +142,16 @@
 								<td>Paraf Mahasiswa</td>
 								<td>:</td>
 								<td>
-									<img src="<?php echo $bap->paraf_mhs; ?>" alt=""
-											 class="img-fluid">
+									<?php if($bap->paraf !== '' && file_exists(FCPATH . $bap->paraf)): ?>
+									<img src="<?php echo base_url($bap->paraf); ?>" alt="Paraf Mahasiswa" class="img-fluid">
+									<?php else: echo "-"; endif; ?>
 								</td>
 							</tr>
 						</table>
 					</div>
 				</div>
 			</div>
-			<div class="col-md-6 grid-margin stretch-card">
+			<div class="col-md-6 grid-margin">
 				<div class="card">
 					<div class="card-header header-sm d-flex justify-content-between align-items-center">
 						<h4 class="card-title">Uraian Materi</h4>
@@ -167,7 +168,7 @@
 					</div>
 					<div class="card-body">
 						<?php foreach ($dokumentasi as $dok): ?>
-							<img src="<?php echo $dok->lokasi; ?>" alt="" class="img-fluid mb-2">
+							<img src="<?php echo base_url($dok->lokasi); ?>" alt="" class="img-fluid mb-2">
 						<?php endforeach; ?>
 					</div>
 				</div>

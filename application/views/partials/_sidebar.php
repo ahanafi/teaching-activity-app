@@ -65,7 +65,7 @@
 				</li>
 				<?php endif; ?>
 
-				<?php if(showOnlyTo('DOSEN')):?>
+				<?php if(!showOnlyTo('MAHASISWA')):?>
 				<!-- DOSEN -->
 				<li class="nav-item">
 					<a class="nav-link" href="<?php echo base_url('jadwal-kuliah'); ?>">

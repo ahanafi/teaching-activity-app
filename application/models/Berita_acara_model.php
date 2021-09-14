@@ -31,7 +31,7 @@ class Berita_acara_model extends Main_model
 		$columnsInKelas = $this->_KELAS.".nama_kelas AS kelas, $this->_KELAS.semester, ";
 		$columnsInDosen = $this->_DOSEN.".nama_lengkap AS dosen, $this->_DOSEN.gelar, ";
 		$columnsInVerifikasi = $this->_VERIFIKASI.'.*, ';
-		$columnsInMahasiswa = "$this->_MAHASISWA.nim, $this->_MAHASISWA.nama_lengkap AS nama_mahasiswa, $this->_MAHASISWA.paraf AS paraf_mhs";
+		$columnsInMahasiswa = "$this->_MAHASISWA.nim, $this->_MAHASISWA.nama_lengkap AS nama_mahasiswa, $this->_MAHASISWA.paraf";
 
 		$columns = $this->table.".*, $this->table.jam_mulai AS jam_mulai_pelaksanaan, $this->table.jam_selesai AS jam_selesai_pelaksanaan, ";
 		$columns .= $columnsInJadwal . $columnsInMataKuliah . $columnsInKelas . $columnsInDosen . $columnsInVerifikasi . $columnsInMahasiswa;

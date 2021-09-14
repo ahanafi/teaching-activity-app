@@ -94,7 +94,7 @@
 												<div class="col-sm-4">
 													<div class="form-check form-check-flat mt-1">
 														<label class="form-check-label">
-															<input <?php echo (set_value('jenis_aplikasi') !== '' && in_array($appCode, set_value('jenis_aplikasi'))) ? "checked" : ""; ?>
+															<input <?php echo (set_value('jenis_aplikasi') !== '' && in_array(strtolower($appCode), set_value('jenis_aplikasi'))) ? "checked" : ""; ?>
 																	value="<?php echo strtolower($appCode); ?>"
 																	name="jenis_aplikasi[]"
 																	type="checkbox"
@@ -120,7 +120,7 @@
 												<div class="col-sm-4">
 													<div class="form-check form-check-flat mt-1">
 														<label class="form-check-label">
-															<input <?php echo (set_value('bentuk_materi') !== '' && in_array($materialCode, set_value('bentuk_materi'))) ? "checked" : ""; ?> value="<?php echo strtolower($materialCode); ?>" name="bentuk_materi[]" type="checkbox" class="form-check-input">
+															<input <?php echo (set_value('bentuk_materi') !== '' && in_array(strtolower($materialCode), set_value('bentuk_materi'))) ? "checked" : ""; ?> value="<?php echo strtolower($materialCode); ?>" name="bentuk_materi[]" type="checkbox" class="form-check-input">
 															<?php echo ucwords($materialName); ?>
 														</label>
 													</div>
@@ -197,7 +197,11 @@
 											<input type="file" name="bukti_kegiatan[]" id="bukti_kegiatan" multiple
 												   maxlength="3" onchange="readURL(this)" required
 												   class="form-control"/>
-											<?php echo form_error('bukti_kegiatan'); ?>
+											<?php if (isset($error) && $error !== ''): ?>
+												<div class="mt-2">
+													<span class="error text-danger"><?php echo $error; ?></span>
+												</div>
+											<?php endif; ?>
 
 											<div class="alert alert-info mt-2" style="border-radius: 0px;">
 												<b>Perhatian : </b> <br>
