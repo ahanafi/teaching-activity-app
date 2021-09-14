@@ -8,7 +8,7 @@ class User extends CI_Controller
 	{
 		parent::__construct();
 
-		if(!isAuthenticated()) {
+		if (!isAuthenticated()) {
 			redirect('login');
 		}
 	}
@@ -135,7 +135,7 @@ class User extends CI_Controller
 
 	private function _rules($type)
 	{
-		if ($type == "insert") {
+		if ($type === "insert") {
 			//Rule when create new user
 			$rules = [
 				[
@@ -165,7 +165,7 @@ class User extends CI_Controller
 				],
 			];
 
-		} else if ($type == "update") {
+		} else if ($type === "update") {
 			//Rule when update user
 			$rules = [
 				[
@@ -189,7 +189,7 @@ class User extends CI_Controller
 					'rules' => 'required|trim'
 				],
 			];
-		} else if ($type == "password") {
+		} else if ($type === "password") {
 			//Rule when update password user
 			$rules = [
 				[
@@ -217,7 +217,7 @@ class User extends CI_Controller
 	{
 		$userId = getUser('id_pengguna');
 		$user = $this->User->findById(['id_pengguna' => $userId]);
-		if(!$user) {
+		if (!$user) {
 			redirect(base_url('error'));
 		}
 		$data['user'] = $user;
@@ -274,11 +274,69 @@ class User extends CI_Controller
 		$userHashedPassword = $user->password;
 
 		$validate = password_verify($password, $userHashedPassword);
-		if($validate) {
+		if ($validate) {
 			return true;
 		} else {
 			$this->form_validation->set_message('validate_old_password', 'Password lama yang Anda masukan salah!');
 			return false;
+		}
+	}
+
+	public function upload_signature()
+	{
+		if (isset($_POST['upload'])) {
+			$this->form_validation->set_rules('signature', 'Tanda tangan', 'required');
+			$config = [
+				'upload_path' => './uploads/paraf-mhs/',
+				'allowed_types' => 'jpeg|jpg|png',
+				'max_size' => '1024',
+				'max_width' => '512',
+				'max_height' => '512',
+				'file_ext_tolower' => TRUE,
+				'encrypt_name' => TRUE
+			];
+
+			$this->load->library('upload');
+			$this->upload->initialize($config);
+
+			if (!$this->upload->do_upload('signature')) {
+				$error = $this->upload->display_errors('', '');
+
+				$this->main_lib->getTemplate("signature/form", ['error' => $error]);
+
+			} else {
+				$uploadData = $this->upload->data();
+				$fileName = 'uploads/paraf-mhs/' . $uploadData['file_name'];
+
+				$nim = getUser('username');
+				$mahasiswa = $this->Mahasiswa->getBy('nim', $nim);
+
+				if($mahasiswa && $mahasiswa->paraf !== null) {
+					if (file_exists(FCPATH . $mahasiswa->paraf)) {
+						unlink(FCPATH . $mahasiswa->paraf);
+					}
+				}
+
+				$updateParaf = $this->Mahasiswa->update(['paraf' => $fileName], ['id_mahasiswa' => $mahasiswa->id_mahasiswa]);
+
+				if ($updateParaf) {
+					$messages = [
+						'type' => 'success',
+						'text' => 'Tanda tangan digital berhasil disimpan.',
+					];
+				} else {
+					$messages = [
+						'type' => 'error',
+						'text' => 'Gagal menyimpan tanda tangan digital.'
+					];
+				}
+
+				$this->session->set_flashdata('message', $messages);
+				redirect(base_url('user/upload-signature'));
+			}
+
+		} else {
+			$this->main_lib->getTemplate("signature/form");
 		}
 	}
 

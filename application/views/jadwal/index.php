@@ -8,11 +8,13 @@
 				<div class="card">
 					<div class="card-header header-sm d-flex justify-content-between align-items-center">
 						<h4 class="card-title">Data Jadwal</h4>
+						<?php if(!showOnlyTo('MAHASISWA')): ?>
 						<a href="<?php echo base_url(uriSegment(1) . '/create'); ?>"
 						   class="ml-auto btn btn-primary btn-fw">
 							<i class="fa fa-plus"></i>
 							<span>Tambah Data</span>
 						</a>
+						<?php endif; ?>
 					</div>
 					<div class="card-body">
 						<div class="table-responsive">

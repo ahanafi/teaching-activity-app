@@ -88,9 +88,9 @@ function getUser($index = null)
 			$_SESSION['user'] = $user;
 		}
 		return $_SESSION['user']->$index;
-	} else {
-		return null;
 	}
+
+	return null;
 }
 
 function showPageHeader($title = '')
@@ -99,7 +99,7 @@ function showPageHeader($title = '')
 	$firstSegment = $ci->uri->segment(1);
 	$firstUri = ($title !== '') ? $title : $firstSegment;
 
-	if ($firstUri != 'dashboard' && $title == '') {
+	if ($firstUri !== 'dashboard' && $title === '') {
 		$firstUri = "Data " . $firstUri;
 	}
 

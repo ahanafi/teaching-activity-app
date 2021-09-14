@@ -64,6 +64,9 @@
 					</div>
 				</li>
 				<?php endif; ?>
+
+				<?php if(showOnlyTo('DOSEN')):?>
+				<!-- DOSEN -->
 				<li class="nav-item">
 					<a class="nav-link" href="<?php echo base_url('jadwal-kuliah'); ?>">
 						<i class="menu-icon typcn typcn-shopping-bag"></i>
@@ -76,6 +79,26 @@
 						<span class="menu-title">Berita Acara Perkuliahan</span>
 					</a>
 				</li>
+				<!-- END DOSEN -->
+				<?php endif; ?>
+
+				<?php if(showOnlyTo('MAHASISWA')):?>
+				<!-- MAHASISWA -->
+				<li class="nav-item">
+					<a class="nav-link" href="<?php echo base_url('jadwal-kuliah'); ?>">
+						<i class="menu-icon typcn typcn-shopping-bag"></i>
+						<span class="menu-title">Jadwal Perkuliahan</span>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="<?php echo base_url('verifikasi-bap'); ?>">
+						<i class="menu-icon typcn typcn-th-large-outline"></i>
+						<span class="menu-title">Verifikasi BAP</span>
+					</a>
+				</li>
+				<!-- END MAHASISWA -->
+				<?php endif; ?>
+
 				<?php if(showOnlyTo('SUPER_USER|KAPRODI')):?>
 				<li class="nav-item">
 					<a class="nav-link" href="<?php echo base_url('laporan'); ?>">

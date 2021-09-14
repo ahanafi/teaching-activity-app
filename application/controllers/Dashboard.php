@@ -122,8 +122,14 @@ class Dashboard extends CI_Controller
 			'akurasi_jadwal_colors' => $akurasiJadwalColors
 		];
 
+		$viewFile = "main";
 
-		$this->main_lib->getTemplate('dashboard', $data);
+		if (getUser('level') === 'MAHASISWA') {
+			$viewFile = "mahasiswa";
+		}
+
+
+		$this->main_lib->getTemplate('dashboard/' . $viewFile, $data);
 	}
 
 	public function akurasi_jadwal($jadwalId)

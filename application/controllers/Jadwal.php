@@ -31,6 +31,13 @@ class Jadwal extends CI_Controller
 			$programStudiId = $dosen->id_program_studi;
 
 			$jadwal = $this->Jadwal->getByIdProgramStudi($programStudiId);
+		} else if($currentUserLevel === 'MAHASISWA') {
+			$mahasiswa = $this->Mahasiswa->findById([
+				'nim' => getUser('username')
+			]);
+
+			$kelasId = $mahasiswa->id_kelas;
+			$jadwal = $this->Jadwal->getBy('id_kelas', $kelasId, true);
 		}
 
 		$data = [
@@ -42,6 +49,8 @@ class Jadwal extends CI_Controller
 
 	public function create()
 	{
+		provideAccessTo('SUPER_USER|KAPRODI|DOSEN');
+
 		$mataKuliah = $this->MataKuliah->all();
 		$dosen = $this->Dosen->all();
 		$hari = listHari();

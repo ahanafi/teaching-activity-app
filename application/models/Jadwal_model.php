@@ -46,7 +46,7 @@ class Jadwal_model extends Main_model
             $query .= " WHERE $column $operator $value ";
         }
 
-        if($operator == '=') {
+        if($operator === '=') {
         	$query .= " ORDER BY $this->table.id_jadwal ASC";
 		}
 
@@ -62,7 +62,7 @@ class Jadwal_model extends Main_model
     public function findById($where = [], $all = false)
     {
         $query = $this->getJoinQueries($where);
-        if ($all == true) {
+        if ($all) {
             return $this->db->query($query)->result();
         }
         return $this->db->query($query)->row();
@@ -83,7 +83,7 @@ class Jadwal_model extends Main_model
 		], 'IN');
 		$query .= " ORDER BY $this->table.id_jadwal ASC";
 
-		if($getIdDosenOnly == true) {
+		if($getIdDosenOnly) {
 			return $selectedDosenId;
 		}
 

@@ -155,9 +155,15 @@ $uri2 = $this->uri->segment(2);
 		}
 	</script>
 <?php endif; ?>
+
 <?php if ($uri1 === "berita-acara"): ?>
 	<script src="<?php echo assets('js/shared/berita-acara.js'); ?>"></script>
 <?php endif; ?>
+
+<?php if ($uri1 === "user" && $uri2 === "upload-signature"): ?>
+	<script src="<?php echo assets('js/shared/form-signature.js'); ?>"></script>
+<?php endif; ?>
+
 <!-- Custom js for this page-->
 <script src="<?php echo assets('js/demo/dashboard.js'); ?>"></script>
 <!-- End custom js for this page-->
