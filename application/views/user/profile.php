@@ -16,7 +16,7 @@
 										<p class="profile-user-name text-center text-sm-left"><?php echo getUser('nama_lengkap'); ?></p>
 										<div class="wrapper d-flex align-items-center justify-content-center flex-wrap">
 											<p class="profile-user-designation text-center text-md-left my-2 my-md-0">
-												(<?php echo showUserLevel(getUser('level')); ?>)</p>
+												(<?php echo showUserLevel(getUser('level'), true); ?>)</p>
 											<div class="br-wrapper br-theme-css-stars"><select id="example-css"
 																							   name="rating"
 																							   autocomplete="off"
@@ -88,7 +88,7 @@
 													</tr>
 													<tr>
 														<td>
-															<strong>Level :</strong> <?php echo showUserLevel($user->level); ?>
+															<strong>Level :</strong> <?php echo showUserLevel($user->level, true); ?>
 														</td>
 														<td>
 															<strong>Email :</strong> -

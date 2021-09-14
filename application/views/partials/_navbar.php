@@ -33,10 +33,12 @@
 						Profil Saya
 						<i class="dropdown-item-icon ti-dashboard"></i>
 					</a>
+					<?php if(!showOnlyTo('MAHASISWA')):?>
 					<a href="<?php echo base_url('user/change-password'); ?>" class="dropdown-item">
 						Ubah Kata Sandi
 						<i class="dropdown-item-icon ti-comment-alt"></i>
 					</a>
+					<?php endif; ?>
 					<a onclick="confirmLogout()" href="#" class="dropdown-item">
 						Keluar
 						<i class="dropdown-item-icon ti-power-off"></i>

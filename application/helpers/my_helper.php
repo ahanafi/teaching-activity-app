@@ -58,13 +58,13 @@ function getStatus($status, $type = 'status')
 {
 	$badge = "";
 	if ($type === 'status') {
-		if ($status == 1) {
+		if ($status === 1) {
 			$badge = "<label class='badge badge-success'>AKTIF</label>";
 		} else {
 			$badge = "<label class='badge badge-danger'>NON-AKTIF</label>";
 		}
 	} elseif ($type === 'level') {
-		if ($status == "ADMIN") {
+		if ($status === "ADMIN") {
 			$badge = "<label class='badge badge-info'>ADMIN</label>";
 		} else {
 			$badge = "<label class='badge badge-warning'>CSO</label>";
@@ -149,7 +149,7 @@ function showUserLevel($index = NULL, $textOnly = false)
 	}
 
 	if ($textOnly) {
-		return $textOnly;
+		return $text;
 	}
 
 	return "<label class='badge $className text-uppercase'>$text</label>";

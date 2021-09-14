@@ -79,12 +79,18 @@
 										JPG, JPEG).
 									</td>
 									<td>
+										<?php if($exist_paraf): ?>
+											<span class="badge badge-inverse-success">COMPLETE</span>
+										<?php else: ?>
 										<span class="badge badge-inverse-danger">INCOMPLETE</span>
+										<?php endif; ?>
 									</td>
-									<td>
+									<td class="text-center">
+										<?php if(!$exist_paraf): ?>
 										<a href="<?php echo base_url('user/upload-signature'); ?>" class="btn btn-primary btn-fw">
 											<i class="mdi mdi-upload"></i>Upload
 										</a>
+										<?php else: echo "<i>NO_ACTION</i>"; endif; ?>
 									</td>
 								</tr>
 								</tbody>
