@@ -141,8 +141,9 @@ class Beritaacara extends CI_Controller
 		$beritaAcara = $this->BeritaAcara->findById([
 			'id_berita_acara' => $id_berita_acara
 		]);
+		$buktiKegiatan = $this->BuktiKegiatan->findById(['id_berita_acara' => $beritaAcara->id_berita_acara], true);
 
-		if (!$beritaAcara || $id_berita_acara == '') {
+		if (!$beritaAcara || $id_berita_acara === '') {
 			redirect(base_url('error'));
 		}
 
@@ -156,6 +157,7 @@ class Beritaacara extends CI_Controller
 		$data = [
 			'jadwal' => $jadwal,
 			'bap' => $beritaAcara,
+			'bukti_kegiatan' => $buktiKegiatan
 		];
 
 		if (isset($_POST['update'])) {
