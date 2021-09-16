@@ -1,6 +1,11 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
 class Programstudi extends CI_Controller
 {
 
@@ -8,9 +13,10 @@ class Programstudi extends CI_Controller
 	{
 		parent::__construct();
 
-		if(!isAuthenticated()) {
+		if (!isAuthenticated()) {
 			redirect('login');
 		}
+		provideAccessTo('SUPER_USER');
 	}
 
 	public function index()
@@ -49,7 +55,7 @@ class Programstudi extends CI_Controller
 				if ($insert) {
 					$dosenId = $this->main_lib->getPost('id_dosen');
 
-					if(!empty(trim($dosenId))) {
+					if (!empty(trim($dosenId))) {
 
 						//Update user level as Kaprodi
 						$this->User->update(['level' => 'KAPRODI'], [
@@ -101,7 +107,7 @@ class Programstudi extends CI_Controller
 				if ($update) {
 					$dosenId = $this->main_lib->getPost('id_dosen');
 
-					if(!empty(trim($dosenId))) {
+					if (!empty(trim($dosenId))) {
 
 						//Update user level as Kaprodi
 						$this->User->update(['level' => 'KAPRODI'], [
@@ -178,7 +184,7 @@ class Programstudi extends CI_Controller
 			],
 		];
 
-		if ($type == "insert" || $type == 'create') {
+		if ($type === "insert" || $type === 'create') {
 			//Rule when create new user
 			$rules[] = [
 				[
@@ -193,6 +199,95 @@ class Programstudi extends CI_Controller
 		return $rules;
 	}
 
+	public function export()
+	{
+		$spreadsheet = new Spreadsheet();
+		$dateTime = date('Y_m_d_H_i_s');
+		$filename = "Data_Program_Studi_exported_at_" . $dateTime;
+		$sheet = $spreadsheet->getActiveSheet();
+
+		/* Header */
+		//Merge cells
+		try {
+			$sheet->mergeCells('B2:G2');
+			$sheet->mergeCells('B3:G3');
+			$sheet->mergeCells('B5:G5');
+		} catch (Exception $e) {
+		}
+
+		$sheet->setCellValue('B2', "UNIVERSITAS CATUR INSAN CENDEKIA");
+		$sheet->setCellValue('B3', "Jl. Kesambi No. 12 Kesambi Kota Cirebon");
+		$sheet->setCellValue('B5', "Data Program Studi");
+
+		$firstHeader = ['No', 'Kode', 'Nama Program Studi', 'Jenjang', 'Fakultas', 'Kaprodi'];
+
+		$i = 0;
+		foreach (range('B', 'G') as $col) {
+			$sheet->setCellValue($col . "7", strtoupper($firstHeader[$i]));
+			$i++;
+		}
+
+		//Styling font
+		$sheet->getStyle('B2:B4')->getFont()
+			->setSize('16')
+			->setBold(true)
+			->setName('Arial');
+
+		//Alignment
+		$sheet->getStyle('B2:B5')
+			->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+		$sheet->getStyle('B2:B5')
+			->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
+
+		//DATA
+		$nomor = 1;
+		$cellIndex = 8;
+
+		$programStudi = $this->ProgramStudi->all();
+
+		foreach ($programStudi as $prodi) {
+			$kaprodi = "";
+			if($prodi->id_dosen !== null) {
+				$kaprodi = namaDosen($prodi->kaprodi, $prodi->gelar);
+			}
+
+			$sheet->setCellValue('B' . $cellIndex, $nomor);
+			$sheet->setCellValue('C' . $cellIndex, $prodi->kode_program_studi);
+			$sheet->setCellValue('D' . $cellIndex, $prodi->nama_program_studi);
+			$sheet->setCellValue('E' . $cellIndex, $prodi->jenjang);
+			$sheet->setCellValue('F' . $cellIndex, $prodi->kode_fakultas);
+			$sheet->setCellValue('G' . $cellIndex, $kaprodi);
+
+			$nomor++;
+			$cellIndex++;
+		}
+
+		$sheet->getColumnDimension("A")->setWidth(2);
+		$sheet->getColumnDimension("B")->setWidth(5);
+		$sheet->getColumnDimension("D")->setAutoSize(true);
+		$sheet->getColumnDimension("E")->setAutoSize(true);
+		$sheet->getColumnDimension("G")->setAutoSize(true);
+
+		$lastIndex = $cellIndex - 1;
+		//Border
+		try {
+			$sheet->getStyle('B7:G' . $lastIndex)->getBorders()
+				->getAllBorders()
+				->setBorderStyle(Border::BORDER_THIN);
+		} catch (Exception $e) {
+		}
+
+		$writer = new Xlsx($spreadsheet);
+		header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT+7");
+		header("Cache-Control: no-store, no-cache, must-revalidate");
+		header("Cache-Control: post-check=0, pre-check=0", false);
+		header("Pragma: no-cache");
+		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+		//ubah nama file saat diunduh
+		header("Content-Disposition: attachment;filename=" . $filename . ".xlsx");
+		//unduh file
+		$writer->save('php://output');
+	}
 }
 
 /* End of file Programstudi.php */

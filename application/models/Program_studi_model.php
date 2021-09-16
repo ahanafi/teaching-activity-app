@@ -10,7 +10,7 @@ class Program_studi_model extends Main_model
 		$columns = "$this->table.*,";
 		$columns .= "fakultas.nama_fakultas AS fakultas,
 					fakultas.kode_fakultas,
-					dosen.nama_lengkap AS kaprodi";
+					dosen.nama_lengkap AS kaprodi, dosen.gelar";
 
 		$query = $this->db->select($columns)
 			->from($this->table)

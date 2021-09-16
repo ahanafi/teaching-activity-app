@@ -8,11 +8,18 @@
 				<div class="card">
 					<div class="card-header header-sm d-flex justify-content-between align-items-center">
 						<h4 class="card-title">Data Program Studi</h4>
-						<a href="<?php echo base_url(uriSegment(1) . '/create'); ?>"
-						   class="ml-auto btn btn-primary btn-fw">
-							<i class="fa fa-plus"></i>
-							<span>Tambah Data</span>
-						</a>
+						<div class="pull-right">
+							<a href="<?php echo base_url(uriSegment(1) . '/create'); ?>"
+							   class="ml-auto btn btn-primary btn-fw">
+								<i class="fa fa-plus"></i>
+								<span>Tambah Data</span>
+							</a>
+							<a target="_blank" rel="noreferrer" href="<?php echo base_url(uriSegment(1) . '/export'); ?>"
+							   class="ml-auto btn btn-success btn-fw">
+								<i class="fa fa-file-excel-o"></i>
+								<span>Export Data</span>
+							</a>
+						</div>
 					</div>
 					<div class="card-body">
 						<div class="table-responsive">
@@ -37,8 +44,8 @@
 										<td><?php echo $prodi->jenjang; ?></td>
 										<td><?php echo $prodi->kode_fakultas; ?></td>
 										<td>
-											<?php if($prodi->id_dosen != ''): ?>
-											<a href="<?php echo base_url('dosen/detail/'.$prodi->id_dosen); ?>" target="_blank" class="btn-link"><?php echo $prodi->kaprodi; ?></a>
+											<?php if($prodi->id_dosen !== ''): ?>
+											<a href="<?php echo base_url('dosen/detail/'.$prodi->id_dosen); ?>" target="_blank" class="btn-link"><?php echo namaDosen($prodi->kaprodi, $prodi->gelar); ?></a>
 											<?php else:?>
 											-
 											<?php endif;?>

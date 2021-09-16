@@ -13,6 +13,7 @@ $route['logout'] = 'authentication/logout';
 
 $route['program-studi'] = 'programstudi/index';
 $route['program-studi/create'] = 'programstudi/create';
+$route['program-studi/export'] = 'programstudi/export';
 $route['program-studi/(:any)/(:num)'] = 'programstudi/$1/$2';
 
 $route['mata-kuliah'] = 'matakuliah/index';

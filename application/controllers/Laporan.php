@@ -29,7 +29,7 @@ class Laporan extends CI_Controller
 		$hari = listHari();
 
 		$userLevel = getUser('level');
-		if ($userLevel == 'KAPRODI') {
+		if ($userLevel === 'KAPRODI') {
 			$programStudiId = getUser('id_program_studi');
 			$dosen = [];
 
@@ -68,7 +68,7 @@ class Laporan extends CI_Controller
 
 		$beritaAcara = $this->BeritaAcara->all();
 
-		if ($filter != '') {
+		if ($filter !== '') {
 			$beritaAcara = $this->BeritaAcara->getByFilter($filter);
 		}
 
@@ -102,22 +102,22 @@ class Laporan extends CI_Controller
 		 * One filter category
 		 *  */
 		//Filter only days
-		if ($hari != 'all_days' && $dosenId == 'all_dosen' && $programStudiId == 'all_prodi' && $temu == 'all') {
+		if ($hari !== 'all_days' && $dosenId == 'all_dosen' && $programStudiId == 'all_prodi' && $temu == 'all') {
 			$arrFilter = ['hari' => $hari];
 		}
 
 		//Filter only dosen Id
-		if ($hari == 'all_days' && $dosenId != 'all_dosen' && $programStudiId == 'all_prodi' && $temu == 'all') {
+		if ($hari == 'all_days' && $dosenId !== 'all_dosen' && $programStudiId == 'all_prodi' && $temu == 'all') {
 			$arrFilter = ['id_dosen' => $dosenId];
 		}
 
 		//Filter only program studi Id
-		if ($hari == 'all_days' && $dosenId == 'all_dosen' && $programStudiId != 'all_prodi' && $temu == 'all') {
+		if ($hari == 'all_days' && $dosenId == 'all_dosen' && $programStudiId !== 'all_prodi' && $temu == 'all') {
 			$arrFilter = ['dosen.id_program_studi' => $programStudiId];
 		}
 
 		//Filter only pertemuan
-		if ($hari == 'all_days' && $dosenId == 'all_dosen' && $programStudiId == 'all_prodi' && $temu != 'all') {
+		if ($hari == 'all_days' && $dosenId == 'all_dosen' && $programStudiId == 'all_prodi' && $temu !== 'all') {
 			$arrFilter = ['pertemuan_ke' => $temu];
 		}
 
@@ -125,7 +125,7 @@ class Laporan extends CI_Controller
 		 * Second filter category
 		 *  */
 		//Filter days and dosen id
-		if ($hari != 'all_days' && $dosenId != 'all_dosen' && $programStudiId == 'all_prodi' && $temu == 'all') {
+		if ($hari !== 'all_days' && $dosenId !== 'all_dosen' && $programStudiId == 'all_prodi' && $temu == 'all') {
 			$arrFilter = [
 				'hari' => $hari,
 				'id_dosen' => $dosenId
@@ -133,7 +133,7 @@ class Laporan extends CI_Controller
 		}
 
 		//Filter days and program studi id
-		if ($hari != 'all_days' && $dosenId == 'all_dosen' && $programStudiId != 'all_prodi' && $temu == 'all') {
+		if ($hari !== 'all_days' && $dosenId == 'all_dosen' && $programStudiId !== 'all_prodi' && $temu == 'all') {
 			$arrFilter = [
 				'hari' => $hari,
 				'dosen.id_program_studi' => $programStudiId
@@ -141,7 +141,7 @@ class Laporan extends CI_Controller
 		}
 
 		//Filter days and temu kuliah
-		if ($hari != 'all_days' && $dosenId == 'all_dosen' && $programStudiId == 'all_prodi' && $temu != 'all') {
+		if ($hari !== 'all_days' && $dosenId == 'all_dosen' && $programStudiId == 'all_prodi' && $temu !== 'all') {
 			$arrFilter = [
 				'hari' => $hari,
 				'pertemuan_ke' => $temu
@@ -149,7 +149,7 @@ class Laporan extends CI_Controller
 		}
 
 		//Filter dosen and program studi id
-		if ($hari == 'all_days' && $dosenId != 'all_dosen' && $programStudiId != 'all_prodi' && $temu == 'all') {
+		if ($hari == 'all_days' && $dosenId !== 'all_dosen' && $programStudiId !== 'all_prodi' && $temu == 'all') {
 			$arrFilter = [
 				'id_dosen' => $dosenId,
 				'dosen.id_program_studi' => $programStudiId
@@ -157,7 +157,7 @@ class Laporan extends CI_Controller
 		}
 
 		//Filter dosen and temu
-		if ($hari == 'all_days' && $dosenId != 'all_dosen' && $programStudiId == 'all_prodi' && $temu != 'all') {
+		if ($hari == 'all_days' && $dosenId !== 'all_dosen' && $programStudiId == 'all_prodi' && $temu !== 'all') {
 			$arrFilter = [
 				'id_dosen' => $dosenId,
 				'pertemuan_ke' => $temu
@@ -165,7 +165,7 @@ class Laporan extends CI_Controller
 		}
 
 		//Filter program studi and temu
-		if ($hari == 'all_days' && $dosenId == 'all_dosen' && $programStudiId != 'all_prodi' && $temu != 'all') {
+		if ($hari == 'all_days' && $dosenId == 'all_dosen' && $programStudiId !== 'all_prodi' && $temu !== 'all') {
 			$arrFilter = [
 				'dosen.id_program_studi' => $programStudiId,
 				'pertemuan_ke' => $temu,
@@ -176,7 +176,7 @@ class Laporan extends CI_Controller
 		 * Three filter category
 		 *  */
 		//Filter days, dosen and program studi id
-		if ($hari != 'all_days' && $dosenId != 'all_dosen' && $programStudiId != 'all_prodi' && $temu == 'all') {
+		if ($hari !== 'all_days' && $dosenId !== 'all_dosen' && $programStudiId !== 'all_prodi' && $temu == 'all') {
 			$arrFilter = [
 				'hari' => $hari,
 				'id_dosen' => $dosenId,
@@ -185,7 +185,7 @@ class Laporan extends CI_Controller
 		}
 
 		//Filter days, dosen and temu kuliah
-		if ($hari != 'all_days' && $dosenId != 'all_dosen' && $programStudiId == 'all_prodi' && $temu != 'all') {
+		if ($hari !== 'all_days' && $dosenId !== 'all_dosen' && $programStudiId == 'all_prodi' && $temu !== 'all') {
 			$arrFilter = [
 				'hari' => $hari,
 				'id_dosen' => $dosenId,
@@ -194,7 +194,7 @@ class Laporan extends CI_Controller
 		}
 
 		//Filter days, prodi and temu kuliah
-		if ($hari != 'all_days' && $dosenId == 'all_dosen' && $programStudiId != 'all_prodi' && $temu != 'all') {
+		if ($hari !== 'all_days' && $dosenId == 'all_dosen' && $programStudiId !== 'all_prodi' && $temu !== 'all') {
 			$arrFilter = [
 				'hari' => $hari,
 				'dosen.id_program_studi' => $programStudiId,
@@ -203,7 +203,7 @@ class Laporan extends CI_Controller
 		}
 
 		//Filter days, prodi and temu kuliah
-		if ($hari == 'all_days' && $dosenId != 'all_dosen' && $programStudiId != 'all_prodi' && $temu != 'all') {
+		if ($hari == 'all_days' && $dosenId !== 'all_dosen' && $programStudiId !== 'all_prodi' && $temu !== 'all') {
 			$arrFilter = [
 				'id_dosen' => $dosenId,
 				'dosen.id_program_studi' => $programStudiId,
@@ -215,7 +215,7 @@ class Laporan extends CI_Controller
 		 * Four categories
 		 * */
 		//Filter all
-		if ($hari != 'all_days' && $dosenId != 'all_dosen' && $programStudiId != 'all_prodi' && $temu != 'all') {
+		if ($hari !== 'all_days' && $dosenId !== 'all_dosen' && $programStudiId !== 'all_prodi' && $temu !== 'all') {
 			$arrFilter = [
 				'hari' => $hari,
 				'id_dosen' => $dosenId,
@@ -232,9 +232,9 @@ class Laporan extends CI_Controller
 		if (isset($_POST['export'])) {
 			$data = $this->_grabData();
 
-			if ($exportType == 'excel') {
+			if ($exportType === 'excel') {
 				$this->exportExcel($data);
-			} elseif ($exportType == 'pdf') {
+			} elseif ($exportType === 'pdf') {
 				$this->exportPDF($data);
 			}
 		}
