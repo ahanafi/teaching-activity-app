@@ -22,7 +22,7 @@
 						 alt="Profile image">
 					<span class="ml-2"><?php echo getUser('nama_lengkap'); ?></span>
 				</a>
-				<div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
+				<div class="dropdown-menu dropdown-menu-right navbar-dropdown user-dropdown-menu" aria-labelledby="UserDropdown">
 					<div class="dropdown-header text-center">
 						<img class="img-md rounded-circle" src="<?php echo assets('images/faces/face8.jpg'); ?>"
 							 alt="Profile image">

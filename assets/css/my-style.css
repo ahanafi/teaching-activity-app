@@ -35,3 +35,7 @@ input[type=number] {
 #sidebar > ul.nav > li.active > a > .menu-title{
 	font-weight: bold !important;
 }
+.user-dropdown-menu > a:hover {
+	background: #065efd !important;
+	color: #fff !important;
+}
