@@ -8,62 +8,66 @@ class Jadwal_model extends Main_model
 
 	//Related tables
 	private $_MATA_KULIAH = 'mata_kuliah',
-			$_KELAS = 'kelas',
-			$_DOSEN = 'dosen',
-			$_RUANGAN = 'ruangan';
+		$_KELAS = 'kelas',
+		$_DOSEN = 'dosen',
+		$_RUANGAN = 'ruangan';
 
 	//PRIMARY KEY
 	private $_PRIMARY_KEY = 'id_jadwal';
 
 	//FOREIGN KEY
 	private $_ID_MATA_KULIAH = 'id_mata_kuliah',
-			$_ID_KELAS = 'id_kelas',
-			$_ID_DOSEN = 'id_dosen',
-			$_ID_RUANGAN = 'id_ruangan';
+		$_ID_KELAS = 'id_kelas',
+		$_ID_DOSEN = 'id_dosen',
+		$_ID_RUANGAN = 'id_ruangan';
 
 	private function getColumns()
-    {
-        $columns = $this->table . ".*, $this->_MATA_KULIAH.nama_mata_kuliah, $this->_KELAS.nama_kelas, $this->_KELAS.semester, ";
-        $columns .= $this->_DOSEN . ".nama_lengkap AS dosen, $this->_DOSEN.gelar, ";
-        $columns .= $this->_RUANGAN. ".kode_ruangan ";
+	{
+		$columnInJadwal = $this->table . ".id_jadwal, $this->table.hari, jam_mulai, jam_selesai, ";
+		$columnInMataKuliah = $this->_MATA_KULIAH . ".nama_mata_kuliah, ";
+		$columnInDosen = $this->_DOSEN . ".nama_lengkap, $this->_DOSEN.gelar, ";
+		$columnInRuangan = $this->_RUANGAN . '.kode_ruangan, ';
+		$columnInKelas = "GROUP_CONCAT(CONCAT(' ', $this->_KELAS.nama_kelas, '/', $this->_KELAS.semester)) AS kelas ";
 
-        return $columns;
-    }
+		return $columnInJadwal . $columnInMataKuliah . $columnInDosen . $columnInRuangan . $columnInKelas;
+	}
 
-    private function getJoinQueries($where = [], $operator = '=')
-    {
-        $joinTo = " JOIN $this->_MATA_KULIAH USING ($this->_ID_MATA_KULIAH) ";
-        $joinTo .= " JOIN $this->_KELAS USING ($this->_ID_KELAS) ";
-        $joinTo .= " JOIN $this->_DOSEN USING ($this->_ID_DOSEN) ";
-        $joinTo .= " JOIN $this->_RUANGAN USING ($this->_ID_RUANGAN) ";
+	private function getJoinQueries($where = [], $operator = '=')
+	{
+		$joinTo = "JOIN $this->childTable USING ($this->_PRIMARY_KEY) ";
+		$joinTo .= " JOIN $this->_MATA_KULIAH USING ($this->_ID_MATA_KULIAH) ";
+		$joinTo .= " JOIN $this->_KELAS USING ($this->_ID_KELAS) ";
+		$joinTo .= " JOIN $this->_DOSEN USING ($this->_ID_DOSEN) ";
+		$joinTo .= " JOIN $this->_RUANGAN USING ($this->_ID_RUANGAN) ";
 
-        $columns = self::getColumns();
-        $query = "SELECT " . $columns . " FROM " . $this->table . " " . $joinTo;
+		$columns = self::getColumns();
+		$query = "SELECT " . $columns . " FROM " . $this->table . " " . $joinTo;
 
+		if (!empty($where)) {
+			$column = array_keys($where)[0];
+			$value = array_values($where)[0];
 
-        if (!empty($where)) {
-            $column = array_keys($where)[0];
-            $value = array_values($where)[0];
+			$query = "SELECT " . $columns . " FROM " . $this->table . " " . $joinTo;
 
-            $query = "SELECT " . $columns . " FROM " . $this->table . " " . $joinTo;
-
-            $query .= " WHERE $column $operator $value ";
-        }
-
-        if($operator === '=') {
-        	$query .= " ORDER BY $this->table.id_jadwal ASC";
+			$query .= " WHERE $column $operator $value ";
 		}
 
-        return $query;
-    }
+		$query .= " GROUP BY $this->table.$this->_PRIMARY_KEY";
 
-    public function all()
-    {
-        $query = $this->getJoinQueries();
-        return $this->db->query($query)->result();
-    }
+		if ($operator === '=') {
+			$query .= " ORDER BY $this->table.id_jadwal ASC";
+		}
 
-    public function insertDetail($dataKelas = array(), $id_jadwal)
+		return $query;
+	}
+
+	public function all()
+	{
+		$query = $this->getJoinQueries();
+		return $this->db->query($query)->result();
+	}
+
+	public function insertDetail($dataKelas = array(), $id_jadwal)
 	{
 		$kelasId = [];
 		$index = 0;
@@ -78,16 +82,16 @@ class Jadwal_model extends Main_model
 		return $this->db->insert_batch($this->childTable, $kelasId);
 	}
 
-    public function findById($where = [], $all = false)
-    {
-        $query = $this->getJoinQueries($where);
-        if ($all) {
-            return $this->db->query($query)->result();
-        }
-        return $this->db->query($query)->row();
-    }
+	public function findById($where = [], $all = false)
+	{
+		$query = $this->getJoinQueries($where);
+		if ($all) {
+			return $this->db->query($query)->result();
+		}
+		return $this->db->query($query)->row();
+	}
 
-    public function getByIdProgramStudi($id_program_studi, $getIdDosenOnly = false)
+	public function getByIdProgramStudi($id_program_studi, $getIdDosenOnly = false)
 	{
 		$dosenId = $this->db->select('GROUP_CONCAT(id_dosen) AS id_dosen')
 			->from('dosen')
@@ -102,7 +106,7 @@ class Jadwal_model extends Main_model
 		], 'IN');
 		$query .= " ORDER BY $this->table.id_jadwal ASC";
 
-		if($getIdDosenOnly) {
+		if ($getIdDosenOnly) {
 			return $selectedDosenId;
 		}
 
@@ -111,8 +115,8 @@ class Jadwal_model extends Main_model
 
 	public function validate($where = [])
 	{
-		if(array_key_exists('id_kelas', $where)) {
-			$kelasId = count((array) $where['id_kelas']) > 1 ? implode(',', $where['id_kelas']) : $where['id_kelas'][0];
+		if (array_key_exists('id_kelas', $where)) {
+			$kelasId = count((array)$where['id_kelas']) > 1 ? implode(',', $where['id_kelas']) : $where['id_kelas'][0];
 			$jamMulai = $where['jam_mulai'];
 			$hari = $where['hari'];
 
@@ -125,8 +129,8 @@ class Jadwal_model extends Main_model
 		}
 
 		return $this->db->where($where)
-					->get($this->table)
-					->num_rows();
+			->get($this->table)
+			->num_rows();
 	}
 }
 

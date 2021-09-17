@@ -39,9 +39,9 @@
 										<td>
 											<?php echo showJamKuliah($jadwal->jam_mulai, $jadwal->jam_selesai); ?>
 										</td>
-										<td><?php echo $jadwal->nama_kelas . "/" . $jadwal->semester; ?></td>
+										<td><?php echo ltrim($jadwal->kelas); ?></td>
 										<td><?php echo $jadwal->nama_mata_kuliah; ?></td>
-										<td><?php echo namaDosen($jadwal->dosen, $jadwal->gelar); ?></td>
+										<td><?php echo namaDosen($jadwal->nama_lengkap, $jadwal->gelar); ?></td>
 										<td><?php echo $jadwal->kode_ruangan; ?></td>
 										<td>
 											<?php if (getUser('level') == "SUPER_USER" || getUser('id_dosen') == $jadwal->id_dosen): ?>

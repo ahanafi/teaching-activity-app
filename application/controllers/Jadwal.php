@@ -15,31 +15,30 @@ class Jadwal extends CI_Controller
 
 	public function index()
 	{
-//		$jadwal = $this->Jadwal->all();
-//		$currentUserLevel = getUser('level');
-//		if($currentUserLevel === "DOSEN") {
-//			$id_dosen = getUser('id_dosen');
-//			$jadwal = $this->Jadwal->findById([
-//				'id_dosen' => $id_dosen
-//			], true);
-//		} else if($currentUserLevel === 'KAPRODI') {
-//			$dosenId = getUser('id_dosen');
-//			$dosen = $this->Dosen->findById([
-//				'dosen.id_dosen' => $dosenId
-//			]);
-//
-//			$programStudiId = $dosen->id_program_studi;
-//
-//			$jadwal = $this->Jadwal->getByIdProgramStudi($programStudiId);
-//		} else if($currentUserLevel === 'MAHASISWA') {
-//			$mahasiswa = $this->Mahasiswa->findById([
-//				'nim' => getUser('username')
-//			]);
-//
-//			$kelasId = $mahasiswa->id_kelas;
-//			$jadwal = $this->Jadwal->getBy('id_kelas', $kelasId, true);
-//		}
-		$jadwal = [];
+		$jadwal = $this->Jadwal->all();
+		$currentUserLevel = getUser('level');
+		if($currentUserLevel === "DOSEN") {
+			$id_dosen = getUser('id_dosen');
+			$jadwal = $this->Jadwal->findById([
+				'id_dosen' => $id_dosen
+			], true);
+		} else if($currentUserLevel === 'KAPRODI') {
+			$dosenId = getUser('id_dosen');
+			$dosen = $this->Dosen->findById([
+				'dosen.id_dosen' => $dosenId
+			]);
+
+			$programStudiId = $dosen->id_program_studi;
+
+			$jadwal = $this->Jadwal->getByIdProgramStudi($programStudiId);
+		} else if($currentUserLevel === 'MAHASISWA') {
+			$mahasiswa = $this->Mahasiswa->findById([
+				'nim' => getUser('username')
+			]);
+
+			$kelasId = $mahasiswa->id_kelas;
+			$jadwal = $this->Jadwal->getBy('id_kelas', $kelasId, true);
+		}
 
 		$data = [
 			'jadwal' => $jadwal,
