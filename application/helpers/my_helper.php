@@ -261,3 +261,44 @@ function randomHexColor()
 {
 	return sprintf('#%06X', mt_rand(0, 0xFFFFFF));
 }
+
+function contains($needle, $haystack)
+{
+	return strpos($haystack, $needle) !== FALSE;
+}
+
+function getProdiByCode($code)
+{
+	$code = contains('-', $code) ? explode('-', $code)[0] : $code;
+	$prodiName = "";
+	switch ($code) {
+		case "TI":
+			$prodiName = "Teknik Informatika";
+			break;
+		case "SI":
+			$prodiName = "Sistem Informasi";
+			break;
+		case "MI":
+			$prodiName = "Manajemen Informatika";
+			break;
+		case "KA":
+			$prodiName = "Komputerisasi Akuntansi";
+			break;
+		case "MB":
+			$prodiName = "Manajemen Bisnis";
+			break;
+		case "DKV":
+			$prodiName = "Desain Komunikasi Visual";
+			break;
+		case "AK":
+			$prodiName = "Akuntansi";
+			break;
+		case ($code === "MJ" || $code === "MNJ"):
+			$prodiName = "Manajemen";
+			break;
+		default:
+			$prodiName = "Teknik Informatika";
+			break;
+	}
+	return $prodiName;
+}

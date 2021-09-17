@@ -46,3 +46,4 @@ $route['verifikasi-bap'] = 'Verifikasi/index';
 /*
  * import */
 $route['dosen/import'] = 'Import/dosen';
+$route['mahasiswa/import'] = 'Import/mahasiswa';

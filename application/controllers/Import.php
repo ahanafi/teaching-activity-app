@@ -5,7 +5,7 @@ use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 class Import extends CI_Controller
 {
-	private $uploadConfig = array();
+	private $uploadConfig;
 
 	public function __construct()
 	{
@@ -30,14 +30,12 @@ class Import extends CI_Controller
 		if (isset($_POST['import'])) {
 			if ($this->upload->do_upload('file')) {
 				$uploadedData = $this->upload->data();
-				$fileName = $uploadedData['file_name'];
 				$uploadedFile = $uploadedData['full_path'];
 				$reader = new Xlsx();
 				$spreadsheet = $reader->load($uploadedFile);
 				$sheetData = $spreadsheet->getActiveSheet()->toArray();
 				$dataDosen = [];
 				$userDosen = [];
-
 
 				for ($i = 1, $iMax = count($sheetData); $i < $iMax; $i++) {
 					$idProgramStudi = NULL;
@@ -50,7 +48,7 @@ class Import extends CI_Controller
 
 					$nidn = $sheetData[$i][1];
 					$checkDosen = $this->Dosen->getBy('nidn', $nidn);
-					if(!$checkDosen) {
+					if (!$checkDosen) {
 						$dataDosen[] = [
 							'nidn' => $nidn,
 							'nama_lengkap' => $sheetData[$i][2],
@@ -74,7 +72,7 @@ class Import extends CI_Controller
 				$insertDosen = $this->Dosen->insert($dataDosen, true);
 				$insertUser = $this->User->insert($userDosen, true);
 
-				if($insertUser && $insertDosen){
+				if ($insertUser && $insertDosen) {
 					$messages = setArrayMessage('success', 'import', 'dosen');
 				} else {
 					$messages = setArrayMessage('error', 'import', 'dosen');
@@ -91,5 +89,93 @@ class Import extends CI_Controller
 		} else {
 			redirect(base_url('dosen'));
 		}
+	}
+
+	public function mahasiswa()
+	{
+		if (isset($_POST['import'])) {
+			if ($this->upload->do_upload('file')) {
+				$uploadedData = $this->upload->data();
+				$uploadedFile = $uploadedData['full_path'];
+				$reader = new Xlsx();
+				$spreadsheet = $reader->load($uploadedFile);
+				$sheetData = $spreadsheet->getActiveSheet()->toArray();
+				$dataMahasiswa = [];
+				$userMahasiswa = [];
+
+				for ($i = 1, $iMax = count($sheetData); $i < $iMax; $i++) {
+					$nim = $sheetData[$i][1];
+
+					//dd($sheetData[$i]);
+					$checkMahasiswa = $this->Mahasiswa->getBy('nim', $nim);
+					if (!$checkMahasiswa) {
+
+						//Check kelas
+						$idKelas = $this->getOrInsertKelas($sheetData[$i][4]);
+						$dataMahasiswa[] = [
+							'nim' => $nim,
+							'nama_lengkap' => $sheetData[$i][2],
+							'jenis_kelamin' => $sheetData[$i][3],
+							'id_kelas' => $idKelas,
+						];
+
+						$userMahasiswa[] = [
+							'username' => $nim,
+							'nama_lengkap' => strtoupper($sheetData[$i][2]),
+							'password' => password_hash($nim, PASSWORD_DEFAULT),
+							'level' => 'MAHASISWA',
+							'id_dosen' => NULL
+						];
+					}
+				}
+
+				unlink($uploadedFile);
+
+				$insertMahasiswa = $this->Mahasiswa->insert($dataMahasiswa, true);
+				$insertUser = $this->User->insert($userMahasiswa, true);
+
+				if ($insertUser && $insertMahasiswa) {
+					$messages = setArrayMessage('success', 'import', 'mahasiswa');
+				} else {
+					$messages = setArrayMessage('error', 'import', 'mahasiswa');
+				}
+
+				$this->session->set_flashdata('message', $messages);
+				redirect(base_url('mahasiswa'), 'refresh');
+
+			} else {
+				$error = $this->upload->display_errors("", "");
+				$error = str_replace(" ", "-", $error);
+				redirect(base_url('mahasiswa') . '?show_modal=true&errmsg=' . $error);
+			}
+		} else {
+			redirect(base_url('mahasiswa'));
+		}
+	}
+
+	private function getOrInsertKelas($kelas)
+	{
+		$separator = contains('/', $kelas) ? '/' : '-';
+		$splitKelas = explode($separator, $kelas);
+		$namaKelas = $splitKelas[0];
+		$semester = $splitKelas[1];
+
+		$queryCheckKelas = $this->Kelas->customQuery("SELECT * FROM kelas WHERE nama_kelas LIKE '%$namaKelas%' AND semester = '$semester'", false);
+		if ($queryCheckKelas) {
+			return $queryCheckKelas->id_kelas;
+		} else {
+			$prodi = getProdiByCode($namaKelas);
+			$prodi = $this->ProgramStudi->getBy('nama_program_studi', $prodi);
+			$idProdi = $prodi->id_program_studi;
+
+			$this->Kelas->insert([
+				'nama_kelas' => $namaKelas,
+				'id_program_studi' => $idProdi,
+				'semester' => $semester,
+			]);
+
+			return $this->Kelas->getLastInsertId('id_kelas');
+		}
+
 	}
 }
