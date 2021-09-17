@@ -178,17 +178,7 @@ $uri2 = $this->uri->segment(2);
 <?php endif;
 $_SESSION['message'] = ''; ?>
 <?php if (($uri1 === "jadwal" || $uri1 === "jadwal-kuliah" || $uri1 === "berita-acara") && ($uri2 === "create" || $uri2 === "edit")): ?>
-	<script type="text/javascript">
-		loadSelect2();
-		$("input[name=jam_mulai]").timepicker({
-			uiLibrary: 'bootstrap4',
-			format: 'HH:MM'
-		});
-		$("input[name=jam_selesai]").timepicker({
-			uiLibrary: 'bootstrap4',
-			format: 'HH:MM'
-		});
-	</script>
+	<script type="text/javascript">loadSelect2();</script>
 <?php endif; ?>
 </body>
 </html>

@@ -4,12 +4,16 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Jadwal_model extends Main_model
 {
 	protected $table = 'jadwal';
+	protected $childTable = 'detail_jadwal';
 
 	//Related tables
 	private $_MATA_KULIAH = 'mata_kuliah',
 			$_KELAS = 'kelas',
 			$_DOSEN = 'dosen',
 			$_RUANGAN = 'ruangan';
+
+	//PRIMARY KEY
+	private $_PRIMARY_KEY = 'id_jadwal';
 
 	//FOREIGN KEY
 	private $_ID_MATA_KULIAH = 'id_mata_kuliah',
@@ -59,6 +63,21 @@ class Jadwal_model extends Main_model
         return $this->db->query($query)->result();
     }
 
+    public function insertDetail($dataKelas = array(), $id_jadwal)
+	{
+		$kelasId = [];
+		$index = 0;
+		foreach ($dataKelas as $kelas) {
+			$kelasId[$index] = [
+				'id_kelas' => $kelas,
+				'id_jadwal' => $id_jadwal
+			];
+			$index++;
+		}
+
+		return $this->db->insert_batch($this->childTable, $kelasId);
+	}
+
     public function findById($where = [], $all = false)
     {
         $query = $this->getJoinQueries($where);
@@ -92,6 +111,19 @@ class Jadwal_model extends Main_model
 
 	public function validate($where = [])
 	{
+		if(array_key_exists('id_kelas', $where)) {
+			$kelasId = count((array) $where['id_kelas']) > 1 ? implode(',', $where['id_kelas']) : $where['id_kelas'][0];
+			$jamMulai = $where['jam_mulai'];
+			$hari = $where['hari'];
+
+			return $this->db->query("
+				SELECT * FROM $this->table
+				JOIN $this->childTable USING ($this->_PRIMARY_KEY)
+				WHERE jam_mulai = '$jamMulai' AND hari = '$hari'
+				AND id_kelas IN ($kelasId)
+			")->num_rows();
+		}
+
 		return $this->db->where($where)
 					->get($this->table)
 					->num_rows();

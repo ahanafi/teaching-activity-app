@@ -39,3 +39,23 @@ input[type=number] {
 	background: #065efd !important;
 	color: #fff !important;
 }
+input.select2-search__field {
+	font-size: 13px !important;
+	font-weight: normal !important;
+	padding: 0 .75rem !important;
+}
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+	font-size: 0.8rem !important;
+}
+.select2-selection__choice__remove {
+	font-weight: bold !important;
+	color: darkred !important;
+	margin-right: 5px !important;
+	font-size: .95rem !important;
+}
+.border-2x{
+	border-width: 2px;
+}
+.border-3x{
+	border-width: 3px;
+}

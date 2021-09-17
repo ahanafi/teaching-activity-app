@@ -15,30 +15,31 @@ class Jadwal extends CI_Controller
 
 	public function index()
 	{
-		$jadwal = $this->Jadwal->all();
-		$currentUserLevel = getUser('level');
-		if($currentUserLevel === "DOSEN") {
-			$id_dosen = getUser('id_dosen');
-			$jadwal = $this->Jadwal->findById([
-				'id_dosen' => $id_dosen
-			], true);
-		} else if($currentUserLevel === 'KAPRODI') {
-			$dosenId = getUser('id_dosen');
-			$dosen = $this->Dosen->findById([
-				'dosen.id_dosen' => $dosenId
-			]);
-
-			$programStudiId = $dosen->id_program_studi;
-
-			$jadwal = $this->Jadwal->getByIdProgramStudi($programStudiId);
-		} else if($currentUserLevel === 'MAHASISWA') {
-			$mahasiswa = $this->Mahasiswa->findById([
-				'nim' => getUser('username')
-			]);
-
-			$kelasId = $mahasiswa->id_kelas;
-			$jadwal = $this->Jadwal->getBy('id_kelas', $kelasId, true);
-		}
+//		$jadwal = $this->Jadwal->all();
+//		$currentUserLevel = getUser('level');
+//		if($currentUserLevel === "DOSEN") {
+//			$id_dosen = getUser('id_dosen');
+//			$jadwal = $this->Jadwal->findById([
+//				'id_dosen' => $id_dosen
+//			], true);
+//		} else if($currentUserLevel === 'KAPRODI') {
+//			$dosenId = getUser('id_dosen');
+//			$dosen = $this->Dosen->findById([
+//				'dosen.id_dosen' => $dosenId
+//			]);
+//
+//			$programStudiId = $dosen->id_program_studi;
+//
+//			$jadwal = $this->Jadwal->getByIdProgramStudi($programStudiId);
+//		} else if($currentUserLevel === 'MAHASISWA') {
+//			$mahasiswa = $this->Mahasiswa->findById([
+//				'nim' => getUser('username')
+//			]);
+//
+//			$kelasId = $mahasiswa->id_kelas;
+//			$jadwal = $this->Jadwal->getBy('id_kelas', $kelasId, true);
+//		}
+		$jadwal = [];
 
 		$data = [
 			'jadwal' => $jadwal,
@@ -75,9 +76,14 @@ class Jadwal extends CI_Controller
 			} else {
 				//get user submit form data
 				$postData = $this->getPostData();
+				$kelasId = $this->main_lib->getPost('kelas');
 
 				$insert = $this->Jadwal->insert($postData);
-				if ($insert) {
+				$idJadwal = $this->Jadwal->getLastInsertId('id_jadwal');
+
+				$insertDetail = $this->Jadwal->insertDetail($kelasId, $idJadwal);
+
+				if ($insert && $insertDetail) {
 					$messages = setArrayMessage('success', 'insert', 'jadwal kuliah');
 				} else {
 					$messages = setArrayMessage('error', 'insert', 'jadwal kuliah');
@@ -168,7 +174,7 @@ class Jadwal extends CI_Controller
 			'hari' => $this->main_lib->getPost('hari'),
 			'jam_mulai' => $this->main_lib->getPost('jam_mulai'),
 			'jam_selesai' => $this->main_lib->getPost('jam_selesai'),
-			'id_kelas' => $this->main_lib->getPost('kelas'),
+			'multi_kelas' => $this->main_lib->getPost('is_multi_class'),
 			'id_mata_kuliah' => $this->main_lib->getPost('mata_kuliah'),
 			'id_dosen' => $this->main_lib->getPost('dosen'),
 			'id_ruangan' => $this->main_lib->getPost('ruangan'),
@@ -194,7 +200,7 @@ class Jadwal extends CI_Controller
 				'rules' => 'required'
 			],
 			[
-				'field' => 'kelas',
+				'field' => 'kelas[]',
 				'label' => 'Kelas',
 				'rules' => 'required'
 			],
@@ -221,7 +227,10 @@ class Jadwal extends CI_Controller
 		$hari = $this->main_lib->getPost('hari');
 		$jamMulai = $this->main_lib->getPost('jam_mulai');
 		$jamSelesai = $this->main_lib->getPost('jam_selesai');
-		$kelasId = $this->main_lib->getPost('kelas');
+		$kelas = $this->main_lib->getPost('kelas');
+
+		$kelasId = (count((array)$kelas) > 1) ? implode(',', $kelas) : $kelas;
+
 		$mataKuliahId = $this->main_lib->getPost('mata_kuliah');
 		$dosenId = $this->main_lib->getPost('dosen');
 		$ruanganId = $this->main_lib->getPost('ruangan');
@@ -234,7 +243,7 @@ class Jadwal extends CI_Controller
 
 		$isExists = false;
 
-		if($validateRuanganHari) {
+		if ($validateRuanganHari) {
 			$ruangan = $this->Ruangan->findById([
 				'id_ruangan' => $ruanganId
 			]);
@@ -250,28 +259,31 @@ class Jadwal extends CI_Controller
 			'jam_mulai' => $jamMulai
 		]);
 
-		if($validateDosenHariJam) {
-			$dosen = $this->Dosen->findById(['id_dosen' => $dosenId]);
+		if ($validateDosenHariJam) {
+			$dosen = $this->Dosen->findById(['dosen.id_dosen' => $dosenId]);
 			$namaDosen = $dosen->nama_lengkap;
 			$this->form_validation->set_message('unique_jadwal', "Jadwal dosen $namaDosen di hari $hari jam $jamMulai sudah ada!");
 			$isExists = true;
 		}
 
-		//Validate kelas dan mata kuliah
-		$validateKelasJamHari = $this->Jadwal->validate([
-			'id_kelas' => $kelasId,
-			'jam_mulai' => $jamMulai,
-			'hari' => $hari
-		]);
+		if ($kelasId !== null) {
+			//Validate kelas dan mata kuliah
+			$validateKelasJamHari = $this->Jadwal->validate([
+				'id_kelas' => $kelasId,
+				'jam_mulai' => $jamMulai,
+				'hari' => $hari
+			]);
 
-		if($validateKelasJamHari) {
-			$kelas = $this->Kelas->findById(['id_kelas' => $kelasId]);
-			$namaKelas = $kelas->nama_kelas . "/" . $kelas->semester;
-			$this->form_validation->set_message('unique_jadwal', "Jadwal kelas $namaKelas di hari $hari jam $jamMulai sudah ada!");
-			$isExists = true;
+			if ($validateKelasJamHari) {
+				$kelas = $this->Kelas->findById(['id_kelas' => $kelasId]);
+				$namaKelas = $kelas->nama_kelas . "/" . $kelas->semester;
+				$this->form_validation->set_message('unique_jadwal', "Jadwal kelas $namaKelas di hari $hari jam $jamMulai sudah ada!");
+				$isExists = true;
+			}
 		}
 
-		if($isExists) {
+
+		if ($isExists) {
 			return false;
 		}
 

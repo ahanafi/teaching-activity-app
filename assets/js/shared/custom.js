@@ -152,3 +152,23 @@ const changeKelas = (el) => {
 		})
 	}
 };
+
+const setMultiClass = (val) => {
+	$("#list-kelas").select2('destroy');
+	if(val) {
+		$("#is-multi-class").val(1);
+		$("#list-kelas > option:nth-child(1)").remove();
+		$("#list-kelas").attr('multiple', 'multiple');
+		$("#list-kelas").attr('data-placeholder', '-- Pilih Kelas --');
+		$("#list-kelas").select2({
+			placeholder: '-- Pilih Kelas --',
+			val: ''
+		});
+	} else {
+		$("#is-multi-class").val(0);
+		$("#list-kelas").prepend(`<option selected disabled>-- Pilih Kelas --</option>`);
+		$("#list-kelas").removeAttr('multiple');
+		$("#list-kelas").select2();
+		$("#list-kelas").select2('val', '');
+	}
+}

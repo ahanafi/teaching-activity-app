@@ -3,12 +3,18 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Main_model extends CI_Model
 {
+	protected $table = "";
+
 	public function __construct()
 	{
 		parent::__construct();
 	}
 
-	protected $table = "";
+	public function setTable($tableName)
+	{
+		$this->table = $tableName;
+		return $this;
+	}
 
 	public function all()
 	{
