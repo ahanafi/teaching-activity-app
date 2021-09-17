@@ -79,7 +79,7 @@
 						<div class="form-group row">
 							<label for="exampleInputEmail2" class="col-sm-3 col-form-label">Contoh Format</label>
 							<div class="col-sm-9">
-								<a href="" class="btn btn-primary">
+								<a href="<?php echo base_url('import/download-samples/mahasiswa');?>" class="btn btn-primary">
 									<i class="fa fa-download"></i>
 									<span>Unduh Format Import Data</span>
 								</a>

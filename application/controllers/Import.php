@@ -25,6 +25,30 @@ class Import extends CI_Controller
 		}
 	}
 
+	public function download_samples($type)
+	{
+		if($type === 'dosen' || $type === 'mahasiswa') {
+			$pathFile = FCPATH . 'examples/format-' . $type . '.xlsx';
+			if(file_exists($pathFile)) {
+				$this->load->helper('download');
+				$fileName = 'Format-Import-Data-' . ucfirst($type) . '.xlsx';
+				force_download($fileName, file_get_contents($pathFile));
+			} else {
+				$this->session->set_flashdata('message', [
+					'type' => 'error',
+					'text' => 'File tidak ditemukan.'
+				]);
+				redirect(base_url(strtolower($type)), 'refresh');
+			}
+		}
+
+		$this->session->set_flashdata('message', [
+			'type' => 'error',
+			'text' => 'File tidak ditemukan.'
+		]);
+		redirect(base_url('error-page'), 'refresh');
+	}
+
 	public function dosen()
 	{
 		if (isset($_POST['import'])) {
