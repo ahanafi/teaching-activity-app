@@ -42,3 +42,7 @@ $route['get-akurasi-jadwal/(:num)'] = 'Dashboard/akurasi-jadwal/$1';
 $route['get-kelas/(:num)'] = 'Kelas/getKelas/$1';
 
 $route['verifikasi-bap'] = 'Verifikasi/index';
+
+/*
+ * import */
+$route['dosen/import'] = 'Import/dosen';

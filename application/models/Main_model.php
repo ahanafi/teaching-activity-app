@@ -36,6 +36,16 @@ class Main_model extends CI_Model
 		return $result;
 	}
 
+	public function whereLike($column, $value, $all = false)
+	{
+		$query = $this->db->like($column, $value)->get($this->table);
+		if($all) {
+			return $query->result();
+		}
+
+		return $query->row();
+	}
+
 	public function insert($data = [], $bacth = FALSE)
 	{
 		if ($bacth) {

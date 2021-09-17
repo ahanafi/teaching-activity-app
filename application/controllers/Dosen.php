@@ -138,7 +138,7 @@ class Dosen extends CI_Controller
 	public function detail($id_dosen = null)
 	{
 		$dosen = $this->Dosen->findById(['dosen.id_dosen' => $id_dosen]);
-		if(!$dosen || $id_dosen == '') {
+		if(!$dosen || $id_dosen === '') {
 			redirect(base_url('error'));
 		}
 
@@ -195,9 +195,7 @@ class Dosen extends CI_Controller
 		}
 
 		return $rules;
-
 	}
-
 }
 
 /* End of file Dosen.php */

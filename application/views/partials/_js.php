@@ -164,6 +164,10 @@ $uri2 = $this->uri->segment(2);
 	<script src="<?php echo assets('js/shared/form-signature.js'); ?>"></script>
 <?php endif; ?>
 
+<?php if(($uri1 === "dosen" || $uri1 === "mahasiswa") && isset($_GET['show_modal']) && $_GET['show_modal'] === 'true'): ?>
+	<script type="text/javascript">$("#import-modal").modal('show');</script>
+<?php endif; ?>
+
 <!-- Custom js for this page-->
 <script src="<?php echo assets('js/demo/dashboard.js'); ?>"></script>
 <!-- End custom js for this page-->
