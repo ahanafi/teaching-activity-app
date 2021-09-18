@@ -23,16 +23,16 @@ class Jadwal_model extends Main_model
 
 	private function getColumns()
 	{
-		$columnInJadwal = $this->table . ".id_jadwal, $this->table.hari, jam_mulai, jam_selesai, ";
-		$columnInMataKuliah = $this->_MATA_KULIAH . ".nama_mata_kuliah, ";
-		$columnInDosen = $this->_DOSEN . ".nama_lengkap, $this->_DOSEN.gelar, ";
+		$columnInJadwal = $this->table . ".*, ";
+		$columnInMataKuliah = $this->_MATA_KULIAH . ".nama_mata_kuliah, $this->_MATA_KULIAH.sks, ";
+		$columnInDosen = $this->_DOSEN . ".nama_lengkap AS nama_dosen, $this->_DOSEN.gelar, ";
 		$columnInRuangan = $this->_RUANGAN . '.kode_ruangan, ';
 		$columnInKelas = "GROUP_CONCAT(CONCAT(' ', $this->_KELAS.nama_kelas, '/', $this->_KELAS.semester)) AS kelas ";
 
 		return $columnInJadwal . $columnInMataKuliah . $columnInDosen . $columnInRuangan . $columnInKelas;
 	}
 
-	private function getJoinQueries($where = [], $operator = '=')
+	public function getJoinQueries($where = [], $operator = '=')
 	{
 		$joinTo = "JOIN $this->childTable USING ($this->_PRIMARY_KEY) ";
 		$joinTo .= " JOIN $this->_MATA_KULIAH USING ($this->_ID_MATA_KULIAH) ";

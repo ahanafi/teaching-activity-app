@@ -72,16 +72,16 @@ class Dashboard extends CI_Controller
 			$arrJadwalDosen = [];
 
 			$dosenInJadwal = $this->Jadwal->customQuery("
-			SELECT DISTINCT(jadwal.id_dosen), nama_lengkap, gelar FROM jadwal
-			JOIN dosen USING (id_dosen)
-			ORDER BY nama_lengkap ASC
-		");
+				SELECT DISTINCT(jadwal.id_dosen), nama_lengkap, gelar FROM jadwal
+				JOIN dosen USING (id_dosen)
+				ORDER BY nama_lengkap ASC
+			");
 
 			$selectedJadwal = [];
 			$index = 0;
 			foreach ($dosenInJadwal as $dosen) {
 				$dosenId = $dosen->id_dosen;
-				if ($index == 0) {
+				if ($index === 0) {
 					$selectedJadwal = $this->Jadwal->findById(['id_dosen' => $dosenId]);
 				}
 

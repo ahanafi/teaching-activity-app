@@ -72,27 +72,6 @@ class Beritaacara extends CI_Controller
 				//get user submit form data
 				$getPostData = $this->getPostData();
 
-				$nim = $this->main_lib->getPost('nim');
-				$checkStudent = $this->Mahasiswa->findById(['nim' => $nim]);
-				if (!$checkStudent) {
-					$jadwal = $this->Jadwal->findById([
-						'id_jadwal' => $this->main_lib->getPost('id_jadwal')
-					]);
-
-					//Insert to mahasiswa
-					$this->Mahasiswa->insert([
-						'nim' => $nim,
-						'nama_lengkap' => $this->main_lib->getPost('nama_mahasiswa'),
-						'id_kelas' => $jadwal->id_kelas,
-						'jenis_kelamin' => 'P'
-					]);
-
-					$this->User->createStudentAccount([
-						'nim' => $nim,
-						'nama_lengkap' => $this->main_lib->getPost('nama_mahasiswa'),
-					]);
-				}
-
 				$uploadBuktiKegiatan = $this->uploadBuktiKegiatan('bukti_kegiatan');
 
 				if (is_string($uploadBuktiKegiatan)) {
@@ -104,20 +83,18 @@ class Beritaacara extends CI_Controller
 
 					$IdBeritaAcara = $this->BeritaAcara->getLastInsertId('id_berita_acara');
 
+					$fotoBuktiKegiatan = [];
+
 					foreach ($uploadBuktiKegiatan as $bukti) {
-						$this->BuktiKegiatan->insert([
+						$fotoBuktiKegiatan[] = [
 							'id_berita_acara' => $IdBeritaAcara,
 							'nama_file' => $bukti['nama_file'],
 							'jenis_file' => $bukti['jenis_file'],
 							'lokasi' => $bukti['lokasi'],
-						]);
+						];
 					}
 
-					//Insert to Verifikasi
-					$this->Verifikasi->insert([
-						'id_berita_acara' => $IdBeritaAcara,
-						'nim_verifikator' => $nim,
-					]);
+					$this->BuktiKegiatan->insert($fotoBuktiKegiatan);
 
 					if ($insert) {
 						$messages = setArrayMessage('success', 'insert', 'berita acara');
@@ -432,16 +409,6 @@ class Beritaacara extends CI_Controller
 				'rules' => 'required'
 			],
 			[
-				'field' => 'nim',
-				'label' => 'NIM',
-				'rules' => 'required'
-			],
-			[
-				'field' => 'nama_mahasiswa',
-				'label' => 'Nama mahasiswa',
-				'rules' => 'required'
-			],
-			[
 				'field' => 'pokok_bahasan',
 				'label' => 'Pokok bahasan',
 				'rules' => 'required'
@@ -463,12 +430,12 @@ class Beritaacara extends CI_Controller
 			if (!$jadwal) {
 				$this->form_validation->set_message('validate_jadwal', 'Jadwal tidak ditemukan!');
 				return false;
-			} else {
-				return true;
 			}
-		} else {
-			return false;
+
+			return true;
 		}
+
+		return false;
 	}
 
 	/*

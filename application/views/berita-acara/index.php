@@ -24,7 +24,7 @@
 									<th rowspan="2" class="align-middle border-right">No.</th>
 									<th colspan="4" class="text-center border-right">Jadwal</th>
 									<th rowspan="2" class="align-middle border-right">Temu Ke</th>
-									<th rowspan="2" class="align-middle border-right">Jumlah Hadir</th>
+									<th rowspan="2" class="align-middle border-right">Jml. Hadir</th>
 									<th rowspan="2" class="border-right">Realisasi</th>
 									<th class="border-right align-middle text-center" rowspan="2">Actions</th>
 								</tr>
@@ -33,7 +33,6 @@
 									<th class="border-right">Dosen</th>
 									<th class="border-right">Mata Kuliah</th>
 									<th class="border-right">SKS</th>
-									<!--<th class="border-right">Waktu</th>-->
 								</tr>
 								</thead>
 								<tbody>
@@ -42,25 +41,22 @@
 										<td><?php echo $nomor++; ?></td>
 										<td><?php echo ucfirst(strtolower($bap->hari)) . "<br>" . showJamKuliah($bap->jam_mulai, $bap->jam_selesai); ?></td>
 										<td>
-											<?php if (getUser('level') == 'SUPER_USER'): ?>
-												<a href="<?php echo base_url('dosen/detail/' . $bap->id_dosen); ?>"><?php echo namaDosen($bap->dosen, $bap->gelar); ?></a>
-											<?php else: echo namaDosen($bap->dosen, $bap->gelar); endif; ?>
+											<?php if (showOnlyTo('SUPER_USER')): ?>
+												<a href="<?php echo base_url('dosen/detail/' . $bap->id_dosen); ?>"><?php echo namaDosen($bap->nama_dosen, $bap->gelar); ?></a>
+											<?php else: echo namaDosen($bap->nama_dosen, $bap->gelar); endif; ?>
 										</td>
-										<td><?php echo $bap->mata_kuliah; ?></td>
+										<td><?php echo $bap->nama_mata_kuliah; ?></td>
 										<td class="text-center"><?php echo $bap->sks; ?></td>
-										<!--<td>
-											<?php /*echo showJamKuliah($bap->jam_mulai, $bap->jam_selesai); */?>
-										</td>-->
 										<td class="text-center"><?php echo $bap->pertemuan_ke; ?></td>
 										<td class="text-center"><?php echo $bap->jumlah_hadir; ?></td>
 										<td class="text-center"><?php echo Nim4n\SimpleDate::createFormat("dddd", $bap->tanggal_realisasi); ?></td>
 										<td>
 											<a href="<?php echo base_url('berita-acara/detail/' . $bap->id_berita_acara); ?>"
 											   class="btn btn-info text-white">Detail</a>
-											<?php if (getUser('level') == 'SUPER_USER' || getUser('id_dosen') == $bap->id_dosen): ?>
+											<?php if (showOnlyTo('SUPER_USER') || getUser('id_dosen') == $bap->id_dosen): ?>
 												<a href="<?php echo base_url('berita-acara/edit/' . $bap->id_berita_acara); ?>"
 												   class="btn btn-success text-white">Edit</a>
-												<?php if (getUser('level') == "SUPER_USER"): ?>
+												<?php if (showOnlyTo("SUPER_USER")): ?>
 													<a href="#"
 													   onclick="showConfirmDelete('berita-acara', <?php echo $bap->id_berita_acara; ?>)"
 													   class="btn btn-danger">Hapus</a>

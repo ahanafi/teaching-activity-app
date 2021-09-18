@@ -20,9 +20,9 @@
 											<select name="id_jadwal" required class="form-control select2">
 												<option disabled selected>-- Pilih Jadwal --</option>
 												<?php foreach ($jadwal as $jadwal): ?>
-													<option <?php echo (set_value('id_jadwal') == $jadwal->id_jadwal) ? "selected" : ""; ?>
+													<option <?php echo (set_value('id_jadwal') === $jadwal->id_jadwal) ? "selected" : ""; ?>
 															value="<?php echo $jadwal->id_jadwal; ?>">
-														<?php echo $jadwal->hari . " - " . showJamKuliah($jadwal->jam_mulai, $jadwal->jam_selesai) . " - " . $jadwal->nama_mata_kuliah . " - " . $jadwal->nama_kelas . "/".$jadwal->semester ." - " . namaDosen($jadwal->dosen, $jadwal->gelar); ?>
+														<?php echo $jadwal->hari . " - " . showJamKuliah($jadwal->jam_mulai, $jadwal->jam_selesai) . " - " . $jadwal->nama_mata_kuliah . " - " . $jadwal->kelas ." - " . namaDosen($jadwal->nama_lengkap, $jadwal->gelar); ?>
 													</option>
 												<?php endforeach; ?>
 											</select>
@@ -164,22 +164,8 @@
 							<div class="row">
 								<div class="col-md-12">
 									<div class="form-group row">
-										<label class="col-sm-2 col-form-label">Verifikasi Mahasiswa</label>
-										<div class="col-sm-2">
-											<input type="text" name="nim" placeholder="NIM"
-												   class="form-control" value="<?php echo set_value('nim'); ?>">
-											<?php echo form_error('nim'); ?>
-										</div>
-										<label class="col-sm-2 col-form-label text-right">Nama Mahasiswa</label>
-										<div class="col-sm-3">
-											<input type="text" name="nama_mahasiswa" placeholder="Nama Mahasiswa"
-												   class="form-control" value="<?php echo set_value('nama_mahasiswa'); ?>">
-											<?php echo form_error('nama_mahasiswa'); ?>
-										</div>
-									</div>
-									<div class="form-group row">
 										<label class="col-sm-2 col-form-label">Pokok Bahasan</label>
-										<div class="col-sm-7">
+										<div class="col-sm-10">
 											<input type="text" name="pokok_bahasan" placeholder="Pokok bahasan materi"
 												   class="form-control" value="<?php echo set_value('pokok_bahasan'); ?>" autocomplete="off">
 											<?php echo form_error('pokok_bahasan'); ?>

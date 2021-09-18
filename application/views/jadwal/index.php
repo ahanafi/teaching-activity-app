@@ -41,13 +41,13 @@
 										</td>
 										<td><?php echo ltrim($jadwal->kelas); ?></td>
 										<td><?php echo $jadwal->nama_mata_kuliah; ?></td>
-										<td><?php echo namaDosen($jadwal->nama_lengkap, $jadwal->gelar); ?></td>
+										<td><?php echo namaDosen($jadwal->nama_dosen, $jadwal->gelar); ?></td>
 										<td><?php echo $jadwal->kode_ruangan; ?></td>
 										<td>
-											<?php if (getUser('level') == "SUPER_USER" || getUser('id_dosen') == $jadwal->id_dosen): ?>
+											<?php if (showOnlyTo('SUPER_USER') || getUser('id_dosen') === $jadwal->id_dosen): ?>
 												<a href="<?php echo base_url('jadwal/edit/' . $jadwal->id_jadwal); ?>"
 												   class="btn btn-success text-white">Edit</a>
-												<?php if (getUser('level') == "SUPER_USER"): ?>
+												<?php if (showOnlyTo('SUPER_USER')): ?>
 													<a href="#"
 													   onclick="showConfirmDelete('jadwal', <?php echo $jadwal->id_jadwal; ?>)"
 													   class="btn btn-danger">Hapus</a>
