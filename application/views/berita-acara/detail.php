@@ -44,12 +44,12 @@
 									<tr>
 										<td>Mata Kuliah</td>
 										<td>:</td>
-										<td><?php echo $bap->mata_kuliah; ?></td>
+										<td><?php echo $bap->nama_mata_kuliah; ?></td>
 									</tr>
 									<tr>
 										<td>Kelas</td>
 										<td>:</td>
-										<td><?php echo $bap->kelas . "/" . $bap->semester; ?></td>
+										<td><?php echo $bap->kelas; ?></td>
 									</tr>
 								</table>
 								<br>
@@ -130,20 +130,20 @@
 								<td>NIM</td>
 								<td>:</td>
 								<td>
-									<?php echo $bap->nim; ?>
+									<?php echo ($bap->nim) ?? '-'; ?>
 								</td>
 							</tr>
 							<tr>
 								<td>Nama Mahasiswa</td>
 								<td>:</td>
-								<td><?php echo $bap->nama_mahasiswa; ?></td>
+								<td><?php echo ($bap->nama_mahasiswa) ?? '-'; ?></td>
 							</tr>
 							<tr>
 								<td>Paraf Mahasiswa</td>
 								<td>:</td>
 								<td>
-									<?php if($bap->paraf !== '' && file_exists(FCPATH . $bap->paraf)): ?>
-									<img src="<?php echo base_url($bap->paraf); ?>" alt="Paraf Mahasiswa" class="img-fluid">
+									<?php if(isset($bap->nim) && $bap->paraf_mhs !== '' && file_exists(FCPATH . $bap->paraf_mhs)): ?>
+									<img src="<?php echo base_url($bap->paraf_mhs); ?>" alt="Paraf Mahasiswa" class="img-fluid">
 									<?php else: echo "-"; endif; ?>
 								</td>
 							</tr>

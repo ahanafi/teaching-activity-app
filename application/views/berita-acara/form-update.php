@@ -21,9 +21,9 @@
 											<select name="id_jadwal" required class="form-control select2">
 												<option disabled selected>-- Pilih Jadwal --</option>
 												<?php foreach ($jadwal as $jadwal): ?>
-													<option <?php echo ($bap->id_jadwal == $jadwal->id_jadwal) ? "selected" : ""; ?>
+													<option <?php echo ($bap->id_jadwal === $jadwal->id_jadwal) ? "selected" : ""; ?>
 															value="<?php echo $jadwal->id_jadwal; ?>">
-														<?php echo $jadwal->hari . " - " . showJamKuliah($jadwal->jam_mulai, $jadwal->jam_selesai) . " - " . $jadwal->nama_mata_kuliah . " - " . $jadwal->nama_kelas; ?>
+														<?php echo $jadwal->hari . " - " . showJamKuliah($jadwal->jam_mulai, $jadwal->jam_selesai) . " - " . $jadwal->nama_mata_kuliah . " - " . $jadwal->kelas . " - " . namaDosen($jadwal->nama_dosen, $jadwal->gelar); ?>
 													</option>
 												<?php endforeach; ?>
 											</select>
@@ -173,23 +173,8 @@
 							<div class="row">
 								<div class="col-md-12">
 									<div class="form-group row">
-										<label class="col-sm-2 col-form-label">Verifikasi Mahasiswa</label>
-										<div class="col-sm-2">
-											<input type="text" name="nim" placeholder="NIM"
-												   class="form-control" value="<?php echo $bap->nim; ?>">
-											<?php echo form_error('nim'); ?>
-										</div>
-										<label class="col-sm-2 col-form-label text-right">Nama Mahasiswa</label>
-										<div class="col-sm-3">
-											<input type="text" name="nama_mahasiswa" placeholder="Nama Mahasiswa"
-												   class="form-control"
-												   value="<?php echo set_value('nama_mahasiswa'); ?>">
-											<?php echo form_error('nama_mahasiswa'); ?>
-										</div>
-									</div>
-									<div class="form-group row">
 										<label class="col-sm-2 col-form-label">Pokok Bahasan</label>
-										<div class="col-sm-7">
+										<div class="col-sm-10">
 											<input type="text" name="pokok_bahasan" placeholder="Pokok bahasan materi"
 												   class="form-control" value="<?php echo $bap->pokok_bahasan; ?>">
 											<?php echo form_error('pokok_bahasan'); ?>
@@ -223,9 +208,10 @@
 											<div id="preview" class="row mt-2">
 												<?php
 												$columnWidth = count($bukti_kegiatan) === 1 ? '12' : (count($bukti_kegiatan) === 2 ? '6' : '4');
-	 											foreach ($bukti_kegiatan as $bukti):?>
+												foreach ($bukti_kegiatan as $bukti):?>
 													<div class="col-<?php echo $columnWidth; ?>">
-														<img src="<?php echo base_url($bukti->lokasi); ?>" alt="" class="img img-fluid">
+														<img src="<?php echo base_url($bukti->lokasi); ?>" alt=""
+															 class="img img-fluid">
 													</div>
 												<?php endforeach; ?>
 											</div>
