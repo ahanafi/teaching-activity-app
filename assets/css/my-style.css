@@ -66,3 +66,6 @@ input.select2-search__field {
 #preview > div > img{
 	max-height: 280px;
 }
+.uraian-materi > * {
+	overflow: hidden;
+}

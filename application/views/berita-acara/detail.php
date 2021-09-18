@@ -156,8 +156,8 @@
 					<div class="card-header header-sm d-flex justify-content-between align-items-center">
 						<h4 class="card-title">Uraian Materi</h4>
 					</div>
-					<div class="card-body">
-						<?php echo $bap->uraian_materi; ?>
+					<div class="card-body uraian-materi">
+						<?php echo ($bap->uraian_materi); ?>
 					</div>
 				</div>
 			</div>

@@ -38,7 +38,7 @@
                                             </select>
                                         </div>
                                     </div>
-									<?php if(getUser("level") == 'SUPER_USER'): ?>
+									<?php if(showOnlyTo('SUPER_USER')): ?>
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label">Filter Program Studi</label>
                                         <div class="col-sm-8">
@@ -51,7 +51,7 @@
                                             </select>
                                         </div>
                                     </div>
-									<?php elseif(getUser('level') == 'KAPRODI'):?>
+									<?php elseif(showOnlyTo('KAPRODI')):?>
 										<input type="hidden" name="id_program_studi" value="<?php echo getUser('id_program_studi'); ?>">
 									<?php endif; ?>
 									<div class="form-group row">
@@ -109,7 +109,7 @@
                                         <th class="align-middle text-center" rowspan="2">Mata Kuliah</th>
                                         <th class="align-middle text-center" rowspan="2">SKS</th>
                                         <th class="align-middle text-center" rowspan="2">Waktu</th>
-                                        <th class="align-middle text-center" rowspan="2">SMT</th>
+                                        <th class="align-middle text-center" rowspan="2">Kelas</th>
                                         <th class="align-middle text-center" rowspan="2">Temu Ke</th>
                                         <th class="align-middle text-center" rowspan="2">Jumlah Mhs</th>
                                         <th class="align-middle text-center" rowspan="2">Jumlah Hadir</th>
@@ -141,49 +141,49 @@
                                                 <td><?php echo $nomor++; ?></td>
                                                 <td><?php echo $bap->hari; ?></td>
                                                 <td>
-                                                    <?php echo namaDosen($bap->dosen, $bap->gelar); ?>
+                                                    <?php echo namaDosen($bap->nama_dosen, $bap->gelar); ?>
                                                 </td>
-                                                <td><?php echo $bap->mata_kuliah; ?></td>
+                                                <td><?php echo $bap->nama_mata_kuliah; ?></td>
                                                 <td><?php echo $bap->sks; ?></td>
                                                 <td>
                                                     <?php echo showJamKuliah($bap->jam_mulai, $bap->jam_selesai); ?>
                                                 </td>
-                                                <td><?php echo $bap->semester; ?></td>
-                                                <td><?php echo $bap->pertemuan_ke; ?></td>
-                                                <td><?php echo $bap->total_mahasiswa; ?></td>
-                                                <td><?php echo $bap->jumlah_hadir; ?></td>
+                                                <td><?php echo $bap->kelas; ?></td>
+                                                <td class="text-center"><?php echo $bap->pertemuan_ke; ?></td>
+                                                <td class="text-center"><?php echo $bap->total_mahasiswa; ?></td>
+                                                <td class="text-center"><?php echo $bap->jumlah_hadir; ?></td>
 
                                                 <td class="text-center">
-                                                    <?php echo (in_array("EDMODO", explode(",", strtoupper($bap->jenis_aplikasi)))) ? "V" : "-"; ?>
+                                                    <?php echo (in_array("EDMODO", explode(",", strtoupper($bap->jenis_aplikasi)), true)) ? "V" : "-"; ?>
                                                 </td>
                                                 <td class="text-center">
-                                                    <?php echo (in_array("ZOOM", explode(",", strtoupper($bap->jenis_aplikasi)))) ? "V" : "-"; ?>
+                                                    <?php echo (in_array("ZOOM", explode(",", strtoupper($bap->jenis_aplikasi)), true)) ? "V" : "-"; ?>
                                                 </td>
                                                 <td class="text-center">
-                                                    <?php echo (in_array("YOUTUBE", explode(",", strtoupper($bap->jenis_aplikasi)))) ? "V" : "-"; ?>
+                                                    <?php echo (in_array("YOUTUBE", explode(",", strtoupper($bap->jenis_aplikasi)), true)) ? "V" : "-"; ?>
                                                 </td>
                                                 <td class="text-center">
-                                                    <?php echo (in_array("WA_GROUP", explode(",", strtoupper($bap->jenis_aplikasi)))) ? "V" : "-"; ?>
+                                                    <?php echo (in_array("WA_GROUP", explode(",", strtoupper($bap->jenis_aplikasi)), true)) ? "V" : "-"; ?>
                                                 </td>
 
                                                 <td class="text-center">
-                                                    <?php echo (in_array("DOC", explode(",", strtoupper($bap->jenis_aplikasi)))) ? "V" : "-"; ?>
+                                                    <?php echo (in_array("DOC", explode(",", strtoupper($bap->jenis_aplikasi)), true)) ? "V" : "-"; ?>
                                                 </td>
                                                 <td class="text-center">
-                                                    <?php echo (in_array("PPT", explode(",", strtoupper($bap->jenis_aplikasi)))) ? "V" : "-"; ?>
+                                                    <?php echo (in_array("PPT", explode(",", strtoupper($bap->jenis_aplikasi)), true)) ? "V" : "-"; ?>
                                                 </td>
                                                 <td class="text-center">
-                                                    <?php echo (in_array("PDF", explode(",", strtoupper($bap->jenis_aplikasi)))) ? "V" : "-"; ?>
+                                                    <?php echo (in_array("PDF", explode(",", strtoupper($bap->jenis_aplikasi)), true)) ? "V" : "-"; ?>
                                                 </td>
                                                 <td class="text-center">
-                                                    <?php echo (in_array("WA_GROUP", explode(",", strtoupper($bap->jenis_aplikasi)))) ? "V" : "-"; ?>
+                                                    <?php echo (in_array("WA_GROUP", explode(",", strtoupper($bap->jenis_aplikasi)), true)) ? "V" : "-"; ?>
                                                 </td>
                                                 <td class="text-center">
-                                                    <?php echo (in_array("WA_GROUP", explode(",", strtoupper($bap->jenis_aplikasi)))) ? "V" : "-"; ?>
+                                                    <?php echo (in_array("WA_GROUP", explode(",", strtoupper($bap->jenis_aplikasi)), true)) ? "V" : "-"; ?>
                                                 </td>
 
-                                                <td><?php echo $bap->ada_bukti; ?></td>
-                                                <td><?php echo ($bap->ada_tugas == 1) ? "V" : ""; ?></td>
+                                                <td class="text-center"><?php echo $bap->ada_bukti; ?></td>
+                                                <td class="text-center"><?php echo ($bap->ada_tugas !== 0) ? "V" : ""; ?></td>
                                                 <td><?php echo $bap->tanggal_realisasi; ?></td>
                                             </tr>
                                         <?php endforeach; ?>
