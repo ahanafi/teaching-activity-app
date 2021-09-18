@@ -104,7 +104,7 @@
 									<optgroup label="<?php echo namaDosen($jadwal_dosen['nama_dosen'], $jadwal_dosen['gelar']); ?>">
 										<?php foreach ($jadwal_dosen['jadwal'] as $jadwalDosen): ?>
 											<option value="<?php echo $jadwalDosen->id_jadwal; ?>">
-											<?php echo $jadwalDosen->nama_mata_kuliah . " - " . $jadwalDosen->nama_kelas ."/" . $jadwalDosen->semester; ?>
+											<?php echo $jadwalDosen->nama_mata_kuliah . " - " . $jadwalDosen->kelas; ?>
 											</option>
 										<?php endforeach; ?>
 									</optgroup>
@@ -134,7 +134,7 @@
 								<table class="table table-bordered">
 									<tr>
 										<td style="background-color: #dee2e6;">Nama Dosen</td>
-										<td id="lecture-name"><?php echo namaDosen($jadwal->dosen, $jadwal->gelar); ?></td>
+										<td id="lecture-name"><?php echo namaDosen($jadwal->nama_dosen, $jadwal->gelar); ?></td>
 									</tr>
 									<tr>
 										<td style="background-color: #dee2e6;">Mata Kuliah</td>
@@ -142,7 +142,7 @@
 									</tr>
 									<tr>
 										<td style="background-color: #dee2e6;">Kelas</td>
-										<td id="class-name"><?php echo $jadwal->nama_kelas ."/" . $jadwal->semester; ?></td>
+										<td id="class-name"><?php echo $jadwal->kelas; ?></td>
 									</tr>
 									<tr>
 										<td style="background-color: #dee2e6;">Jadwal</td>

@@ -146,7 +146,7 @@ class Dashboard extends CI_Controller
 			$jadwal = $this->Jadwal->findById(['id_jadwal' => $jadwalId]);
 
 			//Rewrite
-			$jadwal->dosen = namaDosen($jadwal->dosen, $jadwal->gelar);
+			$jadwal->dosen = namaDosen($jadwal->nama_dosen, $jadwal->gelar);
 			$jadwal->jadwal = ucfirst(strtolower($jadwal->hari)) . ", " . showJamKuliah($jadwal->jam_mulai, $jadwal->jam_selesai);
 
 			$hariByJadwal = $jadwal->hari;
