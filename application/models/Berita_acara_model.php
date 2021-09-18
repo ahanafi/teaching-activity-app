@@ -99,6 +99,11 @@ class Berita_acara_model extends Main_model
 		$this->wherePosition = $position;
 		return $this;
 	}
+
+	public function updateStatus($idBeritaAcara)
+	{
+		return $this->update(['status_periksa' => 1], [$this->_ID_BERITA_ACARA => $idBeritaAcara]);
+	}
 }
 
 /* End of file Berita_acara_model.php */

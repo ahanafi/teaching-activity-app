@@ -44,7 +44,7 @@
 										<td><?php echo $prodi->jenjang; ?></td>
 										<td><?php echo $prodi->kode_fakultas; ?></td>
 										<td>
-											<?php if($prodi->id_dosen !== ''): ?>
+											<?php if($prodi->id_dosen !== null): ?>
 											<a href="<?php echo base_url('dosen/detail/'.$prodi->id_dosen); ?>" target="_blank" class="btn-link"><?php echo namaDosen($prodi->kaprodi, $prodi->gelar); ?></a>
 											<?php else:?>
 											-

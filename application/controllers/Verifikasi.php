@@ -3,16 +3,37 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Verifikasi extends CI_Controller
 {
+	public function __construct()
+	{
+		parent::__construct();
+		if(!isAuthenticated()) {
+			redirect(base_url('login'));
+		}
+	}
+
 	public function index()
 	{
-		$nim = getUser('username');
-		$mahasiswa = $this->Mahasiswa->findById(['nim' => $nim]);
+		if (getUser('level') === 'MAHASISWA') {
+			$nim = getUser('username');
+			$mahasiswa = $this->Mahasiswa->findById(['nim' => $nim]);
 
-		$beritaAcara = $this->BeritaAcara
-			->setWherePosition('jadwal')
-			->findById([
-				'id_kelas' => $mahasiswa->id_kelas
-			], true);
+			$beritaAcara = $this->BeritaAcara
+				->setWherePosition('jadwal')
+				->findById([
+					'id_kelas' => $mahasiswa->id_kelas
+				], true);
+		}
+
+		if (getUser('level') === 'KAPRODI') {
+			$nidn = getUser('username');
+			$dosen = $this->Dosen->findById(['nidn' => $nidn]);
+
+			$beritaAcara = $this->BeritaAcara
+				->setWherePosition('jadwal')
+				->findById([
+					'dosen.id_program_studi' => $dosen->id_program_studi
+				], true);
+		}
 
 		return $this->main_lib->getTemplate('verifikasi/index', [
 			'berita_acara' => $beritaAcara,
@@ -32,13 +53,14 @@ class Verifikasi extends CI_Controller
 			redirect(base_url('error'));
 		}
 
-		$buktiKegiatan = $this->BuktiKegiatan->findById([
-			'id_berita_acara' => $idBeritaAcara
-		], true);
+		$buktiKegiatan = $this->BuktiKegiatan->findById(['id_berita_acara' => $idBeritaAcara], true);
+		$verifikasi = $this->Verifikasi->findById(['id_berita_acara' => $idBeritaAcara]);
 
 		$data = [
 			'bap' => $beritaAcara,
-			'dokumentasi' => $buktiKegiatan
+			'dokumentasi' => $buktiKegiatan,
+			'verifikasi' => $verifikasi,
+			'label' => getUser('level') === 'MAHASISWA' ? 'NIM' : 'NIDN',
 		];
 
 		$this->main_lib->getTemplate("verifikasi/detail", $data);
@@ -54,17 +76,23 @@ class Verifikasi extends CI_Controller
 			redirect(base_url('verifikasi-bap/detail/' . $idBeritaAcara), 'refresh');
 		}
 
-
 		if (isset($_POST['verify']) && $idBeritaAcara !== '') {
 			$this->form_validation->set_rules('sesuai_rps', 'Kesesuaian RPS', 'required');
 			if ($this->form_validation->run() === TRUE) {
-				$postData = $this->getPostData('mahasiswa');
+				$verifikator = $this->main_lib->getPost('verifikator');
+				$postData = $this->getPostData($verifikator);
 				$postData['id_berita_acara'] = $idBeritaAcara;
 
-				if ($this->Verifikasi->insert($postData)) {
-					$messages = setArrayMessage('success', 'insert', 'jadwal kuliah');
+				$insertOrUpdate = $this->Verifikasi->findById(['id_berita_acara' => $idBeritaAcara])
+					? $this->Verifikasi->update($postData, ['id_berita_acara' => $idBeritaAcara])
+					: $this->Verifikasi->insert($postData);
+
+				$this->BeritaAcara->updateStatus($idBeritaAcara);
+
+				if ($insertOrUpdate) {
+					$messages = setArrayMessage('success', 'update', 'verifikasi BAP');
 				} else {
-					$messages = setArrayMessage('error', 'insert', 'jadwal kuliah');
+					$messages = setArrayMessage('error', 'update', 'verifikasi BAP');
 				}
 
 				$this->session->set_flashdata('message', $messages);
@@ -92,6 +120,7 @@ class Verifikasi extends CI_Controller
 				'nidn_verifikator' => $this->main_lib->getPost('nidn'),
 				'catatan_kaprodi' => $this->main_lib->getPost('catatan'),
 				'sesuai_rps_kaprodi' => $this->main_lib->getPost('sesuai_rps'),
+				'tanggal_periksa' => date('Y-m-d H:i:s')
 			];
 		}
 	}
