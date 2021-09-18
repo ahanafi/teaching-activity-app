@@ -151,7 +151,7 @@ class Beritaacara extends CI_Controller
 
 				if (is_string($uploadBuktiKegiatan)) {
 					$data['error'] = $uploadBuktiKegiatan;
-					$this->main_lib->getTemplate("berita-acara/form-create", $data);
+					$this->main_lib->getTemplate("berita-acara/form-edit", $data);
 				} else if (is_array($uploadBuktiKegiatan)) {
 
 					$update = $this->BeritaAcara->update($getPostData, [
@@ -159,10 +159,6 @@ class Beritaacara extends CI_Controller
 					]);
 
 					$fotoBuktiKegiatan = [];
-
-					//Delete old files
-					$this->BuktiKegiatan->delete(['id_berita_acara' => $id_berita_acara]);
-
 					foreach ($uploadBuktiKegiatan as $bukti) {
 						$fotoBuktiKegiatan[] = [
 							'id_berita_acara' => $id_berita_acara,
@@ -200,12 +196,6 @@ class Beritaacara extends CI_Controller
 					'id_berita_acara' => $data_id
 				]);
 
-				//Delete uplaoded file
-				$parafMhsPath = FCPATH . $beritaAcara->paraf_mhs;
-				if (file_exists($parafMhsPath)) {
-					unlink($parafMhsPath);
-				}
-
 				$buktiKegiatan = $this->BuktiKegiatan->findById([
 					'id_berita_acara' => $data_id
 				], true);
@@ -216,11 +206,6 @@ class Beritaacara extends CI_Controller
 						unlink($buktiKegiatanPath);
 					}
 				}
-
-				//Delete children table
-				$this->BuktiKegiatan->delete([
-					'id_berita_acara' => $data_id
-				]);
 
 				$delete = $this->BeritaAcara->delete(['id_berita_acara' => $data_id]);
 				if ($delete) {
@@ -240,14 +225,13 @@ class Beritaacara extends CI_Controller
 		}
 	}
 
-	public
-	function detail($id_berita_acara = null)
+	public function detail($id_berita_acara = null)
 	{
 		$beritaAcara = $this->BeritaAcara->findById([
 			'id_berita_acara' => $id_berita_acara
 		]);
 
-		if (!$beritaAcara || $id_berita_acara == '') {
+		if (!$beritaAcara || $id_berita_acara === '') {
 			redirect(base_url('error'));
 		}
 
@@ -263,8 +247,7 @@ class Beritaacara extends CI_Controller
 		$this->main_lib->getTemplate("berita-acara/detail", $data);
 	}
 
-	private
-	function getPostData($type = 'berita-acara')
+	private function getPostData($type = 'berita-acara')
 	{
 		$jenisAplikasi = $this->main_lib->getPost('jenis_aplikasi');
 		$jenisAplikasi = implode(",", $jenisAplikasi);
@@ -293,12 +276,11 @@ class Beritaacara extends CI_Controller
 			];
 		}
 
-		if ($type === 'veritikasi') {
+		if ($type === 'verifikasi') {
 			$postData = [
 				'nim' => $this->main_lib->getPost('nim'),
 			];
 		}
-
 
 		return $postData;
 	}
@@ -307,8 +289,7 @@ class Beritaacara extends CI_Controller
 	 *  If return is as array value, it means there are error while upload the image
 	 *  But, if return is string value, it means successfully upload image
 	 * */
-	private
-	function _doUpload($inputName)
+	private function _doUpload($inputName)
 	{
 
 		if (isset($_FILES[$inputName]) && $_FILES[$inputName]['name'] !== '') {
@@ -330,8 +311,7 @@ class Beritaacara extends CI_Controller
 		}
 	}
 
-	private
-	function _rules()
+	private function _rules()
 	{
 		return [
 			[
@@ -397,8 +377,7 @@ class Beritaacara extends CI_Controller
 		];
 	}
 
-	public
-	function validate_jadwal()
+	public function validate_jadwal()
 	{
 		$id_jadwal = $this->main_lib->getPost('id_jadwal');
 
@@ -419,8 +398,7 @@ class Beritaacara extends CI_Controller
 	 * If return is string, it means there are errors while uploading images
 	 * if return is array, it means image was successfully uploaded to the server
 	 * */
-	private
-	function uploadBuktiKegiatan($inputName)
+	private function uploadBuktiKegiatan($inputName)
 	{
 		$uploadedFileName = [];
 		$isError = false;
@@ -472,6 +450,41 @@ class Beritaacara extends CI_Controller
 		}
 
 		return $uploadedFileName;
+	}
+
+	public function delete_bukti_kegiatan($idBuktiKegiatan)
+	{
+		if (isset($_POST['_method']) && $_POST['_method'] === "DELETE" && $idBuktiKegiatan !== '') {
+			$data_id = $this->main_lib->getPost('data_id');
+			$data_type = $this->main_lib->getPost('data_type');
+
+			$idBeritaAcara = null;
+
+			if ($data_id === $idBuktiKegiatan && $data_type === 'bukti-kegiatan') {
+				$buktiKegiatan = $this->BuktiKegiatan->findById(['id_bukti_kegiatan' => $data_id]);
+				$idBeritaAcara = $buktiKegiatan->id_berita_acara;
+
+				$buktiKegiatanPath = FCPATH . $buktiKegiatan->lokasi;
+				if (file_exists($buktiKegiatanPath)) {
+					unlink($buktiKegiatanPath);
+				}
+
+				$delete = $this->BuktiKegiatan->delete(['id_bukti_kegiatan' => $data_id]);
+				if ($delete) {
+					$messages = setArrayMessage('success', 'delete', 'bukti kegiatan');
+				} else {
+					$messages = setArrayMessage('error', 'delete', 'bukti kegiatan');
+				}
+
+				$this->session->set_flashdata('message', $messages);
+			} else {
+				$messages = setArrayMessage('error', 'delete', 'bukti kegiatan');
+				$this->session->set_flashdata('message', $messages);
+			}
+			redirect(base_url('berita-acara/detail/' . $idBeritaAcara), 'refresh');
+		} else {
+			redirect('dashboard');
+		}
 	}
 
 }

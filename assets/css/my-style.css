@@ -63,3 +63,6 @@ input.select2-search__field {
 .border-3x{
 	border-width: 3px;
 }
+#preview > div > img{
+	max-height: 280px;
+}
