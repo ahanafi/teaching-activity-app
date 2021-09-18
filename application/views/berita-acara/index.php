@@ -50,9 +50,10 @@
 										<td class="text-center"><?php echo $bap->pertemuan_ke; ?></td>
 										<td class="text-center"><?php echo $bap->jumlah_hadir; ?></td>
 										<td class="text-center"><?php echo Nim4n\SimpleDate::createFormat("dddd", $bap->tanggal_realisasi); ?></td>
-										<td>
+										<td class="text-center">
 											<?php
-											echo showBtnLink('berita-acara/detail/' . $bap->id_berita_acara, 'info', 'eye', true);
+											$link = getUser('level') === 'MAHASISWA' ? 'verifikasi-bap' : 'berita-acara';
+											echo showBtnLink($link . '/detail/' . $bap->id_berita_acara, 'info', 'eye', true);
 
 											if (showOnlyTo('SUPER_USER') || getUser('id_dosen') === $bap->id_dosen):
 												echo showBtnLink('berita-acara/edit/' . $bap->id_berita_acara, 'secondary', 'pencil', true);

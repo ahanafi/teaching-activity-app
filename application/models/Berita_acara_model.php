@@ -12,6 +12,14 @@ class Berita_acara_model extends Main_model
 	//FOREIGN KEY
 	private $_ID_JADWAL = 'id_jadwal', $_ID_BERITA_ACARA = 'id_berita_acara';
 
+	public $wherePosition = null;
+
+	public function __construct()
+	{
+		parent::__construct();
+		$this->wherePosition = $this->table;
+	}
+
 	public function all()
 	{
 		$query = $this->getJoinQueries();
@@ -20,13 +28,14 @@ class Berita_acara_model extends Main_model
 
 	private function getJoinQueries($where = [])
 	{
-		$joinTo = " JOIN (" . $this->queryJadwal() . ") AS jadwal USING ($this->_ID_JADWAL) ";
+		$queryJadwal = $this->wherePosition === $this->table ? $this->queryJadwal() : $this->queryJadwal($where);
+		$joinTo = " JOIN (" . $queryJadwal . ") AS jadwal USING ($this->_ID_JADWAL) ";
 		$joinTo .= " LEFT JOIN $this->_VERIFIKASI USING ($this->_ID_BERITA_ACARA) ";
 
 		$columns = $this->getColumns();
 		$query = "SELECT " . $columns . " FROM " . $this->table . " " . $joinTo;
 
-		if (!empty($where)) {
+		if (!empty($where) && $this->wherePosition === $this->table) {
 			if (count($where) === 1) {
 				$column = array_keys($where)[0];
 				$value = array_values($where)[0];
@@ -50,10 +59,10 @@ class Berita_acara_model extends Main_model
 		return $query;
 	}
 
-	private function queryJadwal()
+	private function queryJadwal($where = [])
 	{
 		$jadwalModel = new Jadwal_model();
-		return $jadwalModel->getJoinQueries();
+		return $jadwalModel->getJoinQueries($where);
 	}
 
 	private function getColumns()
@@ -83,6 +92,12 @@ class Berita_acara_model extends Main_model
 		return $this->db->where($key, $value)
 			->get($this->table)
 			->num_rows();
+	}
+
+	public function setWherePosition($position)
+	{
+		$this->wherePosition = $position;
+		return $this;
 	}
 }
 

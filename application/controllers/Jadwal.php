@@ -37,7 +37,7 @@ class Jadwal extends CI_Controller
 			]);
 
 			$kelasId = $mahasiswa->id_kelas;
-			$jadwal = $this->Jadwal->getBy('id_kelas', $kelasId, true);
+			$jadwal = $this->Jadwal->findById(['id_kelas' => $kelasId], true);
 		}
 
 		$data = [

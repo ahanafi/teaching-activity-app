@@ -28,7 +28,7 @@ $uri2 = $this->uri->segment(2);
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.9/flatpickr.min.css" integrity="sha512-OtwMKauYE8gmoXusoKzA/wzQoh7WThXJcJVkA29fHP58hBF7osfY0WLCIZbwkeL9OgRCxtAfy17Pn3mndQ4PZQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<?php endif; ?>
 
-	<?php if($uri1 === "jadwal-kuliah" && ($uri2 === "create" || $uri2 === "edit")): ?>
+	<?php if(($uri1 === "verifikasi-bap" && $uri2 === "detail") || ($uri1 === "jadwal-kuliah" && ($uri2 === "create" || $uri2 === "edit"))): ?>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/icheck-bootstrap/3.0.1/icheck-bootstrap.min.css" integrity="sha512-8vq2g5nHE062j3xor4XxPeZiPjmRDh6wlufQlfC6pdQ/9urJkU07NM0tEREeymP++NczacJ/Q59ul+/K2eYvcg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<?php endif; ?>
 

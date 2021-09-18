@@ -170,6 +170,7 @@ $uri2 = $this->uri->segment(2);
 
 <!-- Custom js for this page-->
 <script src="<?php echo assets('js/demo/dashboard.js'); ?>"></script>
+<script src="<?php echo assets('js/shared/tabs.js'); ?>"></script>
 <!-- End custom js for this page-->
 <?php if (isset($_SESSION['message']) && $_SESSION['message'] !== ''): ?>
 	<script type="text/javascript">

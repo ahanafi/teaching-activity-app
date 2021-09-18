@@ -10,6 +10,21 @@ function assets($pathFile)
 	return base_url('assets/' . $pathFile);
 }
 
+function checkSignature()
+{
+	$data = null;
+	$userLevel = $_SESSION['user']->level;
+	if ($userLevel === 'MAHASISWA') {
+		$nim = $_SESSION['user']->username;
+		$data = getData('mahasiswa', 'paraf', ['nim' => $nim]);
+	} else if ($userLevel === 'DOSEN' || $userLevel === 'KAPRODI') {
+		$nidn = $_SESSION['user']->username;
+		$data = getData('dosen', 'paraf', ['nidn' => $nidn]);
+	}
+
+	return $data !== null && $data[0]->paraf !== '' && file_exists(FCPATH . $data[0]->paraf);
+}
+
 function getData($tableName, $columns = '*', $where = [])
 {
 	$ci =& get_instance();
@@ -37,7 +52,7 @@ function setArrayMessage($type, $actionType, $dataType)
 {
 	$messageText = "";
 	$messageType = "";
-	$messageStatus = ($type == 'success') ? " berhasil " : " gagal ";
+	$messageStatus = ($type === 'success') ? " berhasil " : " gagal ";
 
 	if ($actionType === 'insert') {
 		$messageType = " disimpan!";
