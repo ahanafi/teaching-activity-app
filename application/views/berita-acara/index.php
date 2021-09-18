@@ -8,12 +8,12 @@
 				<div class="card">
 					<div class="card-header header-sm d-flex justify-content-between align-items-center">
 						<h4 class="card-title">Berita Acara Perkuliahan</h4>
-						<?php if(!showOnlyTo('MAHASISWA')): ?>
-						<a href="<?php echo base_url(uriSegment(1) . '/create'); ?>"
-						   class="ml-auto btn btn-primary btn-fw">
-							<i class="fa fa-plus"></i>
-							<span>Tambah Data</span>
-						</a>
+						<?php if (!showOnlyTo('MAHASISWA')): ?>
+							<a href="<?php echo base_url(uriSegment(1) . '/create'); ?>"
+							   class="ml-auto btn btn-primary btn-fw">
+								<i class="fa fa-plus"></i>
+								<span>Tambah Data</span>
+							</a>
 						<?php endif; ?>
 					</div>
 					<div class="card-body">
@@ -51,17 +51,21 @@
 										<td class="text-center"><?php echo $bap->jumlah_hadir; ?></td>
 										<td class="text-center"><?php echo Nim4n\SimpleDate::createFormat("dddd", $bap->tanggal_realisasi); ?></td>
 										<td>
-											<a href="<?php echo base_url('berita-acara/detail/' . $bap->id_berita_acara); ?>"
-											   class="btn btn-info text-white">Detail</a>
-											<?php if (showOnlyTo('SUPER_USER') || getUser('id_dosen') == $bap->id_dosen): ?>
-												<a href="<?php echo base_url('berita-acara/edit/' . $bap->id_berita_acara); ?>"
-												   class="btn btn-success text-white">Edit</a>
-												<?php if (showOnlyTo("SUPER_USER")): ?>
-													<a href="#"
-													   onclick="showConfirmDelete('berita-acara', <?php echo $bap->id_berita_acara; ?>)"
-													   class="btn btn-danger">Hapus</a>
-												<?php endif; ?>
-											<?php endif; ?>
+											<?php
+											echo showBtnLink('berita-acara/detail/' . $bap->id_berita_acara, 'info', 'eye', true);
+
+											if (showOnlyTo('SUPER_USER') || getUser('id_dosen') === $bap->id_dosen):
+												echo showBtnLink('berita-acara/edit/' . $bap->id_berita_acara, 'secondary', 'pencil', true);
+
+												if (showOnlyTo("SUPER_USER")):
+													echo showBtnLink('#',
+															'danger',
+															'trash',
+															true,
+															['onclick' => "showConfirmDelete(`berita-acara`, $bap->id_berita_acara)"]);
+
+												endif;
+											endif; ?>
 										</td>
 									</tr>
 								<?php endforeach; ?>

@@ -1,5 +1,9 @@
-.table tr td > .btn{
+.table tr td > a.btn:not(.btn-icons){
 	padding: 0.4rem 1rem !important;
+}
+
+.table tr td > a.btn-icons {
+	padding:10px !important;
 }
 
 .error-text{
