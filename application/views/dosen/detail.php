@@ -30,7 +30,7 @@
 							<tr>
 								<td>Jenis Kelamin</td>
 								<td>:</td>
-								<td><?php echo ($dosen->jenis_kelamin == "L") ? "Laki-laki" : "Perempuan"; ?></td>
+								<td><?php echo ($dosen->jenis_kelamin === "L") ? "Laki-laki" : "Perempuan"; ?></td>
 							</tr>
 							<tr>
 								<td>Program Studi</td>
@@ -74,7 +74,7 @@
 									<td>
 										<?php echo showJamKuliah($jadwal->jam_mulai, $jadwal->jam_selesai); ?>
 									</td>
-									<td><?php echo $jadwal->nama_kelas . "/" . $jadwal->semester; ?></td>
+									<td><?php echo $jadwal->kelas; ?></td>
 									<td><?php echo $jadwal->nama_mata_kuliah; ?></td>
 									<td><?php echo $jadwal->kode_ruangan; ?></td>
 								</tr>
