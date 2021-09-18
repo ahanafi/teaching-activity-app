@@ -61,6 +61,7 @@
 
 	table {
 		border-spacing: 0 !important;
+		width: 100%;
 	}
 
 	table tr td {
@@ -68,6 +69,10 @@
 		border: 0.1px solid #777;
 		vertical-align: bottom;
 		padding: 10px;
+	}
+
+	table tr td:first-child{
+		width: 130px !important;
 	}
 
 	.col-12 {
@@ -103,6 +108,7 @@
 		position: relative;
 		width: 100%;
 		margin-bottom: 20px;
+		max-height: 360px;
 	}
 </style>
 <body>
@@ -123,15 +129,15 @@
 		<table class="table">
 			<tr>
 				<td class="bg-gray">Dosen pengampu</td>
-				<td><?php echo namaDosen($bap->dosen, $bap->gelar); ?></td>
+				<td><?php echo namaDosen($bap->nama_dosen, $bap->gelar); ?></td>
 			</tr>
 			<tr>
 				<td class="bg-gray">Mata kuliah</td>
-				<td><?php echo $bap->mata_kuliah; ?></td>
+				<td><?php echo $bap->nama_mata_kuliah; ?></td>
 			</tr>
 			<tr>
 				<td class="bg-gray">Kelas / Semester</td>
-				<td><?php echo $bap->kelas . "/" . $bap->semester; ?></td>
+				<td><?php echo $bap->kelas; ?></td>
 			</tr>
 			<tr>
 				<td class="bg-gray">Jumlah SKS</td>
@@ -190,29 +196,29 @@
 		</table>
 	</div>
 	<div class="col-6" style="margin-left: 10px;">
-		<table class="table">
+		<table class="table" style="width: 100%;">
 			<tr>
 				<td class="bg-gray align-middle" rowspan="3">Verifikasi Mahasiswa</td>
 				<td>NIM</td>
-				<td><?php echo $bap->nim; ?></td>
+				<td><?php echo $bap->nim ?? '-'; ?></td>
 			</tr>
 			<tr>
 				<td>Nama</td>
-				<td><?php echo $bap->nama_mahasiswa; ?></td>
+				<td><?php echo $bap->nama_mahasiswa ?? '-'; ?></td>
 			</tr>
 			<tr>
 				<td>Tanda Tangan</td>
 				<td class="text-center">
-					<?php if ($bap->paraf !== '' && file_exists(FCPATH . $bap->paraf)) : ?>
-						<img src="<?php echo $bap->paraf; ?>" alt="" width="50px">
+					<?php if (isset($bap->paraf_mhs) && $bap->paraf_mhs !== '' && file_exists(FCPATH . $bap->paraf_mhs)) : ?>
+						<img src="<?php echo $bap->paraf_mhs; ?>" alt="" width="50px">
 					<?php else: echo "-"; endif; ?>
 				</td>
 			</tr>
 			<tr>
 				<td class="bg-gray align-middle">Tanda tangan Dosen</td>
 				<td colspan="2" class="text-center">
-					<?php if ($bap->paraf !== '' && file_exists(FCPATH . $bap->paraf)) : ?>
-						<img src="<?php echo($bap->paraf); ?>" alt="" width="50px">
+					<?php if (isset($bap->paraf_mhs) && $bap->paraf_mhs !== '' && file_exists(FCPATH . $bap->paraf_mhs)) : ?>
+						<img src="<?php echo($bap->paraf_mhs); ?>" alt="" width="50px">
 					<?php else: echo "-"; endif; ?>
 				</td>
 			</tr>
@@ -222,11 +228,11 @@
 					<i>(Disi oleh Ka. Prodi)</i>
 				</td>
 				<td>Tanggal Periksa</td>
-				<td><?php echo $bap->tanggal_periksa; ?></td>
+				<td><?php echo $bap->tanggal_periksa ?? '-'; ?></td>
 			</tr>
 			<tr>
 				<td>Nama</td>
-				<td><?php echo "bap->nama_pemeriksa"; ?></td>
+				<td><?php echo $bap->nama_pemeriksa ?? '-'; ?></td>
 			</tr>
 			<tr style="height: 100px !important;">
 				<td>Tanda Tangan</td>
@@ -244,12 +250,12 @@
 				<td><?php echo $bap->pokok_bahasan; ?></td>
 			</tr>
 			<tr>
-				<td style="width: 150px;vertical-align: middle;" class="bg-gray">Uraian Materi Bahasan</td>
-				<td><?php echo $bap->uraian_materi; ?></td>
+				<td style="width: 120px;vertical-align: top;height: 410px;" class="bg-gray">Uraian Materi Bahasan</td>
+				<td style="vertical-align: top;height: 410px;"><?php echo $bap->uraian_materi; ?></td>
 			</tr>
 		</table>
 		<br>
-		<div style="page-break-after: always;"></div>
+		<div style="page-break-after:always;"></div>
 		<div id="bukti-kegiatan">
 			<table class="table" style="width: 100%;">
 				<tr>
@@ -262,6 +268,7 @@
 				<?php foreach ($dokumentasi as $dok): ?>
 					<?php if (file_exists(FCPATH . $dok->lokasi)): ?>
 						<img src="<?php echo $dok->lokasi; ?>" alt="">
+					<div style="page-break-after:initial;"></div>
 					<?php endif; ?>
 				<?php endforeach; ?>
 			</div>
