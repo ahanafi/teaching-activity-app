@@ -17,12 +17,12 @@ class Jadwal extends CI_Controller
 	{
 		$jadwal = $this->Jadwal->all();
 		$currentUserLevel = getUser('level');
-		if($currentUserLevel === "DOSEN") {
+		if ($currentUserLevel === "DOSEN") {
 			$id_dosen = getUser('id_dosen');
 			$jadwal = $this->Jadwal->findById([
 				'id_dosen' => $id_dosen
 			], true);
-		} else if($currentUserLevel === 'KAPRODI') {
+		} else if ($currentUserLevel === 'KAPRODI') {
 			$dosenId = getUser('id_dosen');
 			$dosen = $this->Dosen->findById([
 				'dosen.id_dosen' => $dosenId
@@ -31,7 +31,7 @@ class Jadwal extends CI_Controller
 			$programStudiId = $dosen->id_program_studi;
 
 			$jadwal = $this->Jadwal->getByIdProgramStudi($programStudiId);
-		} else if($currentUserLevel === 'MAHASISWA') {
+		} else if ($currentUserLevel === 'MAHASISWA') {
 			$mahasiswa = $this->Mahasiswa->findById([
 				'nim' => getUser('username')
 			]);
@@ -56,6 +56,12 @@ class Jadwal extends CI_Controller
 		$hari = listHari();
 		$ruangKelas = $this->Ruangan->all();
 		$kelas = $this->Kelas->all();
+
+		if (getUser('level') === 'KAPRODI' || (getUser('level') === 'DOSEN')) {
+			$dosen = $this->Dosen->findById([
+				'nidn' => getUser('username')
+			]);
+		}
 
 		$data = [
 			'mata_kuliah' => $mataKuliah,
@@ -104,6 +110,12 @@ class Jadwal extends CI_Controller
 		$ruangKelas = $this->Ruangan->all();
 		$kelas = $this->Kelas->all();
 		$jadwal = $this->Jadwal->findById(['id_jadwal' => $id_jadwal]);
+
+		if (getUser('level') === 'KAPRODI' || (getUser('level') === 'DOSEN')) {
+			$dosen = $this->Dosen->findById([
+				'nidn' => getUser('username')
+			]);
+		}
 
 		$data = [
 			'mata_kuliah' => $mataKuliah,

@@ -10,12 +10,14 @@
 						<h4 class="card-title">Form Edit Jadwal</h4>
 					</div>
 					<div class="card-body">
-						<form action="<?php echo base_url('jadwal-kuliah/edit/' . $jadwal->id_jadwal); ?>" class="form-sample" method="POST">
+						<form action="<?php echo base_url('jadwal-kuliah/edit/' . $jadwal->id_jadwal); ?>"
+							  class="form-sample" method="POST">
 							<div class="row">
 								<div class="col-md-12">
 									<div class="alert alert-warning border-2x">
 										<b>Informasi :</b>
-										Silahkan centang <b>YA</b> pilihan <b>Multi Kelas</b> apabila jadwal perkuliahan digabungkan dengan kelas lain (banyak kelas).
+										Silahkan centang <b>YA</b> pilihan <b>Multi Kelas</b> apabila jadwal perkuliahan
+										digabungkan dengan kelas lain (banyak kelas).
 									</div>
 
 									<div class="form-group row">
@@ -34,11 +36,13 @@
 									<div class="form-group row">
 										<label class="col-sm-3 col-form-label">Jam</label>
 										<div class="col-sm-4">
-											<input type="text" name="jam_mulai" class="form-control" required value="<?php echo showJam($jadwal->jam_mulai); ?>">
+											<input type="text" name="jam_mulai" class="form-control" required
+												   value="<?php echo showJam($jadwal->jam_mulai); ?>">
 											<?php echo form_error('jam_mulai'); ?>
 										</div>
 										<div class="col-sm-4">
-											<input type="text" name="jam_selesai" class="form-control" required value="<?php echo showJam($jadwal->jam_selesai); ?>">
+											<input type="text" name="jam_selesai" class="form-control" required
+												   value="<?php echo showJam($jadwal->jam_selesai); ?>">
 											<?php echo form_error('jam_selesai'); ?>
 										</div>
 									</div>
@@ -47,25 +51,29 @@
 										<label class="col-sm-3 col-form-label">Multi Kelas (?)</label>
 										<div class="col-sm-3">
 											<div class="icheck-primary icheck-inline">
-												<input onclick="setMultiClass(true)" <?php echo ($jadwal->multi_kelas === '1') ? 'checked' : ''; ?> type="radio" name="multi_kelas"
+												<input onclick="setMultiClass(true)" <?php echo ($jadwal->multi_kelas === '1') ? 'checked' : ''; ?>
+													   type="radio" name="multi_kelas"
 													   value="1" id="yes-multi">
 												<label class="mt-1" for="yes-multi">YA</label>
 											</div>
 										</div>
 										<div class="col-sm-3">
 											<div class="icheck-primary icheck-inline">
-												<input onclick="setMultiClass(false)" <?php echo ($jadwal->multi_kelas === '0') ? 'checked' : ''; ?> type="radio"
+												<input onclick="setMultiClass(false)" <?php echo ($jadwal->multi_kelas === '0') ? 'checked' : ''; ?>
+													   type="radio"
 													   name="multi_kelas" value="1" id="no-multi">
 												<label class="mt-1" for="no-multi">TIDAK</label>
 											</div>
 										</div>
-										<input type="hidden" id="is-multi-class" name="is_multi_class" value="<?php echo $jadwal->multi_kelas; ?>"
+										<input type="hidden" id="is-multi-class" name="is_multi_class"
+											   value="<?php echo $jadwal->multi_kelas; ?>"
 											   required>
 									</div>
 									<div class="form-group row">
 										<label class="col-sm-3 col-form-label">Kelas</label>
 										<div class="col-sm-8">
-											<select name="kelas[]" <?php echo ($jadwal->multi_kelas === '1') ? 'multiple' : ''; ?> required class="form-control select2">
+											<select name="kelas[]" <?php echo ($jadwal->multi_kelas === '1') ? 'multiple' : ''; ?>
+													required class="form-control select2">
 												<option disabled>-- Pilih Kelas --</option>
 												<?php foreach ($kelas as $kelas): ?>
 													<option <?php echo (in_array($kelas->nama_kelas . '/' . $kelas->semester, explode(", ", trim($jadwal->kelas)), true)) ? "selected" : ""; ?>
@@ -91,13 +99,21 @@
 									<div class="form-group row">
 										<label class="col-sm-3 col-form-label">Dosen Pengampu</label>
 										<div class="col-sm-8">
-											<select name="dosen" required class="form-control select2">
-												<option disabled selected>-- Pilih Dosen --</option>
-												<?php foreach ($dosen as $dosen): ?>
-													<option <?php echo ($jadwal->id_dosen === $dosen->id_dosen) ? "selected" : ""; ?>
-															value="<?php echo $dosen->id_dosen; ?>"><?php echo $dosen->nama_lengkap; ?></option>
-												<?php endforeach; ?>
-											</select>
+											<?php if (getUser('level') === 'SUPER_USER'): ?>
+												<select name="dosen" required class="form-control select2">
+													<option disabled selected>-- Pilih Dosen --</option>
+													<?php foreach ($dosen as $dosen): ?>
+														<option <?php echo ($jadwal->id_dosen === $dosen->id_dosen) ? "selected" : ""; ?>
+																value="<?php echo $dosen->id_dosen; ?>"><?php echo $dosen->nama_lengkap; ?></option>
+													<?php endforeach; ?>
+												</select>
+											<?php else: ?>
+												<input type="text"
+													   value="<?php echo namaDosen($dosen->nama_lengkap, $dosen->gelar); ?>"
+													   readonly class="form-control">
+												<input type="hidden" name="dosen"
+													   value="<?php echo $dosen->id_dosen; ?>">
+											<?php endif; ?>
 											<?php echo form_error('dosen'); ?>
 										</div>
 									</div>

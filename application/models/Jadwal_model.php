@@ -43,13 +43,26 @@ class Jadwal_model extends Main_model
 		$columns = self::getColumns();
 		$query = "SELECT " . $columns . " FROM " . $this->table . " " . $joinTo;
 
-		if (!empty($where)) {
+		if (count($where) === 1) {
 			$column = array_keys($where)[0];
 			$value = array_values($where)[0];
 
-			$query = "SELECT " . $columns . " FROM " . $this->table . " " . $joinTo;
+			if($operator === 'IN') {
+				$query .= " WHERE $column $operator $value ";
+			} else {
+				$query .= " WHERE $column $operator '$value' ";
+			}
 
-			$query .= " WHERE $column $operator $value ";
+		} else if (count($where) > 1) {
+			$query .= " WHERE ";
+			$index = 0;
+			foreach ($where as $col => $val) {
+				$query .= "{$col} $operator '$val'";
+				if ($index < count($where) - 1) {
+					$query .= " AND ";
+				}
+				$index++;
+			}
 		}
 
 		$query .= " GROUP BY $this->table.$this->_PRIMARY_KEY";

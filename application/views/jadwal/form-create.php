@@ -94,6 +94,7 @@
 									<div class="form-group row">
 										<label class="col-sm-3 col-form-label">Dosen Pengampu</label>
 										<div class="col-sm-8">
+											<?php if(getUser('level') === 'SUPER_USER'): ?>
 											<select name="dosen" required class="form-control select2">
 												<option disabled selected>-- Pilih Dosen --</option>
 												<?php foreach ($dosen as $dosen): ?>
@@ -101,6 +102,10 @@
 															value="<?php echo $dosen->id_dosen; ?>"><?php echo namaDosen($dosen->nama_lengkap, $dosen->gelar); ?></option>
 												<?php endforeach; ?>
 											</select>
+											<?php else: ?>
+												<input type="text" value="<?php echo namaDosen($dosen->nama_lengkap, $dosen->gelar); ?>" readonly class="form-control">
+												<input type="hidden" name="dosen" value="<?php echo $dosen->id_dosen; ?>">
+											<?php endif; ?>
 											<?php echo form_error('dosen'); ?>
 										</div>
 									</div>
