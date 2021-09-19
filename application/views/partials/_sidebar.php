@@ -2,7 +2,7 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
 	<ul class="nav">
 		<li class="nav-item nav-profile m-0 py-2 bg-green-gradient">
-			<a href="<?php echo base_url('user/profile'); ?>" class="nav-link">
+			<a href="<?php echo base_url('profile'); ?>" class="nav-link">
 				<div class="profile-image">
 					<img class="img-xs rounded-circle" src="<?php echo assets('images/faces/face8.jpg'); ?>"
 						 alt="profile image">

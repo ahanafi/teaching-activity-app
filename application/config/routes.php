@@ -50,3 +50,5 @@ $route['verifikasi-bap/(:any)/(:num)'] = 'Verifikasi/$1/$2';
 $route['dosen/import'] = 'Import/dosen';
 $route['mahasiswa/import'] = 'Import/mahasiswa';
 $route['mata-kuliah/import'] = 'Import/mata-kuliah';
+
+$route['profile'] = 'user/profile';
