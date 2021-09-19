@@ -19,14 +19,18 @@ class Auth_model extends Main_model
 			$validate = password_verify($credentials['password'], $user->password);
 
 			if ($validate) {
-
-				if(in_array($user->level,['KAPRODI', 'DOSEN'])) {
+				if ($user->level === 'KAPRODI' || $user->level === 'DOSEN') {
 					$dosenId = $user->id_dosen;
-					$dosen = $this->db->query("
-						SELECT * FROM dosen WHERE id_dosen = '$dosenId'
-					")->row();
-
+					$dosen = $this->db->query("SELECT * FROM dosen WHERE id_dosen = '$dosenId' ")->row();
 					$user->id_program_studi = $dosen->id_program_studi;
+					$user->paraf = $dosen->paraf;
+				}
+
+				if($user->level === 'MAHASISWA') {
+					$nim = $user->username;
+					$mahasiswa = $this->Mahasiswa->findById(['nim' => $nim]);
+					$user->id_program_studi = $mahasiswa->id_program_studi;
+					$user->paraf = $mahasiswa->paraf;
 				}
 
 				$this->session->set_userdata("user", $user);

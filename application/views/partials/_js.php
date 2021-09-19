@@ -7,6 +7,32 @@ $uri2 = $this->uri->segment(2);
 </div>
 <!-- page-body-wrapper ends -->
 </div>
+<?php if (isset($_SESSION['user']) && $_SESSION['user']->paraf === null) : ?>
+	<div class="modal fade" id="digital-signature-notif-modal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header p-3">
+					<h5 class="modal-title">Informasi</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body p-3">
+					<div class="alert alert-warning font-weight-semibold font-italic border-3x">
+						Anda belum mengunggah tanda tangan digital. Silahkan unggah tanda tangan digital terlebih
+						dahulu.
+					</div>
+				</div>
+				<div class="modal-footer">
+					<a href="<?php echo base_url('user/upload-signature'); ?>" class="btn btn-success">
+						Unggah Tanda Tangan Digital
+					</a>
+					<button class="btn btn-secondary" data-dismiss="modal" aria-label="Close">Tutup</button>
+				</div>
+			</div>
+		</div>
+	</div>
+<?php endif; ?>
 <!-- container-scroller -->
 <script type="text/javascript">
 	const BASE_URL = `<?php echo base_url(); ?>`;
@@ -164,7 +190,7 @@ $uri2 = $this->uri->segment(2);
 	<script src="<?php echo assets('js/shared/form-signature.js'); ?>"></script>
 <?php endif; ?>
 
-<?php if(($uri1 === "dosen" || $uri1 === "mahasiswa" || $uri1 === "mata-kuliah") && isset($_GET['show_modal']) && $_GET['show_modal'] === 'true'): ?>
+<?php if (($uri1 === "dosen" || $uri1 === "mahasiswa" || $uri1 === "mata-kuliah") && isset($_GET['show_modal']) && $_GET['show_modal'] === 'true'): ?>
 	<script type="text/javascript">$("#import-modal").modal('show');</script>
 <?php endif; ?>
 
@@ -180,6 +206,9 @@ $uri2 = $this->uri->segment(2);
 $_SESSION['message'] = ''; ?>
 <?php if (($uri1 === "jadwal" || $uri1 === "jadwal-kuliah" || $uri1 === "berita-acara") && ($uri2 === "create" || $uri2 === "edit")): ?>
 	<script type="text/javascript">loadSelect2();</script>
+<?php endif; ?>
+<?php if (isset($_SESSION['user']) && $_SESSION['user']->paraf === null) : ?>
+	<script type="text/javascript">$("#digital-signature-notif-modal").modal('show');</script>
 <?php endif; ?>
 </body>
 </html>

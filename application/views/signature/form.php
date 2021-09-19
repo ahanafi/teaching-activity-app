@@ -1,7 +1,7 @@
 <div class="main-panel">
 	<div class="content-wrapper">
 		<!-- Page Title Header Starts-->
-		<?php echo showPageHeader(); ?>
+		<?php echo showPageHeader('Form Unggah Tanda Tangan Digital'); ?>
 		<!-- Page Title Header Ends-->
 		<div class="row">
 			<div class="col-lg-5 grid-margin stretch-card">
@@ -35,9 +35,10 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-5 grid-margin stretch-card hidden" id="signature-preview">
+			<div class="col-lg-5 grid-margin stretch-card <?php echo ($user_paraf === null) ? 'hidden' : ''; ?>"
+				 id="signature-preview">
 				<div class="card">
-					<div class="card-body text-center align-center align-middle">
+					<div class="card-body align-center align-middle justify-content-between">
 						<h4 class="card-title">
 							Image Preview
 							<a href="#" onclick="resetImage()" class="float-right text-danger">
@@ -45,8 +46,13 @@
 								Reset Image
 							</a>
 						</h4>
-						<img src="<?php echo assets('images/img-placeholder.png'); ?>" alt="Image preview"
-							 class="img img-fluid">
+						<?php if ($user_paraf !== null && file_exists(FCPATH . $user_paraf)): ?>
+							<img src="<?php echo base_url($user_paraf); ?>" alt="Image preview"
+								 class="img img-fluid">
+						<?php else: ?>
+							<img src="<?php echo assets('images/img-placeholder.png'); ?>" alt="Image preview"
+								 class="img img-fluid">
+						<?php endif; ?>
 					</div>
 				</div>
 			</div>

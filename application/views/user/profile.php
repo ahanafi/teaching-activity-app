@@ -36,10 +36,10 @@
 													   data-rating-text="2"
 													   class=""></a>
 													<a
-														href="#"
-														data-rating-value="3"
-														ata-rating-text="3"
-														class=""></a>
+															href="#"
+															data-rating-value="3"
+															ata-rating-text="3"
+															class=""></a>
 													<a href="#" data-rating-value="4"
 													   data-rating-text="4" class=""></a>
 													<a href="#"
@@ -67,7 +67,12 @@
 								<li class="nav-item">
 									<a class="nav-link active" id="user-profile-info-tab" data-toggle="pill"
 									   href="#user-profile-info" role="tab" aria-controls="user-profile-info"
-									   aria-selected="true">Profile</a>
+									   aria-selected="true">User Profile</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" data-toggle="pill"
+									   onclick="window.location.href='<?php echo base_url('user/upload-signature'); ?>'"
+									   href="">Upload Digital Signature</a>
 								</li>
 							</ul>
 							<div class="row">
@@ -80,7 +85,8 @@
 													<tbody>
 													<tr>
 														<td>
-															<strong>Nama Lengkap :</strong> <?php echo $user->nama_lengkap; ?>
+															<strong>Nama Lengkap
+																:</strong> <?php echo $user->nama_lengkap; ?>
 														</td>
 														<td>
 															<strong>Username :</strong> <?php echo $user->username; ?>
@@ -88,7 +94,8 @@
 													</tr>
 													<tr>
 														<td>
-															<strong>Level :</strong> <?php echo showUserLevel($user->level, true); ?>
+															<strong>Level
+																:</strong> <?php echo showUserLevel($user->level, true); ?>
 														</td>
 														<td>
 															<strong>Email :</strong> -

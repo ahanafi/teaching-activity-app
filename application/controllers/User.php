@@ -284,6 +284,21 @@ class User extends CI_Controller
 
 	public function upload_signature()
 	{
+		provideAccessTo('KAPRODI|DOSEN|MAHASISWA');
+		$userSignature = null;
+
+		if (getUser('level') === 'MAHASISWA') {
+			$nim = getUser('username');
+			$mahasiswa = $this->Mahasiswa->getBy('nim', $nim);
+			$userSignature = $mahasiswa->paraf;
+		}
+
+		if (getUser('level') === 'KAPRODI' || getUser('level') === 'DOSEN') {
+			$nidn = getUser('username');
+			$dosen = $this->Dosen->getBy('nidn', $nidn);
+			$userSignature = $dosen->paraf;
+		}
+
 		if (isset($_POST['upload'])) {
 			$this->form_validation->set_rules('signature', 'Tanda tangan', 'required');
 			$config = [
@@ -311,31 +326,18 @@ class User extends CI_Controller
 				$updateSignature = null;
 
 				if (getUser('level') === 'MAHASISWA') {
-					$nim = getUser('username');
-					$mahasiswa = $this->Mahasiswa->getBy('nim', $nim);
-
-					if ($mahasiswa && $mahasiswa->paraf !== null) {
-						if (file_exists(FCPATH . $mahasiswa->paraf)) {
-							unlink(FCPATH . $mahasiswa->paraf);
-						}
-					}
-
 					$updateSignature = $this->Mahasiswa->update(['paraf' => $fileName], ['id_mahasiswa' => $mahasiswa->id_mahasiswa]);
 				}
 
 				if (getUser('level') === 'KAPRODI' || getUser('level') === 'DOSEN') {
-					$nidn = getUser('username');
-					$dosen = $this->Dosen->getBy('nidn', $nidn);
-
-					if ($dosen && $dosen->paraf !== null) {
-						if (file_exists(FCPATH . $dosen->paraf)) {
-							unlink(FCPATH . $dosen->paraf);
-						}
-					}
-
 					$updateSignature = $this->Dosen->update(['paraf' => $fileName], ['id_dosen' => $dosen->id_dosen]);
 				}
 
+				if ($userSignature !== null && file_exists(FCPATH . $userSignature)) {
+					unlink(FCPATH . $userSignature);
+				}
+
+				$_SESSION['user']->paraf = $fileName;
 				if ($updateSignature) {
 					$messages = [
 						'type' => 'success',
@@ -353,7 +355,9 @@ class User extends CI_Controller
 			}
 
 		} else {
-			$this->main_lib->getTemplate("signature/form");
+			$this->main_lib->getTemplate("signature/form", [
+				'user_paraf' => $userSignature
+			]);
 		}
 	}
 }
