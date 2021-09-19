@@ -13,7 +13,9 @@
 									Detail Berita Acara Perkuliahan
 								</h4>
 							</div>
-							<a target="_blank" href="<?php echo base_url('cetak/berita-acara/' . $bap->id_berita_acara); ?>" class="ml-auto btn btn-primary btn-fw">
+							<a target="_blank"
+							   href="<?php echo base_url('cetak/berita-acara/' . $bap->id_berita_acara); ?>"
+							   class="ml-auto btn btn-primary btn-fw">
 								<i class="fa fa-file-pdf-o"></i>
 								<span>Cetak PDF</span>
 							</a>
@@ -81,6 +83,38 @@
 										<td><?php echo $bap->pertemuan_ke; ?></td>
 									</tr>
 								</table>
+								<br>
+								<h4 class="card-title">Bentuk Materi</h4>
+								<table class="table table-bordered table-striped">
+									<tr>
+										<td style="vertical-align: top;">Aplikasi Daring</td>
+										<td style="vertical-align: top;">:</td>
+										<td>
+											<?php foreach (explode(",", $bap->jenis_aplikasi) as $appCode): ?>
+												<?php echo (trim($appCode) !== '') ? ucwords(daringApps(strtoupper(trim($appCode)))) : ""; ?>,
+											<?php endforeach; ?>
+										</td>
+									</tr>
+									<tr>
+										<td>Bentuk Materi</td>
+										<td>:</td>
+										<td>
+											<?php foreach (explode(",", $bap->bentuk_materi) as $materialCode): ?>
+												<?php echo ucwords(materialType(strtoupper(trim($materialCode)))); ?>,
+											<?php endforeach; ?>
+										</td>
+									</tr>
+									<tr>
+										<td>Pemberian tugas</td>
+										<td>:</td>
+										<td><?php echo($bap->ada_tugas === 1 ? "Ya" : "Tidak"); ?></td>
+									</tr>
+									<tr>
+										<td>Pokok Bahasan</td>
+										<td>:</td>
+										<td><?php echo $bap->pokok_bahasan; ?></td>
+									</tr>
+								</table>
 							</div>
 						</div>
 					</div>
@@ -92,59 +126,82 @@
 						<h4 class="card-title">Bentuk materi dan Verifikasi Mahasiswa</h4>
 					</div>
 					<div class="card-body">
-						<h4 class="card-title">Bentuk Materi</h4>
-						<table class="table table-bordered table-striped">
-							<tr>
-								<td style="vertical-align: top;">Aplikasi Daring</td>
-								<td style="vertical-align: top;">:</td>
-								<td>
-									<?php foreach (explode(",", $bap->jenis_aplikasi) as $appCode): ?>
-										<?php echo (trim($appCode) !== '') ? ucwords(daringApps(strtoupper(trim($appCode)))) : ""; ?>,
-									<?php endforeach; ?>
-								</td>
-							</tr>
-							<tr>
-								<td>Bentuk Materi</td>
-								<td>:</td>
-								<td>
-									<?php foreach (explode(",", $bap->bentuk_materi) as $materialCode): ?>
-										<?php echo ucwords(materialType(strtoupper(trim($materialCode)))); ?>,
-									<?php endforeach; ?>
-								</td>
-							</tr>
-							<tr>
-								<td>Pemberian tugas</td>
-								<td>:</td>
-								<td><?php echo($bap->ada_tugas === 1 ? "Ya" : "Tidak"); ?></td>
-							</tr>
-							<tr>
-								<td>Pokok Bahasan</td>
-								<td>:</td>
-								<td><?php echo $bap->pokok_bahasan; ?></td>
-							</tr>
-						</table>
-						<br>
 						<h4 class="card-title">Verifikasi Mahasiswa</h4>
 						<table class="table table-bordered table-striped">
 							<tr>
-								<td>NIM</td>
-								<td>:</td>
+								<td style="width: 200px;">NIM</td>
+								<td style="width: 10px;">:</td>
 								<td>
-									<?php echo ($bap->nim) ?? '-'; ?>
+									<?php echo ($verifikasi->nim) ?? '-'; ?>
 								</td>
 							</tr>
 							<tr>
 								<td>Nama Mahasiswa</td>
 								<td>:</td>
-								<td><?php echo ($bap->nama_mahasiswa) ?? '-'; ?></td>
+								<td><?php echo ($verifikasi->nama_mahasiswa) ?? '-'; ?></td>
 							</tr>
 							<tr>
-								<td>Paraf Mahasiswa</td>
+								<td>Tanda Tangan</td>
 								<td>:</td>
 								<td>
-									<?php if(isset($bap->nim) && $bap->paraf_mhs !== '' && file_exists(FCPATH . $bap->paraf_mhs)): ?>
-									<img src="<?php echo base_url($bap->paraf_mhs); ?>" alt="Paraf Mahasiswa" class="img-fluid">
+									<?php if (isset($verifikasi->nim) && $verifikasi->paraf_mahasiswa !== '' && file_exists(FCPATH . $verifikasi->paraf_mahasiswa)): ?>
+										<img src="<?php echo base_url($verifikasi->paraf_mahasiswa); ?>"
+											 alt="Paraf Mahasiswa" class="img-fluid img-signature">
 									<?php else: echo "-"; endif; ?>
+								</td>
+							</tr>
+							<tr>
+								<td>Kesesuaian RPS</td>
+								<td>:</td>
+								<td>
+									<?php echo isset($verifikasi) ? ($verifikasi->sesuai_rps_mahasiswa !== 0 ? 'SESUAI' : 'TIDAK') : '-'; ?>
+								</td>
+							</tr>
+							<tr>
+								<td>Catatan</td>
+								<td>:</td>
+								<td>
+									<?php echo isset($verifikasi) ? $verifikasi->catatan_mahasiswa : '-'; ?>
+								</td>
+							</tr>
+						</table>
+						<br>
+						<h4 class="card-title">Verifikasi Ketua Program Studi</h4>
+						<table class="table table-bordered table-striped">
+							<tr>
+								<td style="width: 200px;">Tanggal Periksa</td>
+								<td style="width: 10px;">:</td>
+								<td>
+									<?php echo ($verifikasi->tanggal_periksa) ?? '-'; ?>
+								</td>
+							</tr>
+							<tr>
+								<td>Nama Pemeriksa</td>
+								<td>:</td>
+								<td><?php echo isset($verifikasi) ? namaDosen($verifikasi->nama_dosen, $verifikasi->gelar) : '-'; ?></td>
+							</tr>
+							<tr>
+								<td>Tanda Tangan</td>
+								<td>:</td>
+								<td>
+									<?php if (isset($verifikasi->nidn_verifikator) && $verifikasi->paraf_dosen !== '' && file_exists(FCPATH . $verifikasi->paraf_dosen)): ?>
+										<img src="<?php echo base_url($verifikasi->paraf_dosen); ?>"
+											 alt="Paraf Pemeriksa" class="img-fluid img-signature">
+									<?php else: echo "-"; endif; ?>
+								</td>
+							</tr>
+							<tr>
+								<td>Kesesuaian RPS</td>
+								<td>:</td>
+								<td>
+									<?php echo isset($verifikasi) ? ($verifikasi->sesuai_rps_kaprodi !== 0 ? 'SESUAI' : 'TIDAK') : '-'; ?>
+								</td>
+							</tr>
+							<tr>
+								<td>Catatan</td>
+								<td>:</td>
+								<td>
+									<?php echo isset($verifikasi) ? $verifikasi->catatan_kaprodi : '-'; ?>
 								</td>
 							</tr>
 						</table>
@@ -157,7 +214,7 @@
 						<h4 class="card-title">Uraian Materi</h4>
 					</div>
 					<div class="card-body uraian-materi">
-						<?php echo ($bap->uraian_materi); ?>
+						<?php echo($bap->uraian_materi); ?>
 					</div>
 				</div>
 			</div>

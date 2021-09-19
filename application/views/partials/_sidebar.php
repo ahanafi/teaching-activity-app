@@ -129,6 +129,12 @@
 				</a>
 			</li>
 		<?php endif; ?>
+		<li class="nav-item">
+			<a class="nav-link" onclick="confirmLogout()" href="#">
+				<i class="menu-icon typcn typcn-user-outline"></i>
+				<span class="menu-title">Logout</span>
+			</a>
+		</li>
 	</ul>
 </nav>
 <!-- partial -->

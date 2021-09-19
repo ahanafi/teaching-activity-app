@@ -28,9 +28,8 @@ class Beritaacara extends CI_Controller
 	public function index()
 	{
 		$beritaAcara = $this->BeritaAcara->all();
-		$currentUserLevel = getUser('level');
 
-		if ($currentUserLevel === "DOSEN") {
+		if (getUser('level') === "DOSEN") {
 			$id_dosen = getUser('id_dosen');
 			$beritaAcara = $this->BeritaAcara->findById([
 				'jadwal.id_dosen' => $id_dosen
@@ -149,26 +148,28 @@ class Beritaacara extends CI_Controller
 
 				$uploadBuktiKegiatan = $this->uploadBuktiKegiatan('bukti_kegiatan');
 
-				if (is_string($uploadBuktiKegiatan)) {
+				if (is_string($uploadBuktiKegiatan) && $uploadBuktiKegiatan !== '') {
 					$data['error'] = $uploadBuktiKegiatan;
-					$this->main_lib->getTemplate("berita-acara/form-edit", $data);
+					$this->main_lib->getTemplate("berita-acara/form-update", $data);
 				} else if (is_array($uploadBuktiKegiatan)) {
 
 					$update = $this->BeritaAcara->update($getPostData, [
 						'id_berita_acara' => $id_berita_acara
 					]);
 
-					$fotoBuktiKegiatan = [];
-					foreach ($uploadBuktiKegiatan as $bukti) {
-						$fotoBuktiKegiatan[] = [
-							'id_berita_acara' => $id_berita_acara,
-							'nama_file' => $bukti['nama_file'],
-							'jenis_file' => $bukti['jenis_file'],
-							'lokasi' => $bukti['lokasi'],
-						];
+					if(count((array) $uploadBuktiKegiatan) > 0) {
+						$fotoBuktiKegiatan = [];
+						foreach ($uploadBuktiKegiatan as $bukti) {
+							$fotoBuktiKegiatan[] = [
+								'id_berita_acara' => $id_berita_acara,
+								'nama_file' => $bukti['nama_file'],
+								'jenis_file' => $bukti['jenis_file'],
+								'lokasi' => $bukti['lokasi'],
+							];
+						}
+						$this->BuktiKegiatan->insert($fotoBuktiKegiatan, true);
 					}
 
-					$this->BuktiKegiatan->insert($fotoBuktiKegiatan, true);
 
 					if ($update) {
 						$messages = setArrayMessage('success', 'update', 'berita acara');
@@ -192,10 +193,6 @@ class Beritaacara extends CI_Controller
 			$data_type = $this->main_lib->getPost('data_type');
 
 			if ($data_id === $id_berita_acara && $data_type === 'berita-acara') {
-				$beritaAcara = $this->BeritaAcara->findById([
-					'id_berita_acara' => $data_id
-				]);
-
 				$buktiKegiatan = $this->BuktiKegiatan->findById([
 					'id_berita_acara' => $data_id
 				], true);
@@ -225,23 +222,26 @@ class Beritaacara extends CI_Controller
 		}
 	}
 
-	public function detail($id_berita_acara = null)
+	public function detail($idBeritaAcara = null)
 	{
 		$beritaAcara = $this->BeritaAcara->findById([
-			'id_berita_acara' => $id_berita_acara
+			'id_berita_acara' => $idBeritaAcara
 		]);
 
-		if (!$beritaAcara || $id_berita_acara === '') {
+		if (!$beritaAcara || $idBeritaAcara === '') {
 			redirect(base_url('error'));
 		}
 
 		$buktiKegiatan = $this->BuktiKegiatan->findById([
-			'id_berita_acara' => $id_berita_acara
+			'id_berita_acara' => $idBeritaAcara
 		], true);
+
+		$verifikasi = $this->Verifikasi->findById(['id_berita_acara' => $idBeritaAcara]);
 
 		$data = [
 			'bap' => $beritaAcara,
-			'dokumentasi' => $buktiKegiatan
+			'dokumentasi' => $buktiKegiatan,
+			'verifikasi' => $verifikasi
 		];
 
 		$this->main_lib->getTemplate("berita-acara/detail", $data);
@@ -402,39 +402,40 @@ class Beritaacara extends CI_Controller
 	{
 		$uploadedFileName = [];
 		$isError = false;
-		$errorMessage = "";
+		$errorMessage = "xxx";
 
 		if (isset($_FILES[$inputName]) && count($_FILES[$inputName]['name']) > 0) {
 			$fileCount = count($_FILES[$inputName]['name']);
 
 			for ($i = 0; $i < $fileCount; $i++) {
 
-				//Define new $_FILES array - $_FILES['file']
 				$_FILES['file']['name'] = $_FILES[$inputName]['name'][$i];
 				$_FILES['file']['type'] = $_FILES[$inputName]['type'][$i];
 				$_FILES['file']['tmp_name'] = $_FILES[$inputName]['tmp_name'][$i];
 				$_FILES['file']['error'] = $_FILES[$inputName]['error'][$i];
 				$_FILES['file']['size'] = $_FILES[$inputName]['size'][$i];
 
-				$myConfig = $this->uploadConfig;
-				$myConfig['upload_path'] = './uploads/bukti-kegiatan/';
-				$this->upload->initialize($myConfig);
+				if($_FILES['file']['name'] !== '') {
+					$myConfig = $this->uploadConfig;
+					$myConfig['upload_path'] = './uploads/bukti-kegiatan/';
+					$this->upload->initialize($myConfig);
 
-				if ($this->upload->do_upload('file')) {
-					$uploadData = $this->upload->data();
-					$fileName = $uploadData['file_name'];
-					$fileType = $uploadData['file_type'];
-					$fileLocation = 'uploads/bukti-kegiatan/' . $fileName;
+					if ($this->upload->do_upload('file')) {
+						$uploadData = $this->upload->data();
+						$fileName = $uploadData['file_name'];
+						$fileType = $uploadData['file_type'];
+						$fileLocation = 'uploads/bukti-kegiatan/' . $fileName;
 
-					$uploadedFileName[] = [
-						'nama_file' => $fileName,
-						'jenis_file' => $fileType,
-						'lokasi' => $fileLocation
-					];
-				} else {
-					$isError = true;
-					$errorMessage = $this->upload->display_errors('', '');
-					break;
+						$uploadedFileName[] = [
+							'nama_file' => $fileName,
+							'jenis_file' => $fileType,
+							'lokasi' => $fileLocation
+						];
+					} else {
+						$isError = true;
+						$errorMessage = $this->upload->display_errors('', '');
+						break;
+					}
 				}
 			}
 		}

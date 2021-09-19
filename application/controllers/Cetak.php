@@ -19,22 +19,28 @@ class Cetak extends CI_Controller {
 		redirect(base_url('dashboard'));
 	}
 
-	public function berita_acara($id_berita_acara = null)
+	public function berita_acara($idBeritaAcara = null)
 	{
 		$beritaAcara = $this->BeritaAcara->findById([
-			'id_berita_acara' => $id_berita_acara
+			'id_berita_acara' => $idBeritaAcara
 		]);
 
-		if(!$id_berita_acara || $id_berita_acara == '') {
+		if(!$idBeritaAcara || $idBeritaAcara === '') {
 			redirect(base_url('error'));
 		}
+
 		$buktiKegiatan = $this->BuktiKegiatan->findById([
-			'id_berita_acara' => $id_berita_acara
+			'id_berita_acara' => $idBeritaAcara
 		], true);
+		$verifikasi = $this->Verifikasi->findById(['id_berita_acara' => $idBeritaAcara]);
+
+		$dosen = $this->Dosen->findById(['dosen.id_dosen' => $beritaAcara->id_dosen]);
 
 		$data = [
 			'bap' => $beritaAcara,
-			'dokumentasi' => $buktiKegiatan
+			'dokumentasi' => $buktiKegiatan,
+			'verifikasi' => $verifikasi,
+			'paraf_dosen' => $dosen->paraf
 		];
 
 		$time = time();

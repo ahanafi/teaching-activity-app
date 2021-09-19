@@ -193,7 +193,11 @@
 											<input type="file" name="bukti_kegiatan[]" id="bukti_kegiatan" multiple
 												   maxlength="3" onchange="readURL(this)"
 												   class="form-control"/>
-											<?php echo form_error('bukti_kegiatan'); ?>
+											<?php if (isset($error) && $error !== ''): ?>
+												<div class="mt-2">
+													<span class="error text-danger"><?php echo $error; ?></span>
+												</div>
+											<?php endif; ?>
 
 											<div class="alert alert-info mt-2" style="border-radius: 0;">
 												<b>Perhatian : </b> <br>
@@ -212,7 +216,9 @@
 														<img src="<?php echo base_url($bukti->lokasi); ?>" alt=""
 															 class="img img-fluid">
 														<br>
-														<a href="#" onclick="showConfirmDelete(`bukti-kegiatan`, <?php echo $bukti->id_bukti_kegiatan; ?>)" class="text-danger font-weight-bold">
+														<a href="#"
+														   onclick="showConfirmDelete(`bukti-kegiatan`, <?php echo $bukti->id_bukti_kegiatan; ?>)"
+														   class="text-danger font-weight-bold">
 															<i class="fa fa-close"></i>
 															<span>Hapus</span>
 														</a>

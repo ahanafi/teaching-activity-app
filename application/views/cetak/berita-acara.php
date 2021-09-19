@@ -71,8 +71,9 @@
 		padding: 10px;
 	}
 
-	table tr td:first-child{
+	table tr td:first-child {
 		width: 130px !important;
+		text-align: left !important;
 	}
 
 	.col-12 {
@@ -98,17 +99,32 @@
 		float: none;
 		clear: both;
 	}
-	#bukti-kegiatan{
+
+	#bukti-kegiatan {
 	}
-	#foto{
-		border:1px solid #333;
+
+	#foto {
+		border: 1px solid #333;
 		padding: 15px;
 	}
-	#foto img{
+
+	#foto img {
 		position: relative;
 		width: 100%;
 		margin-bottom: 20px;
 		max-height: 360px;
+	}
+	.table-verifikasi tr td[rowspan='5'] {
+		width: 80px !important;
+		text-align: center !important;
+	}
+	.table-verifikasi tr td:nth-child(1) {
+		width: 90px !important;
+		text-align: left !important;
+		vertical-align: middle !important;
+	}
+	table tr td img{
+		max-width: 100px !important;
 	}
 </style>
 <body>
@@ -153,7 +169,7 @@
 			</tr>
 			<tr>
 				<td class="bg-gray">Jumlah mhs hadir</td>
-				<td><?php echo $bap->jumlah_hadir . " dari " . $bap->total_mahasiswa; ?></td>
+				<td><?php echo $bap->jumlah_hadir . " dari " . $bap->total_mahasiswa; ?> Mahasiswa</td>
 			</tr>
 			<tr>
 				<td class="bg-gray">Pertemuan ke-</td>
@@ -164,7 +180,7 @@
 				<td>
 					<?php
 					$index = 1;
-					foreach (explode(", ", str_replace(" ", "", $bap->jenis_aplikasi)) as $appCode):
+					foreach (explode(",", str_replace(" ", "", $bap->jenis_aplikasi)) as $appCode):
 						echo $index . ". " . daringApps(strtoupper(trim($appCode))) . "<br>";
 						$index++;
 					endforeach;
@@ -193,51 +209,79 @@
 					<?php endif; ?>
 				</td>
 			</tr>
+			<tr>
+				<td class="bg-gray">Tanda tangan dosen</td>
+				<td>
+					<?php if ($paraf_dosen !== null && file_exists(FCPATH . $paraf_dosen)): ?>
+						<img src="<?php echo $paraf_dosen; ?>" alt="Paraf Dosen">
+					<?php else: echo '-'; endif; ?>
+				</td>
+			</tr>
 		</table>
 	</div>
 	<div class="col-6" style="margin-left: 10px;">
-		<table class="table" style="width: 100%;">
+		<table class="table table-verifikasi" style="width: 100%;">
 			<tr>
-				<td class="bg-gray align-middle" rowspan="3">Verifikasi Mahasiswa</td>
+				<td class="bg-gray align-middle" rowspan="5">Verifikasi Mahasiswa</td>
 				<td>NIM</td>
-				<td><?php echo $bap->nim ?? '-'; ?></td>
+				<td><?php echo $verifikasi->nim ?? '-'; ?></td>
 			</tr>
 			<tr>
 				<td>Nama</td>
-				<td><?php echo $bap->nama_mahasiswa ?? '-'; ?></td>
+				<td><?php echo $verifikasi->nama_mahasiswa ?? '-'; ?></td>
 			</tr>
 			<tr>
 				<td>Tanda Tangan</td>
+				<td>
+					<?php if (isset($verifikasi->nim) && $verifikasi->paraf_mahasiswa !== '' && file_exists(FCPATH . $verifikasi->paraf_mahasiswa)): ?>
+						<img src="<?php echo $verifikasi->paraf_mahasiswa; ?>"
+							 alt="Paraf Mahasiswa">
+					<?php else: echo "-"; endif; ?>
+				</td>
+			</tr>
+			<tr>
+				<td>Kesesuaian RPS</td>
 				<td class="text-center">
-					<?php if (isset($bap->paraf_mhs) && $bap->paraf_mhs !== '' && file_exists(FCPATH . $bap->paraf_mhs)) : ?>
-						<img src="<?php echo $bap->paraf_mhs; ?>" alt="" width="50px">
-					<?php else: echo "-"; endif; ?>
+					<?php echo isset($verifikasi) && $verifikasi->sesuai_rps_mahasiswa !== 0 ? 'Sesuai' : 'Tidak'; ?>
 				</td>
 			</tr>
 			<tr>
-				<td class="bg-gray align-middle">Tanda tangan Dosen</td>
-				<td colspan="2" class="text-center">
-					<?php if (isset($bap->paraf_mhs) && $bap->paraf_mhs !== '' && file_exists(FCPATH . $bap->paraf_mhs)) : ?>
-						<img src="<?php echo($bap->paraf_mhs); ?>" alt="" width="50px">
-					<?php else: echo "-"; endif; ?>
+				<td>Catatan</td>
+				<td class="text-center">
+					<?php echo $verifikasi->catatan_mahasiswa ?? ''; ?>
 				</td>
 			</tr>
 			<tr>
-				<td class="bg-gray align-middle" rowspan="3">
+				<td class="bg-gray align-middle" rowspan="5">
 					Monitoring perkuliahan <br>
 					<i>(Disi oleh Ka. Prodi)</i>
 				</td>
 				<td>Tanggal Periksa</td>
-				<td><?php echo $bap->tanggal_periksa ?? '-'; ?></td>
+				<td><?php echo $verifikasi->tanggal_periksa ?? '-'; ?></td>
 			</tr>
 			<tr>
 				<td>Nama</td>
-				<td><?php echo $bap->nama_pemeriksa ?? '-'; ?></td>
+				<td><?php echo isset($verifikasi) && $verifikasi->nidn_verifikator !== null ? namaDosen($verifikasi->nama_dosen, $verifikasi->gelar) : '-'; ?></td>
 			</tr>
-			<tr style="height: 100px !important;">
+			<tr>
 				<td>Tanda Tangan</td>
 				<td>
-
+					<?php if (isset($verifikasi->nidn_verifikator) && $verifikasi->paraf_dosen !== '' && file_exists(FCPATH . $verifikasi->paraf_dosen)): ?>
+						<img src="<?php echo $verifikasi->paraf_dosen; ?>"
+							 alt="Paraf Pemeriksa">
+					<?php else: echo "-"; endif; ?>
+				</td>
+			</tr>
+			<tr>
+				<td>Kesesuaian RPS</td>
+				<td>
+					<?php echo isset($verifikasi) ? ($verifikasi->sesuai_rps_kaprodi !== 0 ? 'Sesuai' : 'Tidak') : '-'; ?>
+				</td>
+			</tr>
+			<tr>
+				<td>Catatan</td>
+				<td>
+					<?php echo isset($verifikasi) ? $verifikasi->catatan_kaprodi : '-'; ?>
 				</td>
 			</tr>
 		</table>
@@ -268,7 +312,7 @@
 				<?php foreach ($dokumentasi as $dok): ?>
 					<?php if (file_exists(FCPATH . $dok->lokasi)): ?>
 						<img src="<?php echo $dok->lokasi; ?>" alt="">
-					<div style="page-break-after:initial;"></div>
+						<div style="page-break-after:initial;"></div>
 					<?php endif; ?>
 				<?php endforeach; ?>
 			</div>
