@@ -7,7 +7,7 @@ $uri2 = $this->uri->segment(2);
 </div>
 <!-- page-body-wrapper ends -->
 </div>
-<?php if (isset($_SESSION['user']) && $_SESSION['user']->paraf === null && $_SESSION['user']->level !== 'SUPER_USER') : ?>
+<?php if (isset($_SESSION['user'], $_SESSION['user']->paraf) === null && $_SESSION['user']->level !== 'SUPER_USER') : ?>
 	<div class="modal fade" id="digital-signature-notif-modal">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -207,7 +207,7 @@ $_SESSION['message'] = ''; ?>
 <?php if (($uri1 === "jadwal" || $uri1 === "jadwal-kuliah" || $uri1 === "berita-acara") && ($uri2 === "create" || $uri2 === "edit")): ?>
 	<script type="text/javascript">loadSelect2();</script>
 <?php endif; ?>
-<?php if (isset($_SESSION['user']) && $_SESSION['user']->paraf === null && $_SESSION['user']->level !== 'SUPER_USER') : ?>
+<?php if (isset($_SESSION['user'], $_SESSION['user']->paraf) && $_SESSION['user']->level !== 'SUPER_USER') : ?>
 	<script type="text/javascript">$("#digital-signature-notif-modal").modal('show');</script>
 <?php endif; ?>
 </body>

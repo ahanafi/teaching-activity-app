@@ -134,19 +134,19 @@
 								<table class="table table-bordered">
 									<tr>
 										<td style="background-color: #dee2e6;">Nama Dosen</td>
-										<td id="lecture-name"><?php echo namaDosen($jadwal->nama_dosen, $jadwal->gelar); ?></td>
+										<td id="lecture-name"><?php echo ($jadwal) ? namaDosen($jadwal->nama_dosen, $jadwal->gelar) : '-' ?></td>
 									</tr>
 									<tr>
 										<td style="background-color: #dee2e6;">Mata Kuliah</td>
-										<td id="study-name"><?php echo $jadwal->nama_mata_kuliah; ?></td>
+										<td id="study-name"><?php echo $jadwal->nama_mata_kuliah ?? '-'; ?></td>
 									</tr>
 									<tr>
 										<td style="background-color: #dee2e6;">Kelas</td>
-										<td id="class-name"><?php echo $jadwal->kelas; ?></td>
+										<td id="class-name"><?php echo $jadwal->kelas ?? '-'; ?></td>
 									</tr>
 									<tr>
 										<td style="background-color: #dee2e6;">Jadwal</td>
-										<td id="schedule"><?php echo ucfirst(strtolower($jadwal->hari)) . ", " . showJamKuliah($jadwal->jam_mulai, $jadwal->jam_selesai); ?></td>
+										<td id="schedule"><?php echo $jadwal ? ucfirst(strtolower($jadwal->hari)) . ", " . showJamKuliah($jadwal->jam_mulai, $jadwal->jam_selesai) : '-'; ?></td>
 									</tr>
 								</table>
 							</div>

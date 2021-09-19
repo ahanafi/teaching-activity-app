@@ -80,42 +80,47 @@ class Dashboard extends CI_Controller
 				ORDER BY nama_lengkap ASC
 			");
 
-			$selectedJadwal = [];
+			$selectedJadwal = null;
 			$index = 0;
-			foreach ($dosenInJadwal as $dosen) {
-				$dosenId = $dosen->id_dosen;
-				if ($index === 0) {
-					$selectedJadwal = $this->Jadwal->findById(['id_dosen' => $dosenId]);
+
+			if(count((array) $dosenInJadwal) > 0) {
+				foreach ($dosenInJadwal as $dosen) {
+					$dosenId = $dosen->id_dosen;
+					if ($index === 0) {
+						$selectedJadwal = $this->Jadwal->findById(['id_dosen' => $dosenId]);
+					}
+
+					$index++;
+
+					$arrJadwalDosen[] = [
+						'id_dosen' => $dosenId,
+						'nama_dosen' => $dosen->nama_lengkap,
+						'gelar' => $dosen->gelar,
+						'jadwal' => $this->Jadwal->findById(['id_dosen' => $dosenId], true)
+					];
 				}
-
-				$index++;
-
-				$arrJadwalDosen[] = [
-					'id_dosen' => $dosenId,
-					'nama_dosen' => $dosen->nama_lengkap,
-					'gelar' => $dosen->gelar,
-					'jadwal' => $this->Jadwal->findById(['id_dosen' => $dosenId], true)
-				];
 			}
 
 			$akurasiJadwalLabel = ['TEPAT', 'TIDAK TEPAT'];
 			$tepat = 0;
 			$tidakTepat = 0;
 
-			//Get BAP
-			$hariBySelectedJadwal = $selectedJadwal->hari;
+			if($selectedJadwal !== null) {
+				//Get BAP
+				$hariBySelectedJadwal = $selectedJadwal->hari;
 
-			$beritaAcaraBySelectedJadwal = $this->BeritaAcara->findById(['id_jadwal' => $selectedJadwal->id_jadwal], true);
+				$beritaAcaraBySelectedJadwal = $this->BeritaAcara->findById(['id_jadwal' => $selectedJadwal->id_jadwal], true);
 
-			foreach ($beritaAcaraBySelectedJadwal as $bap) {
+				foreach ($beritaAcaraBySelectedJadwal as $bap) {
 
-				$tanggalRealisasi = $bap->tanggal_realisasi;
+					$tanggalRealisasi = $bap->tanggal_realisasi;
 
-				$hari = SimpleDate::createFormat("dddd", $tanggalRealisasi);
-				if (strtolower($hari) === strtolower($hariBySelectedJadwal)) {
-					$tepat++;
-				} else {
-					$tidakTepat++;
+					$hari = SimpleDate::createFormat("dddd", $tanggalRealisasi);
+					if (strtolower($hari) === strtolower($hariBySelectedJadwal)) {
+						$tepat++;
+					} else {
+						$tidakTepat++;
+					}
 				}
 			}
 
