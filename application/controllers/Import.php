@@ -27,7 +27,7 @@ class Import extends CI_Controller
 
 	public function download_samples($type)
 	{
-		if($type === 'dosen' || $type === 'mahasiswa') {
+		if($type === 'dosen' || $type === 'mahasiswa' || $type === 'mata-kuliah') {
 			$pathFile = FCPATH . 'examples/format-' . $type . '.xlsx';
 			if(file_exists($pathFile)) {
 				$this->load->helper('download');
@@ -47,6 +47,54 @@ class Import extends CI_Controller
 			'text' => 'File tidak ditemukan.'
 		]);
 		redirect(base_url('error-page'), 'refresh');
+	}
+
+	public function mata_kuliah()
+	{
+		if (isset($_POST['import'])) {
+			if ($this->upload->do_upload('file')) {
+				$uploadedData = $this->upload->data();
+				$uploadedFile = $uploadedData['full_path'];
+				$reader = new Xlsx();
+				$spreadsheet = $reader->load($uploadedFile);
+				$sheetData = $spreadsheet->getActiveSheet()->toArray();
+				$dataMK = [];
+
+				for ($i = 1, $iMax = count($sheetData); $i < $iMax; $i++) {
+					$kodeMK = $sheetData[$i][1];
+					if($kodeMK !== '') {
+						$checkMK = $this->MataKuliah->getBy('kode_mata_kuliah', $kodeMK);
+						if (!$checkMK) {
+							$dataMK[] = [
+								'kode_mata_kuliah' => $kodeMK,
+								'nama_mata_kuliah' => $sheetData[$i][2],
+								'sks' => $sheetData[$i][3],
+							];
+						}
+					}
+				}
+
+				unlink($uploadedFile);
+
+				$insertMK = $this->MataKuliah->insert($dataMK, true);
+
+				if ($insertMK) {
+					$messages = setArrayMessage('success', 'import', 'mata-kuliah');
+				} else {
+					$messages = setArrayMessage('error', 'import', 'mata-kuliah');
+				}
+
+				$this->session->set_flashdata('message', $messages);
+				redirect(base_url('mata-kuliah'), 'refresh');
+
+			} else {
+				$error = $this->upload->display_errors("", "");
+				$error = str_replace(" ", "-", $error);
+				redirect(base_url('mata-kuliah') . '?show_modal=true&errmsg=' . $error);
+			}
+		} else {
+			redirect(base_url('mata-kuliah'));
+		}
 	}
 
 	public function dosen()

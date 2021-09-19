@@ -121,37 +121,9 @@ class Matakuliah extends CI_Controller
 		];
 	}
 
-	public function import()
-	{
-		$data = [];
-
-		if (isset($_POST['submit'])) {
-			$rules = $this->_rules('insert');
-			$this->form_validation->set_rules($rules);
-			$this->form_validation->set_error_delimiters("<small class='form-text text-danger'>", "</small>");
-
-			if ($this->form_validation->run() === FALSE) {
-				$this->main_lib->getTemplate('mata-kuliah/form-import', $data);
-			} else {
-
-				$insert = $this->MataKuliah->insert($getPostData);
-				if ($insert) {
-					$messages = setArrayMessage('success', 'insert', 'mata kuliah');
-				} else {
-					$messages = setArrayMessage('error', 'insert', 'mata kuliah');
-				}
-
-				$this->session->set_flashdata('message', $messages);
-				redirect(base_url('mata-kuliah'), 'refresh');
-			}
-		} else {
-			$this->main_lib->getTemplate("mata-kuliah/form-import", $data);
-		}
-	}
-
 	private function _rules($type)
 	{
-		if ($type == "insert") {
+		if ($type === "insert") {
 			//Rule when create new user
 			$rules = [
 				[
@@ -171,7 +143,7 @@ class Matakuliah extends CI_Controller
 				],
 			];
 
-		} else if ($type == "update") {
+		} else if ($type === "update") {
 			//Rule when update user
 			$rules = [
 				[

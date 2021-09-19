@@ -18,7 +18,6 @@ $route['program-studi/(:any)/(:num)'] = 'programstudi/$1/$2';
 
 $route['mata-kuliah'] = 'matakuliah/index';
 $route['mata-kuliah/create'] = 'matakuliah/create';
-$route['mata-kuliah/import'] = 'matakuliah/import';
 $route['mata-kuliah/(:any)/(:num)'] = 'matakuliah/$1/$2';
 
 $route['jadwal-kuliah'] = 'jadwal/index';
@@ -50,3 +49,4 @@ $route['verifikasi-bap/(:any)/(:num)'] = 'Verifikasi/$1/$2';
  * import */
 $route['dosen/import'] = 'Import/dosen';
 $route['mahasiswa/import'] = 'Import/mahasiswa';
+$route['mata-kuliah/import'] = 'Import/mata-kuliah';
