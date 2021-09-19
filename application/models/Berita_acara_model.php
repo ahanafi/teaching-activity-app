@@ -28,25 +28,37 @@ class Berita_acara_model extends Main_model
 
 	private function getJoinQueries($where = [])
 	{
-		$queryJadwal = $this->wherePosition === $this->table ? $this->queryJadwal() : $this->queryJadwal($where);
+		$whereJadwal = [];
+		$whereBeritaAcara = [];
+
+		if(array_key_exists('pertemuan_ke', $where)) {
+			$whereBeritaAcara['pertemuan_ke'] = $where['pertemuan_ke'];
+			unset($where['pertemuan_ke']);
+		}
+
+		if($this->wherePosition !== $this->table) {
+			$whereJadwal = $where;
+		}
+
+		$queryJadwal = $this->wherePosition === $this->table ? $this->queryJadwal() : $this->queryJadwal($whereJadwal);
 		$joinTo = " JOIN (" . $queryJadwal . ") AS jadwal USING ($this->_ID_JADWAL) ";
 		$joinTo .= " LEFT JOIN $this->_VERIFIKASI USING ($this->_ID_BERITA_ACARA) ";
 
 		$columns = $this->getColumns();
 		$query = "SELECT " . $columns . " FROM " . $this->table . " " . $joinTo;
 
-		if (!empty($where) && $this->wherePosition === $this->table) {
-			if (count($where) === 1) {
-				$column = array_keys($where)[0];
-				$value = array_values($where)[0];
+		if (!empty($whereBeritaAcara)) {
+			if (count($whereBeritaAcara) === 1) {
+				$column = array_keys($whereBeritaAcara)[0];
+				$value = array_values($whereBeritaAcara)[0];
 
 				$query .= " WHERE $column = '$value' ";
-			} else if (count($where) > 1) {
+			} else if (count($whereBeritaAcara) > 1) {
 				$query .= " WHERE ";
 				$index = 0;
-				foreach ($where as $col => $val) {
+				foreach ($whereBeritaAcara as $col => $val) {
 					$query .= "{$col} = '$val'";
-					if ($index < count($where) - 1) {
+					if ($index < count($whereBeritaAcara) - 1) {
 						$query .= " AND ";
 					}
 					$index++;

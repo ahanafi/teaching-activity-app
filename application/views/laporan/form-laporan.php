@@ -20,7 +20,7 @@
                                             <select name="hari" required class="form-control select2">
                                                 <option value="all_days">Semua Hari</option>
                                                 <?php foreach ($list_hari as $hari): ?>
-                                                    <option <?php echo (set_value('hari') == $hari) ? "selected" : ""; ?>
+                                                    <option <?php echo (set_value('hari') === $hari) ? "selected" : ""; ?>
                                                         value="<?php echo $hari; ?>"><?php echo $hari; ?></option>
                                                 <?php endforeach; ?>
                                             </select>
@@ -32,7 +32,7 @@
                                             <select name="id_dosen" required class="form-control select2">
                                                 <option value="all_dosen">Semua Dosen</option>
                                                 <?php foreach ($dosen as $dosen): ?>
-                                                    <option <?php echo (set_value('id_dosen') == $dosen->id_dosen) ? "selected" : ""; ?>
+                                                    <option <?php echo (set_value('id_dosen') === $dosen->id_dosen) ? "selected" : ""; ?>
                                                         value="<?php echo $dosen->id_dosen; ?>"><?php echo namaDosen($dosen->nama_lengkap, $dosen->gelar); ?></option>
                                                 <?php endforeach; ?>
                                             </select>
@@ -60,7 +60,7 @@
                                             <select name="pertemuan" class="form-control select2">
                                                 <option value="all">Semua Pertemuan</option>
                                                 <?php for($mggu = 1; $mggu<=14; $mggu++): ?>
-                                                    <option <?php echo (set_value('pertemuan') === $mggu) ? "selected" : ""; ?>
+                                                    <option <?php echo (set_value('pertemuan') == $mggu) ? "selected" : ""; ?>
                                                         value="<?php echo $mggu; ?>"><?php echo "Temu ke - " . $mggu; ?></option>
                                                 <?php endfor; ?>
                                             </select>

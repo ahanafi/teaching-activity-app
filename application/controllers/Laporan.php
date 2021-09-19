@@ -69,7 +69,7 @@ class Laporan extends CI_Controller
 
 		$beritaAcara = $this->BeritaAcara->all();
 
-		if ($filter !== '') {
+		if ($filter !== null) {
 			$beritaAcara = $this->BeritaAcara
 				->setWherePosition('jadwal')
 				->getByFilter($filter);
