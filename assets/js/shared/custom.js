@@ -51,7 +51,6 @@ const showConfirmDelete = (dataType, dataId) => {
 				form.submit();
 			}
 		});
-
 	}
 }
 
