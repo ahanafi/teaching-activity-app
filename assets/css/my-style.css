@@ -33,11 +33,16 @@ input[type=number] {
 }
 
 #sidebar > ul.nav > li.active {
-	background: #0f25d5 !important;
+	background: #fec302 !important;
 }
 
-#sidebar > ul.nav > li.active > a > .menu-title {
+#sidebar > ul.nav > li.active > a > .menu-title, #sidebar > ul.nav > li.active > a::before {
 	font-weight: bold !important;
+	color: #0d569a !important;
+}
+
+#sidebar > ul.nav > li.active > a::before{
+	border:2px solid #0d569a !important;
 }
 
 .user-dropdown-menu > a:hover {
@@ -102,4 +107,11 @@ ul.nav-tabs > .nav-item .nav-link.active {
 
 .sidebar > .nav .nav-item.nav-profile .nav-link {
 	border: none !important;
+}
+
+.img-signature{
+	border-radius: 0 !important;
+	width: 100% !important;
+	max-width: 200px !important;
+	height: auto !important;
 }

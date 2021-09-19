@@ -83,11 +83,13 @@ class Verifikasi extends CI_Controller
 				$postData = $this->getPostData($verifikator);
 				$postData['id_berita_acara'] = $idBeritaAcara;
 
-				$insertOrUpdate = $this->Verifikasi->findById(['id_berita_acara' => $idBeritaAcara])
+				$insertOrUpdate = ($this->Verifikasi->getBy('id_berita_acara', $idBeritaAcara) !== null)
 					? $this->Verifikasi->update($postData, ['id_berita_acara' => $idBeritaAcara])
 					: $this->Verifikasi->insert($postData);
 
-				$this->BeritaAcara->updateStatus($idBeritaAcara);
+				if(strtolower($verifikator) === 'kaprodi') {
+					$this->BeritaAcara->updateStatus($idBeritaAcara);
+				}
 
 				if ($insertOrUpdate) {
 					$messages = setArrayMessage('success', 'update', 'verifikasi BAP');

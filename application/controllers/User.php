@@ -287,7 +287,7 @@ class User extends CI_Controller
 		if (isset($_POST['upload'])) {
 			$this->form_validation->set_rules('signature', 'Tanda tangan', 'required');
 			$config = [
-				'upload_path' => './uploads/paraf-mhs/',
+				'upload_path' => './uploads/signature/',
 				'allowed_types' => 'jpeg|jpg|png',
 				'max_size' => '1024',
 				'max_width' => '512',
@@ -306,23 +306,40 @@ class User extends CI_Controller
 
 			} else {
 				$uploadData = $this->upload->data();
-				$fileName = 'uploads/paraf-mhs/' . $uploadData['file_name'];
+				$fileName = 'uploads/signature/' . $uploadData['file_name'];
 
-				$nim = getUser('username');
-				$mahasiswa = $this->Mahasiswa->getBy('nim', $nim);
+				$updateSignature = null;
 
-				if($mahasiswa && $mahasiswa->paraf !== null) {
-					if (file_exists(FCPATH . $mahasiswa->paraf)) {
-						unlink(FCPATH . $mahasiswa->paraf);
+				if (getUser('level') === 'MAHASISWA') {
+					$nim = getUser('username');
+					$mahasiswa = $this->Mahasiswa->getBy('nim', $nim);
+
+					if ($mahasiswa && $mahasiswa->paraf !== null) {
+						if (file_exists(FCPATH . $mahasiswa->paraf)) {
+							unlink(FCPATH . $mahasiswa->paraf);
+						}
 					}
+
+					$updateSignature = $this->Mahasiswa->update(['paraf' => $fileName], ['id_mahasiswa' => $mahasiswa->id_mahasiswa]);
 				}
 
-				$updateParaf = $this->Mahasiswa->update(['paraf' => $fileName], ['id_mahasiswa' => $mahasiswa->id_mahasiswa]);
+				if (getUser('level') === 'KAPRODI' || getUser('level') === 'DOSEN') {
+					$nidn = getUser('username');
+					$dosen = $this->Dosen->getBy('nidn', $nidn);
 
-				if ($updateParaf) {
+					if ($dosen && $dosen->paraf !== null) {
+						if (file_exists(FCPATH . $dosen->paraf)) {
+							unlink(FCPATH . $dosen->paraf);
+						}
+					}
+
+					$updateSignature = $this->Dosen->update(['paraf' => $fileName], ['id_dosen' => $dosen->id_dosen]);
+				}
+
+				if ($updateSignature) {
 					$messages = [
 						'type' => 'success',
-						'text' => 'Tanda tangan digital berhasil disimpan.',
+						'text' => 'Tanda tangan digital Anda berhasil disimpan.',
 					];
 				} else {
 					$messages = [
@@ -339,7 +356,6 @@ class User extends CI_Controller
 			$this->main_lib->getTemplate("signature/form");
 		}
 	}
-
 }
 
 /* End of file User.php */

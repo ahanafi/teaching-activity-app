@@ -31,7 +31,10 @@ class Dashboard extends CI_Controller
 				'total_dosen' => 0
 			]);
 		} else {
+			//Widget Data
 			$totalDosen = $this->Dosen->count();
+			$totalBAPterverifikasi = count($this->BeritaAcara->getBy('status_periksa', 0, true));
+			$totalBAPbelumVerifikasi = count($this->BeritaAcara->getBy('status_periksa', 1, true));
 
 			$arrLabelApps = [];
 			$arrValueApps = [];
@@ -121,6 +124,9 @@ class Dashboard extends CI_Controller
 
 			$data = [
 				'total_dosen' => $totalDosen,
+				'total_bap_terverifikasi' => $totalBAPterverifikasi,
+				'total_bap_belum_terverifikasi' => $totalBAPbelumVerifikasi,
+
 				'app_label' => $arrLabelApps,
 				'app_value' => $arrValueApps,
 				'app_colors' => $arrColorApps,

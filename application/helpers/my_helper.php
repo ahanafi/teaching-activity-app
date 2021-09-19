@@ -22,7 +22,7 @@ function checkSignature()
 		$data = getData('dosen', 'paraf', ['nidn' => $nidn]);
 	}
 
-	return $data !== null && $data[0]->paraf !== null && file_exists(FCPATH . $data[0]->paraf);
+	return ($data !== null) && ($data[0]->paraf !== null) && file_exists(FCPATH . $data[0]->paraf);
 }
 
 function getData($tableName, $columns = '*', $where = [])

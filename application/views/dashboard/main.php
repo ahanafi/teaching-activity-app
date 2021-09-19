@@ -31,7 +31,7 @@
 							<div class="float-right">
 								<p class="mb-0 text-right text-white">BAP Terverifikasi</p>
 								<div class="fluid-container">
-									<h1 class="font-weight-medium text-right mb-0">3455</h1>
+									<h1 class="font-weight-medium text-right mb-0"><?php echo $total_bap_terverifikasi; ?></h1>
 								</div>
 							</div>
 						</div>
@@ -48,7 +48,7 @@
 							<div class="float-right">
 								<p class="mb-0 text-right text-white">BAP Belum Verifikasi</p>
 								<div class="fluid-container">
-									<h1 class="font-weight-medium text-right mb-0">5693</h1>
+									<h1 class="font-weight-medium text-right mb-0"><?php echo $total_bap_belum_terverifikasi; ?></h1>
 								</div>
 							</div>
 						</div>

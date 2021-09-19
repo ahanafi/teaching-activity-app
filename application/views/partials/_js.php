@@ -110,7 +110,7 @@ $uri2 = $this->uri->segment(2);
 
 			document.getElementById('lecture-name').innerText = jadwal.dosen;
 			document.getElementById('study-name').innerText = jadwal.nama_mata_kuliah;
-			document.getElementById('class-name').innerText = `${jadwal.nama_kelas}/${jadwal.semester}`;
+			document.getElementById('class-name').innerText = jadwal.kelas;
 			document.getElementById('schedule').innerText = jadwal.jadwal;
 
 			window.scheduleAccurationChart.data = scheduleAccurationData;

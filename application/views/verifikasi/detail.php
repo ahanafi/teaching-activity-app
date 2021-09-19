@@ -220,7 +220,7 @@
 													<td>
 														<?php if (isset($verifikasi->nidn_verifikator) && $verifikasi->paraf_dosen !== '' && file_exists(FCPATH . $verifikasi->paraf_dosen)): ?>
 															<img src="<?php echo base_url($verifikasi->paraf_dosen); ?>"
-																 alt="Paraf Pemeriksa" class="img-fluid">
+																 alt="Paraf Pemeriksa" class="img-fluid img-signature">
 														<?php else: echo "-"; endif; ?>
 													</td>
 												</tr>
