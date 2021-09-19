@@ -1,8 +1,8 @@
 <!-- partial:partials/_sidebar.html -->
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
 	<ul class="nav">
-		<li class="nav-item nav-profile ml-3 mr-3">
-			<a href="#" class="nav-link">
+		<li class="nav-item nav-profile m-0 py-2 bg-green-gradient">
+			<a href="<?php echo base_url('user/profile'); ?>" class="nav-link">
 				<div class="profile-image">
 					<img class="img-xs rounded-circle" src="<?php echo assets('images/faces/face8.jpg'); ?>"
 						 alt="profile image">
@@ -16,11 +16,10 @@
 						if (count($arrNama) > 2) {
 							$namaLengkap = $arrNama[0] . " " . $arrNama[1];
 						}
-
 						echo $namaLengkap;
 						?>
 					</p>
-					<p class="designation"><?php echo str_replace("_", " ", getUser('level')); ?></p>
+					<p class="designation">( <?php echo showUserLevel(getUser('level'), true); ?> )</p>
 				</div>
 			</a>
 		</li>

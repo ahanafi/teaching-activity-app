@@ -67,7 +67,10 @@ class Berita_acara_model extends Main_model
 
 	private function getColumns()
 	{
-		return "$this->table.*, $this->_JADWAL.* ";
+		$columnInBeritaAcara =  "$this->table.*, $this->table.jam_mulai AS jam_mulai_pelaksanaan, $this->table.jam_selesai AS jam_selesai_pelaksanaan, ";
+		$columnInJadwal = "$this->_JADWAL.* ";
+		return $columnInBeritaAcara . $columnInJadwal;
+
 	}
 
 	public function findById($where = [], $all = false)

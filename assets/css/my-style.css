@@ -77,13 +77,29 @@ input.select2-search__field {
 .uraian-materi > * {
 	overflow: hidden;
 }
+
 ul.nav-tabs > .nav-item .nav-link.active {
 	background: #f3f3f3 !important;
 	color: #212529 !important;
 }
+
 .tab-content > .tab-pane {
-	padding:1.25rem 0 !important;
+	padding: 1.25rem 0 !important;
 }
+
 .form-verifikasi label {
-	text-align:right !important;
+	text-align: right !important;
+}
+
+.navbar.default-layout .navbar-brand-wrapper .navbar-brand img {
+	width: 120px !important;
+	margin: 0 30px !important;
+}
+
+.sidebar > .nav .nav-item.nav-profile {
+	background: #242f83 !important;
+}
+
+.sidebar > .nav .nav-item.nav-profile .nav-link {
+	border: none !important;
 }

@@ -45,7 +45,7 @@
 							</li>
 						</ul>
 						<div class="tab-content" id="myTabContent">
-							<div class="tab-pane fade " id="jadwal" role="tabpanel"
+							<div class="tab-pane fade show active" id="jadwal" role="tabpanel"
 								 aria-labelledby="jadwal-tab">
 								<div class="row">
 									<div class="col-md-6">
@@ -154,7 +154,7 @@
 									<?php endforeach; ?>
 								</div>
 							</div>
-							<div class="tab-pane fade show active" id="verifikasi" role="tabpanel"
+							<div class="tab-pane fade" id="verifikasi" role="tabpanel"
 								 aria-labelledby="verifikasi-tab">
 								<?php if (isset($verifikasi) && $verifikasi !== null): ?>
 									<div class="row">

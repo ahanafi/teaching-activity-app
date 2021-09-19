@@ -213,7 +213,7 @@ function daringApps($key = null)
 		'LAINNYA' => 'Lainnya',
 	];
 
-	if ($key != null) {
+	if ($key !== null) {
 		if (!key_exists($key, $apps)) {
 			return ucwords(strtolower($key));
 		}
@@ -233,7 +233,7 @@ function materialType($key = null)
 		'LAINNYA' => 'Lainnya'
 	];
 
-	if ($key != null) {
+	if ($key !== null) {
 		return $types[$key];
 	}
 	return $types;
@@ -316,4 +316,8 @@ function getProdiByCode($code)
 			break;
 	}
 	return $prodiName;
+}
+
+function isExistItem($item, $collections){
+	return (in_array(strtoupper($item), explode(",", strtoupper($collections)), true)) ? "V" : "-";
 }

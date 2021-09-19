@@ -17,7 +17,7 @@ class TahunAkademik extends CI_Controller
 	{
 		$tahunAkademik = $this->TahunAkademik->first();
 
-		$isEdit = isset($_GET['is_edit']) && $_GET['is_edit'] == 'true'
+		$isEdit = isset($_GET['is_edit']) && $_GET['is_edit'] === 'true'
 			? $this->main_lib->getParams('is_edit')
 			: $isEdit;
 

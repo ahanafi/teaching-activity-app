@@ -1,6 +1,6 @@
 <!-- partial:partials/_navbar.html -->
 <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-	<div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
+	<div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-start">
 		<a class="navbar-brand brand-logo pt-0" href="<?php echo base_url('dashboard'); ?>">
 			<img src="<?php echo assets('images/ucic-yellow.png'); ?>" alt="logo"/> </a>
 		<a class="navbar-brand brand-logo-mini pt-0" href="<?php echo base_url('dashboard'); ?>">
