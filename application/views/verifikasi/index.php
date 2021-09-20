@@ -30,7 +30,7 @@
 								</thead>
 								<tbody>
 								<?php foreach ($berita_acara as $bap):
-									if ((isset($bap->nim_verifikator) && $bap->nim_verifikator !== null) || getUser('level') === 'KAPRODI'):
+									if ($bap->status_periksa !== 1):
 										?>
 										<tr>
 											<td><?php echo $nomor++; ?></td>

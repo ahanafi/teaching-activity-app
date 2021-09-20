@@ -25,7 +25,7 @@ class Verifikasi_model extends Main_model
 	private function getJoinQueries($where = array())
 	{
 		$joinTable = " JOIN $this->_MAHASISWA ON $this->_MAHASISWA.nim = $this->table.nim_verifikator ";
-		$joinTable .= " JOIN $this->_DOSEN ON $this->_DOSEN.nidn = $this->table.nidn_verifikator ";
+		$joinTable .= " LEFT JOIN $this->_DOSEN ON $this->_DOSEN.nidn = $this->table.nidn_verifikator ";
 
 		$columns = $this->getColumns();
 		$query = "SELECT $columns FROM $this->table $joinTable";

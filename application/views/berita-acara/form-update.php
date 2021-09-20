@@ -167,7 +167,7 @@
 				<div class="col-md-12 grid-margin stretch-card">
 					<div class="card">
 						<div class="card-header header-sm d-flex justify-content-between align-items-center">
-							<h4 class="card-title">Verifikasi Mahasiswa dan Uraian Materi</h4>
+							<h4 class="card-title">Pokok Bahasan dan Uraian Materi</h4>
 						</div>
 						<div class="card-body">
 							<div class="row">

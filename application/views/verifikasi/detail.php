@@ -212,7 +212,7 @@
 												<tr>
 													<td>Nama Pemeriksa</td>
 													<td>:</td>
-													<td><?php echo namaDosen($verifikasi->nama_dosen, $verifikasi->gelar) ?? '-'; ?></td>
+													<td><?php echo ($verifikasi->nidn_verifikator !== null) ? namaDosen($verifikasi->nama_dosen, $verifikasi->gelar) : '-'; ?></td>
 												</tr>
 												<tr>
 													<td>Tanda Tangan</td>
@@ -228,7 +228,7 @@
 													<td>Kesesuaian RPS</td>
 													<td>:</td>
 													<td>
-														<?php echo ($verifikasi->sesuai_rps_kaprodi !== 0) ? 'SESUAI' : 'TIDAK'; ?>
+														<?php echo ($verifikasi->nidn_verifikator !== null) ? ($verifikasi->sesuai_rps_kaprodi !== 0 ? 'SESUAI' : 'TIDAK') : '-'; ?>
 													</td>
 												</tr>
 												<tr>
