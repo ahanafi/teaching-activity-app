@@ -147,6 +147,7 @@ const changeKelas = (el) => {
 			text: 'Silahkan pilih program studi terlebih dahulu!',
 			icon: 'info',
 		}).then(res => {
+			$("select[name=id_program_studi]").select2();
 			programStudiContainer.focus();
 		})
 	}

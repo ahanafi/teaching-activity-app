@@ -44,11 +44,15 @@
 												<?php echo $mahasiswa->nim; ?>
 											</a>
 										</td>
-										<td><?php echo $mahasiswa->nama_lengkap; ?></td>
+										<td><?php echo ucwords(strtolower($mahasiswa->nama_lengkap)); ?></td>
 										<td><?php echo $mahasiswa->nama_kelas . "/" . $mahasiswa->semester; ?></td>
 										<td><?php echo $mahasiswa->jenjang . " - " . $mahasiswa->prodi; ?></td>
 										<td>
-											<b><i>NO_ACTION</i></b>
+											<a href="<?php echo base_url('mahasiswa/edit/' . $mahasiswa->id_mahasiswa); ?>"
+											   class="btn btn-success text-white">Edit</a>
+											<a href="#"
+											   onclick="showConfirmDelete('mahasiswa', <?php echo $mahasiswa->id_mahasiswa; ?>)"
+											   class="btn btn-danger">Hapus</a>
 										</td>
 									</tr>
 								<?php endforeach; ?>
@@ -61,4 +65,4 @@
 		</div>
 	</div>
 	<!-- content-wrapper ends -->
-	<?php $this->load->view('modal/form-import', ['title' => 'Mahasiswa', 'route' => base_url('mahasiswa/import') ]); ?>
+	<?php $this->load->view('modal/form-import', ['title' => 'Mahasiswa', 'route' => base_url('mahasiswa/import')]); ?>

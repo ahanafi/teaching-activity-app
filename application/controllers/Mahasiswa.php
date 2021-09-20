@@ -50,7 +50,7 @@ class Mahasiswa extends CI_Controller
 					$mahasiswaId = $this->Mahasiswa->getLastInsertId('id_mahasiswa');
 
 					//user mahasiswa
-					$userDosen = [
+					$userMahasiswa = [
 						'username' => $nim,
 						'nama_lengkap' => strtoupper($namaLengkap),
 						'password' => password_hash($nim, PASSWORD_DEFAULT),
@@ -59,7 +59,7 @@ class Mahasiswa extends CI_Controller
 					];
 
 					//insert to user table
-					$this->User->insert($userDosen);
+					$this->User->insert($userMahasiswa);
 
 					$messages = setArrayMessage('success', 'insert', 'mahasiswa');
 				} else {
@@ -77,9 +77,12 @@ class Mahasiswa extends CI_Controller
 	public function edit($id_mahasiswa)
 	{
 		$prodi = $this->ProgramStudi->all();
+		$mahasiswa = $this->Mahasiswa->findById(['mahasiswa.id_mahasiswa' => $id_mahasiswa]);
 		$data = [
 			'program_studi' => $prodi,
-			'mahasiswa' => $this->Mahasiswa->findById(['mahasiswa.id_mahasiswa' => $id_mahasiswa]),
+			'mahasiswa' => $mahasiswa,
+			'all_kelas' => $this->Kelas->all(),
+			'kelas_mahasiswa' => $this->Kelas->findById(['id_kelas' => $mahasiswa->id_kelas])
 		];
 
 		if (isset($_POST['update'])) {
@@ -117,7 +120,7 @@ class Mahasiswa extends CI_Controller
 			$data_type = $this->main_lib->getPost('data_type');
 
 			if ($data_id === $id_mahasiswa && $data_type === 'mahasiswa') {
-				$delete = $this->Mahasiswa->delete(['dosen.id_mahasiswa' => $data_id]);
+				$delete = $this->Mahasiswa->delete(['id_mahasiswa' => $data_id]);
 				if ($delete) {
 					$messages = setArrayMessage('success', 'delete', 'mahasiswa');
 				} else {
@@ -137,8 +140,8 @@ class Mahasiswa extends CI_Controller
 
 	public function detail($id_mahasiswa = null)
 	{
-		$mahasiswa = $this->Mahasiswa->findById(['dosen.id_mahasiswa' => $id_mahasiswa]);
-		if(!$mahasiswa || $id_mahasiswa == '') {
+		$mahasiswa = $this->Mahasiswa->findById(['id_mahasiswa' => $id_mahasiswa]);
+		if(!$mahasiswa || $id_mahasiswa === '') {
 			redirect(base_url('error'));
 		}
 
@@ -199,4 +202,4 @@ class Mahasiswa extends CI_Controller
 
 }
 
-/* End of file Dosen.php */
+/* End of file Mahasiswa.php */

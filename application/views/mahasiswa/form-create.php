@@ -15,7 +15,7 @@
 							<div class="form-group row">
 								<label class="col-sm-3 col-form-label">NIM</label>
 								<div class="col-sm-8">
-									<input type="text" class="form-control" name="nim"
+									<input type="text" class="form-control" name="nim" minlength="10" max="10"
 										   value="<?php echo set_value('nim'); ?>" required autocomplete="off">
 									<?php echo form_error('nim'); ?>
 								</div>
@@ -63,7 +63,7 @@
 							<div class="form-group row">
 								<label class="col-sm-3 col-form-label">Kelas</label>
 								<div class="col-sm-8">
-									<select name="id_kelas" onclick="changeKelas(this)" id="list-kelas" class="form-control">
+									<select name="id_kelas" onclick="changeKelas(this)" id="list-kelas" class="form-control select2">
 										<option selected disabled>-- Pilih Kelas --</option>
 									</select>
 									<?php echo form_error('id_kelas'); ?>
