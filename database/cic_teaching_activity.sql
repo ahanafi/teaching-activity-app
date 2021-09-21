@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 27, 2021 at 02:22 PM
--- Server version: 8.0.22-0ubuntu0.20.04.3
+-- Generation Time: Sep 21, 2021 at 05:36 PM
+-- Server version: 8.0.26-0ubuntu0.20.04.2
 -- PHP Version: 7.4.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -33,35 +33,24 @@ CREATE TABLE `berita_acara` (
   `pertemuan_ke` int NOT NULL,
   `jumlah_hadir` int UNSIGNED NOT NULL,
   `total_mahasiswa` int UNSIGNED NOT NULL,
-  `jenis_aplikasi` varchar(100) NOT NULL,
-  `bentuk_materi` varchar(100) NOT NULL,
-  `file_materi` varchar(100) NOT NULL,
-  `uraian_materi` mediumtext NOT NULL,
+  `jenis_aplikasi` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `bentuk_materi` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `uraian_materi` mediumtext CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `ada_tugas` tinyint(1) NOT NULL DEFAULT '0',
-  `pokok_bahasan` longtext NOT NULL,
-  `nim` varchar(30) NOT NULL,
-  `nama_mahasiswa` varchar(100) DEFAULT NULL,
-  `paraf_mhs` varchar(100) NOT NULL,
-  `paraf_dosen` varchar(100) NOT NULL,
-  `sudah_diperiksa` tinyint(1) NOT NULL DEFAULT '0',
-  `nama_pemeriksa` varchar(100) DEFAULT NULL,
-  `tanggal_periksa` date DEFAULT NULL,
-  `ttd_pemeriksa` varchar(100) DEFAULT NULL,
+  `pokok_bahasan` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `status_periksa` tinyint(1) NOT NULL DEFAULT '0',
   `is_pindah_jadwal` tinyint(1) NOT NULL DEFAULT '0',
   `tanggal_realisasi` date DEFAULT NULL,
   `jam_mulai` time NOT NULL,
   `jam_selesai` time NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `berita_acara`
 --
 
-INSERT INTO `berita_acara` (`id_berita_acara`, `id_jadwal`, `pertemuan_ke`, `jumlah_hadir`, `total_mahasiswa`, `jenis_aplikasi`, `bentuk_materi`, `file_materi`, `uraian_materi`, `ada_tugas`, `pokok_bahasan`, `nim`, `nama_mahasiswa`, `paraf_mhs`, `paraf_dosen`, `sudah_diperiksa`, `nama_pemeriksa`, `tanggal_periksa`, `ttd_pemeriksa`, `is_pindah_jadwal`, `tanggal_realisasi`, `jam_mulai`, `jam_selesai`) VALUES
-(6, 2, 8, 20, 32, 'zoom,wa_group,edmodo', 'ppt', 'Pengantar E-Commerce', '<p xss=removed><b>Apa itu ecommerce?</b></p><p xss=removed>Electronic commerce atau ecommerce adalah segala aktivitas jual beli yang dilakukan melalui media elektronik. Meskipun sarananya meliputi televisi dan telepon, kini ecommerce lebih sering terjadi melalui internet.</p><p xss=removed>Oleh karena pengertian tersebut, ada kesalahpahaman tentang ecommerce dan marketplace. Istilah ecommerce digunakan untuk mendeskripsikan semua transaksi yang memakai media elektronik.</p><p xss=removed><a rel=\"noreferrer noopener\" aria-label=\" (opens in a new tab)\" href=\"https://www.niagahoster.co.id/blog/marketplace-adalah/\" target=\"_blank\" xss=removed>Marketplace</a> sendiri adalah salah satu model ecommerce, di mana ia berfungsi sebagai perantara antara penjual dan pembeli. Penjual yang berdagang di marketplace hanya perlu meladeni pembelian. Semua aktivitas lain seperti pengelolaan website sudah diurus oleh platform tersebut.  Situs-situs seperti Shopee dan Lazada adalah dua contoh marketplace.</p>', 0, 'Pengertian E-Commerce, Jenis E-commerce, dll', '2018202121', 'Eka Nur Jannah', 'uploads/paraf-mhs/c5b2e000b786ec20c3fe9d4bd1efb8b0.png', 'xx', 0, NULL, NULL, NULL, 0, '2020-11-30', '07:30:00', '09:30:00'),
-(7, 1, 8, 9, 11, 'zoom,wa_group,edmodo,lainnya,youtube', 'video, ppt', 'Sistem Akuntansi 01.pptx', '<p dir=\"ltr\" xss=removed><span xss=removed>Apa Itu Sistem Akuntansi</span></p><p dir=\"ltr\" xss=removed><span xss=removed>Sistem Akuntansi merupakan metode dan prosedur untuk mencatat dan melaporkan informasi keuangan perusahaan atau organisasi bisnis. Menurut Mulyadi (2013:3), sistem akuntansi adalah organisasi formulir, catatan, dan laporan yang dikoordinasi sedemikian rupa untuk menyediakan informasi keuangan yang dibutuhkan oleh manajemen dalam pengelolaan.</span></p>', 0, 'Sistem akuntansi', '2018219211', 'Andi Noerhan', 'uploads/paraf-mhs/3a5437eed01948599ff974ac096b040c.png', 'xx', 0, NULL, NULL, NULL, 0, '2020-11-30', '09:30:00', '11:30:00'),
-(8, 4, 8, 28, 32, 'edmodo,', 'ppt', 'Pengantar Statistik', '<p xss=removed><font color=\"#000000\" xss=removed><b>Statistika dan bisnis </b>(tentunya pengambilan keputusan) adalah dua hal yang tidak dapat dipisahkan. Dalam bisnis, apapun bidang yang digeluti, tentu memerlukan berbagai perhitungan dan analisa dan akhirnya diperlukan untuk mengambil keputusan yang tepat dalam rangka peningkatan usaha ataupun untuk menyelesaikan berbagai permasalahan. Statistika memegang peranan yang penting dalam Bisnis, baik dalam penyusunan model, perumusan hipotesa, dalam pengembangan alat dan instrumen pengumpulan data, dalam penyusunan desain penelitian, dalam penentuan sampel dan dalam analisa data. Dalam banyak hal, pengolahan dan analisa data tidak luput dari penerapan teknik dan metode statistik tertentu, yang mana kehadirannya dapat memberikan dasar bertolak dalam menjelaskan hubungan-hubungan yang terjadi. Statistik dapat digunakan sebagai alat untuk mengetahui apakah hubungan kausalitas (sebab-akibat) antara dua atau lebih dari dua variabel benar-benar terkait secara benar dalam suatu kausalitas empiris (berdasarkan pengalaman) ataukah hubungan tersebut hanya bersifat random (acak) atau kebetulan saja.</font></p><p xss=removed><font color=\"#000000\" xss=removed>Statistika menyediakan teknik-teknik sederhana dalam mengklasifikasikan data serta dalam menyajikan data, sehingga data tersebut dapat lebih mudah dipahami. Statistika membantu pengambil keputusan dan peneliti dalam menyimpulkan apakah suatu perbedaan yang diperoleh benar-benar berbeda secara signifikan (nyata). Apakah kesimpulan yang diambil cukup representatif (dapat mewakili) untuk memberikan inferensi (yang disimpulkan) terhadap populasi tertentu. Teknik-teknik statistika juga dapat digunakan dalam pengujian hipotesa, mengingat tujuan penelitian pada umumnya adalah untuk menguji hipotesa-hipotesa yang telah dirumuskan, maka statistika membantuk manajer atau peneliti dalam mengambil keputusan untuk menerima atau menolak suatu hipotesa.</font></p>', 0, 'Pengantar Statistik', '2018219211', 'Eka Nur Jannah', 'uploads/paraf-mhs/7ef02499cb8d5dedfd703c162f3d2747.png', 'xx', 0, NULL, NULL, NULL, 0, '2020-11-30', '12:30:00', '14:30:00'),
-(9, 3, 8, 23, 28, 'wa_group,edmodo,lainnya,', 'ppt', 'Pengantar TI temu 1', '<p xss=removed><span xss=removed>A.    Pengertian Teknologi Informasi</span><br xss=removed>Teknologi Informasi yaitu ilmu yang mencakup teknologi komunikasi untuk memproses, menyimpan data dan mengirimkan informasi melalui jalur komunikasi yang cepat.<br xss=removed>Adapun contoh alat teknologi informasi salah satunya yaitu komputer, peralatan yang berhubungan dengan komputer antara lain :</p><ul xss=removed><li xss=removed>Mesin serbaguna yang dapat dikontrol oleh program, gunanya untuk mengolah data menjadi informasi.</li><li xss=removed>Deretan intruksi yang digunakan untuk mengendalikan komputer.</li><li xss=removed>Bahan mentah bagi komputer.</li><li xss=removed>Bentuk data yang diolah.</li></ul><p xss=removed>Teknologi telekomunikasi yang berhubungan dengan komunikasi jarak jauh yaitu telepon, radio, dan televisi.</p>', 0, 'Pengertian Teknologi Informasi', '2018219221', 'Indra', 'uploads/paraf-mhs/57639a59715441b92930e173f99563f0.png', 'xx', 0, NULL, NULL, NULL, 0, '2020-11-30', '12:30:00', '14:30:00');
+INSERT INTO `berita_acara` (`id_berita_acara`, `id_jadwal`, `pertemuan_ke`, `jumlah_hadir`, `total_mahasiswa`, `jenis_aplikasi`, `bentuk_materi`, `uraian_materi`, `ada_tugas`, `pokok_bahasan`, `status_periksa`, `is_pindah_jadwal`, `tanggal_realisasi`, `jam_mulai`, `jam_selesai`) VALUES
+(13, 6, 1, 22, 27, 'zoom', 'ppt,pdf', '<p xss=removed>Algoritma adalah urutan langkah logis yang digunakan untuk menyelesaikan suatu masalah. Singkatnya, sebuah masalah harus diselesaikan dengan beberapa langkah yang logis. Dalam kehidupan sehari-hari, contoh algoritma bisa digambarkan dengan berbagai macam hal. Salah satu contohnya adalah aktivitas memasak air. Algoritmanya tentu saja berhubungan dengan aktivitas dalam memasak air.</p><p xss=removed>Misalnya saja yaitu siapkan panci yang sesuai, masukkan air ke dalam panci tersebut, tutup panci, letakkan panci pada kompor, hidupkan kompor dengan nyala api sedang, apabila air mendidih, matikan kompor, angkat panci dari kompor. Deretan langkah tersebut merupakan algoritma dari akitivitas memasak air. Karena urutan yang jelas, langkah diatas dianggap proses yang logis.</p><p xss=removed>Sementara itu, di dalam ilmu komputer dan matematika, algoritma didefinisikan sebagai prosedur dari berbagai macam langkah penghitungan, penalaran secara otomatis, sampai pemrosesan data. Algoritma juga diartikan sebagai metode yang diekspresikan lewat rangkaian dan instruksi yang dijabarkan untuk menghitung. Secara garis besar, algoritma dimulai dengan imput dan kondisi awal, deskripsi, eksekusi, dan menghasilkan output.</p>', 0, 'Pengenalan Algoritma', 0, 0, '2021-09-13', '08:00:00', '10:00:00');
 
 -- --------------------------------------------------------
 
@@ -72,26 +61,43 @@ INSERT INTO `berita_acara` (`id_berita_acara`, `id_jadwal`, `pertemuan_ke`, `jum
 CREATE TABLE `bukti_kegiatan` (
   `id_bukti_kegiatan` int NOT NULL,
   `id_berita_acara` int DEFAULT NULL,
-  `nama_file` varchar(100) NOT NULL,
-  `jenis_file` varchar(100) NOT NULL,
-  `lokasi` varchar(200) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `nama_file` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `jenis_file` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `lokasi` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `bukti_kegiatan`
 --
 
 INSERT INTO `bukti_kegiatan` (`id_bukti_kegiatan`, `id_berita_acara`, `nama_file`, `jenis_file`, `lokasi`) VALUES
-(9, 6, 'e93402ac62f2e96abbf7a8241996407b.jpg', 'image/jpeg', 'uploads/bukti-kegiatan/e93402ac62f2e96abbf7a8241996407b.jpg'),
-(10, 6, 'ba22bc5839cab68cb63ab000518e1934.jpg', 'image/jpeg', 'uploads/bukti-kegiatan/ba22bc5839cab68cb63ab000518e1934.jpg'),
-(11, 6, '179fefc060bef9e09b1aa456dc679b66.jpg', 'image/jpeg', 'uploads/bukti-kegiatan/179fefc060bef9e09b1aa456dc679b66.jpg'),
-(12, 7, '155deae4454413c90ad6ac8012a5059b.jpg', 'image/jpeg', 'uploads/bukti-kegiatan/155deae4454413c90ad6ac8012a5059b.jpg'),
-(13, 7, '3e6bb256e2417f41c5014d87ffa5e025.jpg', 'image/jpeg', 'uploads/bukti-kegiatan/3e6bb256e2417f41c5014d87ffa5e025.jpg'),
-(14, 8, 'd841a0f4982bb837963d927ca7298b91.jpg', 'image/jpeg', 'uploads/bukti-kegiatan/d841a0f4982bb837963d927ca7298b91.jpg'),
-(15, 8, 'b57b11308be7a69bde890b94cb6c032a.jpg', 'image/jpeg', 'uploads/bukti-kegiatan/b57b11308be7a69bde890b94cb6c032a.jpg'),
-(16, 8, '52d0212dc494a33f42faa510828916df.jpg', 'image/jpeg', 'uploads/bukti-kegiatan/52d0212dc494a33f42faa510828916df.jpg'),
-(19, 9, 'cb0c2dfdd4157e0f4070c6838ab6aa57.jpg', 'image/jpeg', 'uploads/bukti-kegiatan/cb0c2dfdd4157e0f4070c6838ab6aa57.jpg'),
-(20, 9, 'c795ddf2236f1cdf4ffea34d559a04d8.jpg', 'image/jpeg', 'uploads/bukti-kegiatan/c795ddf2236f1cdf4ffea34d559a04d8.jpg');
+(44, 13, 'abb0e08e41c022d996b3f8254548ab18.png', 'image/png', 'uploads/bukti-kegiatan/abb0e08e41c022d996b3f8254548ab18.png'),
+(45, 13, 'd8f3f7f02007d395a8966b5c50cc7903.png', 'image/png', 'uploads/bukti-kegiatan/d8f3f7f02007d395a8966b5c50cc7903.png'),
+(46, 13, '9d22fb64454f4944e4d609b466eee2d4.png', 'image/png', 'uploads/bukti-kegiatan/9d22fb64454f4944e4d609b466eee2d4.png');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `detail_jadwal`
+--
+
+CREATE TABLE `detail_jadwal` (
+  `id_detail_jadwal` int NOT NULL,
+  `id_jadwal` int NOT NULL,
+  `id_kelas` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Dumping data for table `detail_jadwal`
+--
+
+INSERT INTO `detail_jadwal` (`id_detail_jadwal`, `id_jadwal`, `id_kelas`) VALUES
+(1, 5, 1),
+(2, 5, 2),
+(3, 5, 3),
+(4, 6, 4),
+(5, 7, 4),
+(6, 7, 5);
 
 -- --------------------------------------------------------
 
@@ -101,13 +107,13 @@ INSERT INTO `bukti_kegiatan` (`id_bukti_kegiatan`, `id_berita_acara`, `nama_file
 
 CREATE TABLE `dosen` (
   `id_dosen` int NOT NULL,
-  `nidn` varchar(50) NOT NULL,
-  `nama_lengkap` varchar(100) NOT NULL,
-  `jenis_kelamin` enum('L','P') DEFAULT 'L',
-  `id_program_studi` int NOT NULL,
-  `gelar` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `paraf` varchar(200) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `nidn` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `nama_lengkap` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `jenis_kelamin` enum('L','P') CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT 'L',
+  `id_program_studi` int DEFAULT NULL,
+  `gelar` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `paraf` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `dosen`
@@ -121,7 +127,7 @@ INSERT INTO `dosen` (`id_dosen`, `nidn`, `nama_lengkap`, `jenis_kelamin`, `id_pr
 (5, '0419118803', 'IVAN SUSANTO', 'L', 2, 'M.Kom', NULL),
 (6, '0416089303', 'REZA ILYASA', 'L', 2, 'S.Kom., M.Kom.', NULL),
 (7, '0405029203', 'RIFQI FAHRUDIN', 'L', 2, 'M.Kom', NULL),
-(8, '0429037201', 'AMRONI', 'L', 7, 'SE., MM.', NULL),
+(8, '0429037201', 'AMRONI', 'L', 7, 'SE., MM.', 'uploads/signature/24cff65c9b2364e64e2e33a0c972c7c1.jpg'),
 (9, '0324078502', 'INGRID PANJAITAN', 'P', 7, 'SE., M.Sc., Ak., CA', NULL),
 (10, '0419066401', 'SUDADI PRANATA', 'L', 7, 'SE., MSi.', NULL),
 (11, '0425117406', 'SUWANDI', 'L', 8, 'SE., MM.', NULL),
@@ -141,11 +147,10 @@ INSERT INTO `dosen` (`id_dosen`, `nidn`, `nama_lengkap`, `jenis_kelamin`, `id_pr
 (25, '0415108402', 'DEWI MAHARANI PURBASARI', 'P', 7, 'SE., M.Si', NULL),
 (26, '0419016201', 'KOESBYANTORO', 'L', 7, 'SH', NULL),
 (27, '0430127001', 'DANIEL KURNIASANTOSO', 'L', 7, 'S.E', NULL),
-(28, '0427077804', 'KUSNADI', 'L', 1, 'M.Kom', NULL),
+(28, '0427077804', 'KUSNADI', 'L', 1, 'M.Kom', 'uploads/signature/f7bcf48b3ab7e147ebdd8c9a85fa9081.jpg'),
 (29, '0418017301', 'RIDHO TAUFIQ SUBAGIO', 'L', 1, 'ST., M.Kom', NULL),
 (30, '0425036903', 'PETRUS SOKIBI SUKANTO', 'L', 1, 'S.Kom., M.Kom.', NULL),
 (31, '0427019401', 'ILWAN SYAFRINAL', 'L', 8, 'S.Kom., M.Kom.', NULL),
-(32, '8847830017', 'RINALDI ADAM', 'L', 1, 'S.Si., M.Comp.', NULL),
 (33, '0419089303', 'TIARA EKA PUTRI', 'P', 1, 'ST., M.Kom', NULL),
 (34, '0426069401', 'WANDA ILHAM', 'L', 1, 'S.Kom., M.Kom.', NULL);
 
@@ -157,9 +162,9 @@ INSERT INTO `dosen` (`id_dosen`, `nidn`, `nama_lengkap`, `jenis_kelamin`, `id_pr
 
 CREATE TABLE `fakultas` (
   `id_fakultas` int NOT NULL,
-  `kode_fakultas` varchar(10) NOT NULL,
-  `nama_fakultas` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `kode_fakultas` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `nama_fakultas` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `fakultas`
@@ -177,42 +182,23 @@ INSERT INTO `fakultas` (`id_fakultas`, `kode_fakultas`, `nama_fakultas`) VALUES
 
 CREATE TABLE `jadwal` (
   `id_jadwal` int NOT NULL,
-  `hari` enum('SENIN','SELASA','RABU','KAMIS','JUM''AT','SABTU','MINGGU') NOT NULL,
+  `hari` enum('SENIN','SELASA','RABU','KAMIS','JUM''AT','SABTU','MINGGU') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `jam_mulai` time NOT NULL,
   `jam_selesai` time NOT NULL,
   `id_mata_kuliah` int NOT NULL,
-  `id_kelas` int NOT NULL,
+  `multi_kelas` tinyint(1) NOT NULL DEFAULT '0',
   `id_dosen` int NOT NULL,
-  `id_ruangan` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `id_ruangan` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `jadwal`
 --
 
-INSERT INTO `jadwal` (`id_jadwal`, `hari`, `jam_mulai`, `jam_selesai`, `id_mata_kuliah`, `id_kelas`, `id_dosen`, `id_ruangan`) VALUES
-(1, 'SENIN', '09:30:00', '11:30:00', 158, 3, 8, 4),
-(2, 'SENIN', '07:30:00', '09:30:00', 289, 2, 2, 7),
-(3, 'SENIN', '12:30:00', '14:30:00', 183, 1, 6, 6),
-(4, 'SENIN', '12:30:00', '14:30:00', 338, 2, 9, 7),
-(5, 'SELASA', '07:30:00', '09:30:00', 31, 2, 16, 2),
-(6, 'SELASA', '09:30:00', '11:30:00', 37, 3, 10, 5),
-(7, 'SELASA', '09:30:00', '11:30:00', 133, 2, 11, 8),
-(8, 'SELASA', '12:30:00', '14:30:00', 121, 1, 8, 2),
-(9, 'SELASA', '12:30:00', '14:30:00', 137, 3, 12, 8),
-(10, 'RABU', '07:30:00', '09:30:00', 46, 1, 14, 7),
-(11, 'RABU', '09:30:00', '11:30:00', 13, 1, 10, 10),
-(12, 'RABU', '12:30:00', '14:30:00', 41, 2, 13, 1),
-(13, 'RABU', '12:30:00', '14:30:00', 38, 3, 14, 8),
-(14, 'KAMIS', '07:30:00', '09:30:00', 36, 1, 10, 4),
-(15, 'KAMIS', '07:30:00', '09:30:00', 40, 3, 16, 7),
-(16, 'KAMIS', '09:30:00', '11:30:00', 220, 1, 13, 6),
-(17, 'KAMIS', '09:30:00', '11:30:00', 32, 2, 10, 10),
-(18, 'KAMIS', '12:30:00', '14:30:00', 1, 2, 8, 5),
-(19, 'KAMIS', '12:30:00', '14:30:00', 190, 3, 13, 7),
-(20, 'JUM\'AT', '09:30:00', '11:30:00', 121, 1, 8, 14),
-(21, 'JUM\'AT', '13:30:00', '15:30:00', 54, 1, 19, 4),
-(22, 'SABTU', '09:30:00', '11:30:00', 123, 1, 20, 2);
+INSERT INTO `jadwal` (`id_jadwal`, `hari`, `jam_mulai`, `jam_selesai`, `id_mata_kuliah`, `multi_kelas`, `id_dosen`, `id_ruangan`) VALUES
+(5, 'SENIN', '12:30:00', '14:30:00', 40, 1, 8, 4),
+(6, 'SENIN', '08:00:00', '10:00:00', 65, 0, 28, 1),
+(7, 'SELASA', '08:00:00', '09:30:00', 234, 1, 28, 1);
 
 -- --------------------------------------------------------
 
@@ -222,10 +208,10 @@ INSERT INTO `jadwal` (`id_jadwal`, `hari`, `jam_mulai`, `jam_selesai`, `id_mata_
 
 CREATE TABLE `kelas` (
   `id_kelas` int NOT NULL,
-  `id_program_studi` int NOT NULL,
-  `nama_kelas` varchar(10) NOT NULL,
+  `id_program_studi` int DEFAULT NULL,
+  `nama_kelas` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `semester` int UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `kelas`
@@ -233,8 +219,54 @@ CREATE TABLE `kelas` (
 
 INSERT INTO `kelas` (`id_kelas`, `id_program_studi`, `nama_kelas`, `semester`) VALUES
 (1, 7, 'MB-1', 1),
-(2, 4, 'MB-1', 3),
-(3, 7, 'MB-1', 5);
+(2, 7, 'MB-1', 3),
+(3, 7, 'MB-1', 5),
+(4, 1, 'TI-1', 8),
+(5, 1, 'TI-2', 8),
+(6, 2, 'SI', 8),
+(7, 4, 'MI', 5),
+(8, 4, 'MI', 6),
+(9, 8, 'KA', 5);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `mahasiswa`
+--
+
+CREATE TABLE `mahasiswa` (
+  `id_mahasiswa` int NOT NULL,
+  `nim` varchar(10) NOT NULL,
+  `nama_lengkap` varchar(200) NOT NULL,
+  `id_kelas` int DEFAULT NULL,
+  `jenis_kelamin` enum('L','P') NOT NULL,
+  `paraf` varchar(200) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Dumping data for table `mahasiswa`
+--
+
+INSERT INTO `mahasiswa` (`id_mahasiswa`, `nim`, `nama_lengkap`, `id_kelas`, `jenis_kelamin`, `paraf`) VALUES
+(1, '2017102020', 'AHMAD HANAFI', 4, 'L', 'uploads/signature/229ad57230ed6162658494cb132badd6.png'),
+(20, '2017102038', 'Azis Maolana Ibrahim', 5, 'L', NULL),
+(21, '2017102053', 'Rizky Maulana', 4, 'L', 'uploads/signature/0339cec2e2713576f14cc94d7965ddc4.jpg'),
+(22, '2017102049', 'Julian Indra Pangestu', 5, 'L', NULL),
+(23, '2017102060', 'Ulfiyatul khotimah', 4, 'P', NULL),
+(24, '2017102048', 'Mohammad zulfikar jamal', 5, 'L', NULL),
+(25, '2017102001', 'Yohannes Julius', 5, 'L', NULL),
+(26, '2017102008', 'Arie Arbiansyah', 5, 'L', NULL),
+(27, '2017102044', 'violetra rizkyan', 4, 'P', NULL),
+(28, '2017102033', 'Dwi priyadi', 5, 'L', NULL),
+(29, '2017114028', 'Maria Ulva', 6, 'P', NULL),
+(30, '2017114024', 'Indah Triyani', 6, 'P', NULL),
+(31, '2017141005', 'Rahardi Ismoyo', 7, 'L', NULL),
+(32, '2017141012', 'Wahyudi', 8, 'L', NULL),
+(33, '2017141014', 'Adhitya rizky r', 8, 'L', NULL),
+(34, '2017141019', 'ARIF RUSNANTO', 8, 'L', NULL),
+(35, '2017141013', 'Faisal Airon Nur Seto', 8, 'L', NULL),
+(36, '2017141007', 'Ahmad Rizki Ramadhan', 8, 'L', NULL),
+(37, '2017103035', 'Dinar Faris Naufal', 9, 'L', NULL);
 
 -- --------------------------------------------------------
 
@@ -244,10 +276,10 @@ INSERT INTO `kelas` (`id_kelas`, `id_program_studi`, `nama_kelas`, `semester`) V
 
 CREATE TABLE `mata_kuliah` (
   `id_mata_kuliah` int NOT NULL,
-  `kode_mata_kuliah` varchar(20) NOT NULL,
-  `nama_mata_kuliah` varchar(100) NOT NULL,
+  `kode_mata_kuliah` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `nama_mata_kuliah` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `sks` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `mata_kuliah`
@@ -637,12 +669,12 @@ INSERT INTO `mata_kuliah` (`id_mata_kuliah`, `kode_mata_kuliah`, `nama_mata_kuli
 
 CREATE TABLE `pengguna` (
   `id_pengguna` int NOT NULL,
-  `nama_lengkap` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `username` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `password` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `level` enum('KAPRODI','SUPER_USER','DOSEN') CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `nama_lengkap` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `username` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `password` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `level` enum('KAPRODI','SUPER_USER','DOSEN','MAHASISWA') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `id_dosen` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `pengguna`
@@ -662,7 +694,7 @@ INSERT INTO `pengguna` (`id_pengguna`, `nama_lengkap`, `username`, `password`, `
 (12, 'SUDADI PRANATA', '0419066401', '$2y$10$pQtnQ9TDPT1Yx6kwfi3R4Oc1WQFD7TalaX9Ic.HjMxO6JMZ60yDR.', 'DOSEN', 10),
 (13, 'SUWANDI', '0425117406', '$2y$10$H9D6Qz.qQQJv27RQR2MdCe0O3FSp58gmegtz2kAwq3.OzY/Iy1Vei', 'DOSEN', 11),
 (14, 'AAN KANIVIA', '0406039501', '$2y$10$vX9OJnh/Af1lhSvXZOfUOu.EghSr6TPgZ9LsqWJPpeoSHt1RVETIe', 'DOSEN', 12),
-(15, 'YUNI AWALATURROHMAH SOLIHAH', '0429069203', '$2y$10$IVuhLv/CHLbhX9daqlpLE./kj5EeHR9jHW77Fy1fadOgY.ekNDh2.', 'DOSEN', 13),
+(15, 'YUNI AWALATURROHMAH SOLIHAH', '0429069203', '$2y$10$IVuhLv/CHLbhX9daqlpLE./kj5EeHR9jHW77Fy1fadOgY.ekNDh2.', 'KAPRODI', 13),
 (16, 'ISTI RIANA DEWI', '0412079401', '$2y$10$D.1KHmh4eei1Bj24Mr0Wbe9DkdvzEeNyT6NFIpn.gEyJ2FNhJ2H2C', 'DOSEN', 14),
 (17, 'TAUFAN HUNEMAN', '0425017705', '$2y$10$0fftu3uAb8tLkKRi.KgCvOwzn21AR9.fqepXnlPOB3WsfUQd.OmEW', 'DOSEN', 15),
 (18, 'GYTHA NURHANA DHEA PRAADHA GITAMA', '0404098405', '$2y$10$u8yVCMJ/8ibcDlA.e5QdVebp7BGfIWlaS3MAt5Uw8aDg5ifVSqQ..', 'DOSEN', 16),
@@ -681,9 +713,27 @@ INSERT INTO `pengguna` (`id_pengguna`, `nama_lengkap`, `username`, `password`, `
 (31, 'RIDHO TAUFIQ SUBAGIO', '0418017301', '$2y$10$u4XZJTM.X9KCX6TSMEV0memdatQ4kYx8gWfcULI0yRVEL0JWsXsfq', 'DOSEN', 29),
 (32, 'PETRUS SOKIBI SUKANTO', '0425036903', '$2y$10$bR8vsnyA/eEkLa4ce1gs..0QiNLF6soo/soAHfUhvOnMZjFBt6Kpq', 'DOSEN', 30),
 (33, 'ILWAN SYAFRINAL', '0427019401', '$2y$10$RXeSYtj2qmxZnotCLPeIKujf0DRKkcjUgLr1fyBGOiN.FavI9oSg2', 'DOSEN', 31),
-(34, 'RINALDI ADAM', '8847830017', '$2y$10$LZCgA7m5gSkDFvM12oDAfOBoTDa.tce33wprLOwxSeoz.4AzsuMJG', 'DOSEN', 32),
 (35, 'TIARA EKA PUTRI', '0419089303', '$2y$10$h6q95WkzemYlUZ79.9.1jeCfPSviZPizsDRDYJ8SpggWonlSCeq/i', 'DOSEN', 33),
-(36, 'WANDA ILHAM', '0426069401', '$2y$10$zQEKS/n4eA9ppjkcHVpFF.Ouf/xL6SffA2ZTHwrAibD5cFZ7CPkki', 'KAPRODI', 34);
+(36, 'WANDA ILHAM', '0426069401', '$2y$10$zQEKS/n4eA9ppjkcHVpFF.Ouf/xL6SffA2ZTHwrAibD5cFZ7CPkki', 'KAPRODI', 34),
+(37, 'AHMAD HANAFI', '2017102020', '$2y$10$gUtLSUHVoHG3w..puct/IO/6yt.qxz57cDySQZQZeMFxI5Xw6zMCW', 'MAHASISWA', 1),
+(89, 'AZIS MAOLANA IBRAHIM', '2017102038', '$2y$10$iyNVK6oPZKFecTCQPaOZf.H2hqNbYXcHmfRpCws2yC.K0m/HHh2x.', 'MAHASISWA', NULL),
+(90, 'RIZKY MAULANA', '2017102053', '$2y$10$JI8IFcaFh8rFafXdVWXVte1uvdeFtsKc/1biARJHr5E089n0wWiw6', 'MAHASISWA', NULL),
+(91, 'JULIAN INDRA PANGESTU', '2017102049', '$2y$10$roEEZMbmenbOu496hlpRFOnqlfofZUHo0o3docST4fUqmOIEbMuRu', 'MAHASISWA', NULL),
+(92, 'ULFIYATUL KHOTIMAH', '2017102060', '$2y$10$tm03hi7BxxKictFZVdHsbeB/AoyB982wSb140drXuTmXKWUZgoqk6', 'MAHASISWA', NULL),
+(93, 'MOHAMMAD ZULFIKAR JAMAL', '2017102048', '$2y$10$ehjqo1QpqEXLuJbqq.OFlu6Da6Q30aYJ8HcVwHu6tiCFifHtuiRZC', 'MAHASISWA', NULL),
+(94, 'YOHANNES JULIUS', '2017102001', '$2y$10$p15NVw1YUAS/aqrrosJirOLR1RvzfkU9G717rvAyGdAvzC1GPspr.', 'MAHASISWA', NULL),
+(95, 'ARIE ARBIANSYAH', '2017102008', '$2y$10$3qxCPfEH3sGkc1uirJkoS.00MVK9T3UpJER9IoCKuQ.IZZluIUCXG', 'MAHASISWA', NULL),
+(96, 'VIOLETRA RIZKYAN', '2017102044', '$2y$10$HazfuHN2Z0DeG06PQcTafONekFNW77g9AMk.cRsEO7deykXBj3q0e', 'MAHASISWA', NULL),
+(97, 'DWI PRIYADI', '2017102033', '$2y$10$XhCsPlJTFiEg/3B6FkzEX.MyC1G3u2lyQMZPWwHG5P6hfblPrbYS.', 'MAHASISWA', NULL),
+(98, 'MARIA ULVA', '2017114028', '$2y$10$q3P2j/2epH9F7bzz2nbntOmrnyUehYkmaNB743lPFHSUoAfA5Yu6C', 'MAHASISWA', NULL),
+(99, 'INDAH TRIYANI', '2017114024', '$2y$10$0Eh4i4.Dxq7ytRXJw.1et.2.oOM9ArKEwaFUxnkVQLoyk5S.o9pHq', 'MAHASISWA', NULL),
+(100, 'RAHARDI ISMOYO', '2017141005', '$2y$10$Qd8Q5/QcFDy2eOZIyKnBA.MmECRLtixIjY9l/RIoWrZlnZly0VBnO', 'MAHASISWA', NULL),
+(101, 'WAHYUDI', '2017141012', '$2y$10$eby3SYBymRuz78PVPMd40OQF672sTmxfMV43HHr9rjhTSsyGpQOa6', 'MAHASISWA', NULL),
+(102, 'ADHITYA RIZKY R', '2017141014', '$2y$10$9Zx3/r8G3fB0WxlqM/LfkeAjn5yCr6iEqVf2MK3FG/7p/mfvX/7Z6', 'MAHASISWA', NULL),
+(103, 'ARIF RUSNANTO', '2017141019', '$2y$10$A2eaPsjgmKHkSGL6u94/Lu1e7tNuCHR0OTgkJO3k9gG.RBDAuOJj2', 'MAHASISWA', NULL),
+(104, 'FAISAL AIRON NUR SETO', '2017141013', '$2y$10$LhUXSLKSPRnG7LhePETOX.FSU9m6wut6okHkF3MGI9qsk6Mhw7NNi', 'MAHASISWA', NULL),
+(105, 'AHMAD RIZKI RAMADHAN', '2017141007', '$2y$10$QjtBLUZ4VCc.ycxwVdYEMem2I0XiPpseE1mhZzbUx1.CZBKuDu4mK', 'MAHASISWA', NULL),
+(106, 'DINAR FARIS NAUFAL', '2017103035', '$2y$10$GNvdwtVYEZfzWo4aXX9xDu19pgW4hHYo4a10LGGZIEZlq0HdP6Snm', 'MAHASISWA', NULL);
 
 -- --------------------------------------------------------
 
@@ -693,14 +743,14 @@ INSERT INTO `pengguna` (`id_pengguna`, `nama_lengkap`, `username`, `password`, `
 
 CREATE TABLE `profil_kampus` (
   `id_profil_perusahaan` int NOT NULL,
-  `nama_perusahaan` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `logo` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `telpon` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `fax` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `website` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `alamat` text CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+  `nama_perusahaan` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `logo` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `telpon` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `fax` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `email` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `website` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `alamat` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `profil_kampus`
@@ -717,12 +767,12 @@ INSERT INTO `profil_kampus` (`id_profil_perusahaan`, `nama_perusahaan`, `logo`, 
 
 CREATE TABLE `program_studi` (
   `id_program_studi` int NOT NULL,
-  `kode_program_studi` varchar(10) NOT NULL,
+  `kode_program_studi` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `id_fakultas` int NOT NULL,
-  `jenjang` enum('D1','D2','D3','D4','S1','S2','S3') NOT NULL,
-  `nama_program_studi` varchar(60) NOT NULL,
+  `jenjang` enum('D1','D2','D3','D4','S1','S2','S3') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `nama_program_studi` varchar(60) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `id_dosen` int DEFAULT NULL COMMENT 'Ketua Program Studi'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `program_studi`
@@ -731,7 +781,7 @@ CREATE TABLE `program_studi` (
 INSERT INTO `program_studi` (`id_program_studi`, `kode_program_studi`, `id_fakultas`, `jenjang`, `nama_program_studi`, `id_dosen`) VALUES
 (1, '55201', 1, 'S1', 'Teknik Informatika', 28),
 (2, '57201', 1, 'S1', 'Sistem Informasi', 2),
-(3, '90241', 1, 'S1', 'Desain Komunikasi Visual', 28),
+(3, '90241', 1, 'S1', 'Desain Komunikasi Visual', 13),
 (4, '57401', 1, 'D3', 'Manajemen Informatika', 34),
 (5, '61201', 2, 'S1', 'Manajemen', NULL),
 (6, '62201', 2, 'S1', 'Akuntansi', NULL),
@@ -746,9 +796,9 @@ INSERT INTO `program_studi` (`id_program_studi`, `kode_program_studi`, `id_fakul
 
 CREATE TABLE `ruangan` (
   `id_ruangan` int NOT NULL,
-  `kode_ruangan` varchar(20) NOT NULL,
+  `kode_ruangan` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `kapasitas` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `ruangan`
@@ -778,16 +828,41 @@ INSERT INTO `ruangan` (`id_ruangan`, `kode_ruangan`, `kapasitas`) VALUES
 
 CREATE TABLE `tahun_akademik` (
   `id_tahun_akademik` int NOT NULL,
-  `semester_akademik` enum('GANJIL','GENAP') DEFAULT 'GANJIL',
-  `tahun` varchar(10) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `semester_akademik` enum('GANJIL','GENAP') CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT 'GANJIL',
+  `tahun` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `tahun_akademik`
 --
 
 INSERT INTO `tahun_akademik` (`id_tahun_akademik`, `semester_akademik`, `tahun`) VALUES
-(1, 'GANJIL', '2020/2021');
+(1, 'GENAP', '2020/2021');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `verifikasi`
+--
+
+CREATE TABLE `verifikasi` (
+  `id_verifikasi` int NOT NULL,
+  `id_berita_acara` int NOT NULL,
+  `nim_verifikator` varchar(10) NOT NULL,
+  `sesuai_rps_mahasiswa` tinyint(1) NOT NULL,
+  `catatan_mahasiswa` text,
+  `sesuai_rps_kaprodi` tinyint(1) DEFAULT NULL,
+  `nidn_verifikator` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `catatan_kaprodi` text,
+  `tanggal_periksa` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Dumping data for table `verifikasi`
+--
+
+INSERT INTO `verifikasi` (`id_verifikasi`, `id_berita_acara`, `nim_verifikator`, `sesuai_rps_mahasiswa`, `catatan_mahasiswa`, `sesuai_rps_kaprodi`, `nidn_verifikator`, `catatan_kaprodi`, `tanggal_periksa`) VALUES
+(13, 13, '2017102020', 1, 'Ok', NULL, NULL, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -808,6 +883,14 @@ ALTER TABLE `bukti_kegiatan`
   ADD KEY `id_berita_acara` (`id_berita_acara`);
 
 --
+-- Indexes for table `detail_jadwal`
+--
+ALTER TABLE `detail_jadwal`
+  ADD PRIMARY KEY (`id_detail_jadwal`),
+  ADD KEY `id_jadwal` (`id_jadwal`),
+  ADD KEY `id_kelas` (`id_kelas`);
+
+--
 -- Indexes for table `dosen`
 --
 ALTER TABLE `dosen`
@@ -826,7 +909,6 @@ ALTER TABLE `fakultas`
 ALTER TABLE `jadwal`
   ADD PRIMARY KEY (`id_jadwal`),
   ADD KEY `id_dosen` (`id_dosen`),
-  ADD KEY `id_kelas` (`id_kelas`),
   ADD KEY `kode_mata_kuliah` (`id_mata_kuliah`);
 
 --
@@ -835,6 +917,13 @@ ALTER TABLE `jadwal`
 ALTER TABLE `kelas`
   ADD PRIMARY KEY (`id_kelas`),
   ADD KEY `id_program_studi` (`id_program_studi`);
+
+--
+-- Indexes for table `mahasiswa`
+--
+ALTER TABLE `mahasiswa`
+  ADD PRIMARY KEY (`id_mahasiswa`),
+  ADD UNIQUE KEY `nim` (`nim`);
 
 --
 -- Indexes for table `mata_kuliah`
@@ -878,6 +967,13 @@ ALTER TABLE `tahun_akademik`
   ADD UNIQUE KEY `tahun_akademik_tahun_uindex` (`tahun`);
 
 --
+-- Indexes for table `verifikasi`
+--
+ALTER TABLE `verifikasi`
+  ADD PRIMARY KEY (`id_verifikasi`),
+  ADD KEY `id_berita_acara` (`id_berita_acara`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -885,19 +981,25 @@ ALTER TABLE `tahun_akademik`
 -- AUTO_INCREMENT for table `berita_acara`
 --
 ALTER TABLE `berita_acara`
-  MODIFY `id_berita_acara` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_berita_acara` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `bukti_kegiatan`
 --
 ALTER TABLE `bukti_kegiatan`
-  MODIFY `id_bukti_kegiatan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_bukti_kegiatan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+
+--
+-- AUTO_INCREMENT for table `detail_jadwal`
+--
+ALTER TABLE `detail_jadwal`
+  MODIFY `id_detail_jadwal` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `dosen`
 --
 ALTER TABLE `dosen`
-  MODIFY `id_dosen` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id_dosen` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT for table `fakultas`
@@ -909,13 +1011,19 @@ ALTER TABLE `fakultas`
 -- AUTO_INCREMENT for table `jadwal`
 --
 ALTER TABLE `jadwal`
-  MODIFY `id_jadwal` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id_jadwal` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `kelas`
 --
 ALTER TABLE `kelas`
-  MODIFY `id_kelas` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_kelas` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `mahasiswa`
+--
+ALTER TABLE `mahasiswa`
+  MODIFY `id_mahasiswa` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `mata_kuliah`
@@ -927,7 +1035,7 @@ ALTER TABLE `mata_kuliah`
 -- AUTO_INCREMENT for table `pengguna`
 --
 ALTER TABLE `pengguna`
-  MODIFY `id_pengguna` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id_pengguna` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
 
 --
 -- AUTO_INCREMENT for table `profil_kampus`
@@ -954,6 +1062,12 @@ ALTER TABLE `tahun_akademik`
   MODIFY `id_tahun_akademik` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `verifikasi`
+--
+ALTER TABLE `verifikasi`
+  MODIFY `id_verifikasi` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
 -- Constraints for dumped tables
 --
 
@@ -970,6 +1084,13 @@ ALTER TABLE `bukti_kegiatan`
   ADD CONSTRAINT `bukti_kegiatan_ibfk_1` FOREIGN KEY (`id_berita_acara`) REFERENCES `berita_acara` (`id_berita_acara`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Constraints for table `detail_jadwal`
+--
+ALTER TABLE `detail_jadwal`
+  ADD CONSTRAINT `detail_jadwal_ibfk_1` FOREIGN KEY (`id_jadwal`) REFERENCES `jadwal` (`id_jadwal`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `detail_jadwal_ibfk_2` FOREIGN KEY (`id_kelas`) REFERENCES `kelas` (`id_kelas`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `dosen`
 --
 ALTER TABLE `dosen`
@@ -980,7 +1101,6 @@ ALTER TABLE `dosen`
 --
 ALTER TABLE `jadwal`
   ADD CONSTRAINT `jadwal_ibfk_1` FOREIGN KEY (`id_dosen`) REFERENCES `dosen` (`id_dosen`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `jadwal_ibfk_2` FOREIGN KEY (`id_kelas`) REFERENCES `kelas` (`id_kelas`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `jadwal_ibfk_3` FOREIGN KEY (`id_mata_kuliah`) REFERENCES `mata_kuliah` (`id_mata_kuliah`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
@@ -990,17 +1110,17 @@ ALTER TABLE `kelas`
   ADD CONSTRAINT `kelas_ibfk_1` FOREIGN KEY (`id_program_studi`) REFERENCES `program_studi` (`id_program_studi`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `pengguna`
---
-ALTER TABLE `pengguna`
-  ADD CONSTRAINT `pengguna_ibfk_1` FOREIGN KEY (`id_dosen`) REFERENCES `dosen` (`id_dosen`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
 -- Constraints for table `program_studi`
 --
 ALTER TABLE `program_studi`
   ADD CONSTRAINT `program_studi_ibfk_1` FOREIGN KEY (`id_fakultas`) REFERENCES `fakultas` (`id_fakultas`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `program_studi_ibfk_2` FOREIGN KEY (`id_dosen`) REFERENCES `dosen` (`id_dosen`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `verifikasi`
+--
+ALTER TABLE `verifikasi`
+  ADD CONSTRAINT `verifikasi_ibfk_1` FOREIGN KEY (`id_berita_acara`) REFERENCES `berita_acara` (`id_berita_acara`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
