@@ -29,7 +29,7 @@ class Dosen_model extends Main_model
 	public function findById($where = [], $all = FALSE)
 	{
 		$query = $this->getQuery($where);
-		if($all == true) {
+		if($all) {
 			return $query->result();
 		}
 

@@ -71,6 +71,11 @@
 												<td>:</td>
 												<td><?php echo $bap->kelas; ?></td>
 											</tr>
+											<tr>
+												<td>Dosen Pengampu</td>
+												<td>:</td>
+												<td><?php echo namaDosen($dosen->nama_lengkap, $dosen->gelar); ?></td>
+											</tr>
 										</table>
 									</div>
 									<div class="col-md-6">
@@ -146,17 +151,26 @@
 							<div class="tab-pane fade" id="bukti" role="tabpanel" aria-labelledby="bukti-tab">
 								<h4 class="card-title">Foto Bukti Dokumentasi Perkuliahan</h4>
 								<div class="row">
-									<?php foreach ($dokumentasi as $dok): ?>
-										<div class="col-md-4">
-											<img src="<?php echo base_url($dok->lokasi); ?>" alt=""
-												 class="img-fluid mb-2">
-										</div>
-									<?php endforeach; ?>
+									<?php if (count($dokumentasi) > 0): ?>
+										<?php foreach ($dokumentasi as $dok): ?>
+											<?php if (file_exists(FCPATH . $dok->lokasi)) : ?>
+												<div class="col-md-4">
+													<img src="<?php echo base_url($dok->lokasi); ?>" alt=""
+														 class="img-fluid mb-2">
+												</div>
+											<?php else: ?>
+													<span class="badge badge-inverse-danger">Foto dokumentasi kegiatan tidak ditemukan.</span>
+											<?php break;
+											endif; ?>
+										<?php endforeach; ?>
+									<?php else: ?>
+										<span class="badge badge-danger">Foto dokumentasi kegiatan tidak ditemukan.</span>
+									<?php endif; ?>
 								</div>
 							</div>
 							<div class="tab-pane fade" id="verifikasi" role="tabpanel"
 								 aria-labelledby="verifikasi-tab">
-								<?php if (isset($verifikasi) && $verifikasi !== null): ?>
+								<?php if (isset($verifikasi) && $verifikasi->nidn_verifikator !== null && $verifikasi->nim_verifikator !== null): ?>
 									<div class="row">
 										<div class="col-md-6">
 											<h4 class="card-title">Verifikasi Mahasiswa</h4>

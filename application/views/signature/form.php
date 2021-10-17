@@ -41,6 +41,7 @@
 					<div class="card-body align-center align-middle justify-content-between">
 						<h4 class="card-title">
 							Image Preview
+							<?php echo ($user_paraf !== null && file_exists(FCPATH . $user_paraf)) ? '(Tanda Tangan Saat Ini)' : ''; ?>
 							<a href="#" onclick="resetImage()" class="float-right text-danger">
 								<i class="fa fa-undo"></i>
 								Reset Image

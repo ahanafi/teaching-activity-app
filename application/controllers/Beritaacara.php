@@ -4,7 +4,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Beritaacara extends CI_Controller
 {
 
-	private $uploadConfig = [];
+	private $uploadConfig;
 
 	public function __construct()
 	{
@@ -31,8 +31,10 @@ class Beritaacara extends CI_Controller
 
 		if (getUser('level') === "DOSEN") {
 			$id_dosen = getUser('id_dosen');
-			$beritaAcara = $this->BeritaAcara->findById([
-				'jadwal.id_dosen' => $id_dosen
+			$beritaAcara = $this->BeritaAcara
+				->setWherePosition('jadwal')
+				->findById([
+				'id_dosen' => $id_dosen
 			], true);
 		}
 

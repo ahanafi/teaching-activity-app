@@ -19,6 +19,7 @@
 									<th rowspan="2" class="align-middle border-right">Temu Ke</th>
 									<th rowspan="2" class="align-middle border-right">Jml. Hadir</th>
 									<th rowspan="2" class="border-right">Realisasi</th>
+									<th rowspan="2" class="border-right">Status Verifikasi</th>
 									<th class="border-right align-middle text-center" rowspan="2">Actions</th>
 								</tr>
 								<tr>
@@ -44,6 +45,18 @@
 											<td class="text-center"><?php echo $bap->jumlah_hadir; ?></td>
 											<td class="text-center"><?php echo Nim4n\SimpleDate::createFormat("dddd", $bap->tanggal_realisasi); ?></td>
 											<td class="text-center">
+												<?php if ($bap->nim_verifikator !== null && $bap->nidn_verifikator !== null): ?>
+													<span class="badge badge-inverse-success">VERIFIED</span>
+												<?php elseif ($bap->nim_verifikator !== null && $bap->nidn_verifikator === null): ?>
+													<span class="badge badge-inverse-warning">VERIFIED</span>
+												<?php elseif ($bap->nim_verifikator === null && $bap->nidn_verifikator !== null): ?>
+													<span class="badge badge-inverse-info">VERIFIED</span>
+												<?php else: ?>
+													<span class="badge badge-inverse-danger">UNVERIFIED</span>
+												<?php endif; ?>
+
+											</td>
+											<td class="text-center">
 												<?php
 												echo showBtnLink('verifikasi-bap/detail/' . $bap->id_berita_acara, 'info', 'eye', true);
 												?>
@@ -55,6 +68,28 @@
 								</tbody>
 							</table>
 						</div>
+					</div>
+					<div class="card-footer">
+						<b>Keterangan:</b>
+						<br>
+						<table class="table">
+							<tr>
+								<td width="120px"><span class="badge badge-inverse-success">VERIFIED</span></td>
+								<td>Telah diverifikasi oleh Mahasiswa <b>dan</b> Ketua Program Studi</td>
+							</tr>
+							<tr>
+								<td width="120px"><span class="badge badge-inverse-warning">VERIFIED</span></td>
+								<td>Telah diverifikasi oleh Mahasiswa saja</td>
+							</tr>
+							<tr>
+								<td width="120px"><span class="badge badge-inverse-info">VERIFIED</span></td>
+								<td>Telah diverifikasi oleh Ketua Program Studi saja</td>
+							</tr>
+							<tr>
+								<td width="120px"><span class="badge badge-inverse-danger">UNVERIFIED</span></td>
+								<td>Belum diverifikasi oleh Mahasiswa dan Ketua Program Studi</td>
+							</tr>
+						</table>
 					</div>
 				</div>
 			</div>

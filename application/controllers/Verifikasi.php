@@ -35,7 +35,7 @@ class Verifikasi extends CI_Controller
 				], true);
 		}
 
-		return $this->main_lib->getTemplate('verifikasi/index', [
+		$this->main_lib->getTemplate('verifikasi/index', [
 			'berita_acara' => $beritaAcara,
 			'nomor' => 1
 		]);
@@ -56,8 +56,11 @@ class Verifikasi extends CI_Controller
 		$buktiKegiatan = $this->BuktiKegiatan->findById(['id_berita_acara' => $idBeritaAcara], true);
 		$verifikasi = $this->Verifikasi->findById(['id_berita_acara' => $idBeritaAcara]);
 
+		$dosen = $this->Dosen->findById(['dosen.id_dosen' => $beritaAcara->id_dosen]);
+
 		$data = [
 			'bap' => $beritaAcara,
+			'dosen' => $dosen,
 			'dokumentasi' => $buktiKegiatan,
 			'verifikasi' => $verifikasi,
 			'label' => getUser('level') === 'MAHASISWA' ? 'NIM' : 'NIDN',

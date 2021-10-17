@@ -36,8 +36,12 @@ class Berita_acara_model extends Main_model
 			unset($where['pertemuan_ke']);
 		}
 
-		if($this->wherePosition !== $this->table) {
-			$whereJadwal = $where;
+		if(count($where) > 0) {
+			if($this->wherePosition !== $this->table) {
+				$whereJadwal = $where;
+			} else {
+				$whereBeritaAcara = $where;
+			}
 		}
 
 		$queryJadwal = $this->wherePosition === $this->table ? $this->queryJadwal() : $this->queryJadwal($whereJadwal);
@@ -66,7 +70,7 @@ class Berita_acara_model extends Main_model
 			}
 		}
 
-		$query .= " GROUP BY $this->table.$this->_ID_BERITA_ACARA";
+		//$query .= " GROUP BY $this->table.$this->_ID_BERITA_ACARA";
 
 		return $query;
 	}
@@ -80,8 +84,9 @@ class Berita_acara_model extends Main_model
 	private function getColumns()
 	{
 		$columnInBeritaAcara =  "$this->table.*, $this->table.jam_mulai AS jam_mulai_pelaksanaan, $this->table.jam_selesai AS jam_selesai_pelaksanaan, ";
-		$columnInJadwal = "$this->_JADWAL.* ";
-		return $columnInBeritaAcara . $columnInJadwal;
+		$columnInJadwal = "$this->_JADWAL.*, ";
+		$columnInVerifikasi = "$this->_VERIFIKASI.nim_verifikator, $this->_VERIFIKASI.nidn_verifikator";
+		return $columnInBeritaAcara . $columnInJadwal . $columnInVerifikasi;
 
 	}
 
