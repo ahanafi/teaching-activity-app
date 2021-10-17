@@ -35,12 +35,16 @@ class Cetak extends CI_Controller {
 		$verifikasi = $this->Verifikasi->findById(['id_berita_acara' => $idBeritaAcara]);
 
 		$dosen = $this->Dosen->findById(['dosen.id_dosen' => $beritaAcara->id_dosen]);
+		$tahunAkademik = $this->TahunAkademik->first();
+		$programStudi = $this->ProgramStudi->findById(['program_studi.id_program_studi' => $dosen->id_program_studi]);
 
 		$data = [
 			'bap' => $beritaAcara,
 			'dokumentasi' => $buktiKegiatan,
 			'verifikasi' => $verifikasi,
-			'paraf_dosen' => $dosen->paraf
+			'paraf_dosen' => $dosen->paraf,
+			'tahun_akademik' => $tahunAkademik,
+			'program_studi' => $programStudi
 		];
 
 		$time = time();

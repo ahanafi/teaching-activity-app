@@ -135,8 +135,8 @@
 	<div class="kop-text">
 		<h2>
 			BERITA ACARA DAN MONITORING PERKULIAHAN/PRAKTIKUM <br>
-			SEMESTER GANJIL TA. 2020/2021 <br>
-			PROGRAM STUDI MANAJEMEN BISNIS
+			SEMESTER <?php echo $tahun_akademik->semester_akademik ?> TA. <?php echo $tahun_akademik->tahun ?> <br>
+			PROGRAM STUDI <?php echo strtoupper($program_studi->nama_program_studi) ?>
 		</h2>
 	</div>
 </div>
@@ -294,8 +294,8 @@
 				<td><?php echo $bap->pokok_bahasan; ?></td>
 			</tr>
 			<tr>
-				<td style="width: 120px;vertical-align: top;height: 410px;" class="bg-gray">Uraian Materi Bahasan</td>
-				<td style="vertical-align: top;height: 410px;"><?php echo $bap->uraian_materi; ?></td>
+				<td style="width: 120px;vertical-align: top;" class="bg-gray">Uraian Materi Bahasan</td>
+				<td style="vertical-align: top;"><?php echo $bap->uraian_materi; ?></td>
 			</tr>
 		</table>
 		<br>
