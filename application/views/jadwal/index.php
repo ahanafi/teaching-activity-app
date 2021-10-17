@@ -50,11 +50,9 @@
 												<?php if (showOnlyTo('SUPER_USER') || getUser('id_dosen') === $jadwal->id_dosen): ?>
 													<a href="<?php echo base_url('jadwal/edit/' . $jadwal->id_jadwal); ?>"
 													   class="btn btn-success text-white">Edit</a>
-													<?php if (showOnlyTo('SUPER_USER')): ?>
-														<a href="#"
-														   onclick="showConfirmDelete('jadwal', <?php echo $jadwal->id_jadwal; ?>)"
-														   class="btn btn-danger">Hapus</a>
-													<?php endif; ?>
+													<a href="#"
+													   onclick="showConfirmDelete('jadwal', <?php echo $jadwal->id_jadwal; ?>)"
+													   class="btn btn-danger">Hapus</a>
 												<?php endif; ?>
 											</td>
 										<?php endif; ?>
