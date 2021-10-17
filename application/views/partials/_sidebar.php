@@ -115,6 +115,18 @@
 				</a>
 			</li>
 		<?php endif; ?>
+
+		<?php if (!showOnlyTo('SUPER_USER')): ?>
+			<!-- SIGNATURE -->
+			<li class="nav-item">
+				<a class="nav-link" href="<?php echo base_url('user/upload-signature'); ?>">
+					<i class="menu-icon typcn typcn-shopping-bag"></i>
+					<span class="menu-title">Unggah Tanda Tangan</span>
+				</a>
+			</li>
+			<!-- END SIGNATURE -->
+		<?php endif; ?>
+
 		<?php if (showOnlyTo('SUPER_USER')): ?>
 			<li class="nav-item">
 				<a class="nav-link" href="<?php echo base_url('user'); ?>">
