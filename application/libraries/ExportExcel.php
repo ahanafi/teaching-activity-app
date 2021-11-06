@@ -48,7 +48,8 @@ class ExportExcel
 		}
 
 		$this->activeSheet->setCellValue('B2', "REKAP KEGIATAN PERKULIAHAN DARING");
-		$this->activeSheet->setCellValue('B3', "PROGRAM STUDI $this->programStudi - $this->tahunAjar");
+		$namaProgramStudi = $this->programStudi !== 'SEMUA' ? "PROGRAM STUDI $this->programStudi" : 'SEMUA PROGRAM STUDI';
+		$this->activeSheet->setCellValue('B3', "$namaProgramStudi  - $this->tahunAjar");
 		if($this->date !== null) {
 			$this->activeSheet->setCellValue('B4', "TANGGAL " . $this->date);
 

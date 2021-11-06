@@ -94,7 +94,7 @@ class Laporan extends CI_Controller
 		$data['id_program_studi'] = $programStudiId;
 		$data['temu_kuliah'] = $temuKuliah;
 
-		$data['program_studi'] = $this->ProgramStudi->findById(['program_studi.id_program_studi' => $programStudiId]);
+		$data['selected_program_studi'] = $this->ProgramStudi->findById(['program_studi.id_program_studi' => $programStudiId]);
 		$data['tanggal'] = date('d-m-Y');
 		$data['tahun_akademik'] = $this->TahunAkademik->first();
 
@@ -251,8 +251,10 @@ class Laporan extends CI_Controller
 	{
 		$spreadsheet = new Spreadsheet();
 		$this->exportexcel->setSpreadsheet($spreadsheet);
+		$data['program_studi'] = $data['selected_program_studi'];
+		unset($data['selected_program_studi']);
 
-		$namaProgramStudi = $data['program_studi']->nama_program_studi;
+		$namaProgramStudi = $data['program_studi'] !== null ? $data['program_studi']->nama_program_studi : 'Semua';
 		$this->exportexcel->setProgramStudi($namaProgramStudi);
 
 		$tahunAkademik = $data['tahun_akademik']->semester_akademik . ' ' . $data['tahun_akademik']->tahun;
